@@ -2,6 +2,7 @@ package `in`.shpt.activity
 
 import `in`.shpt.R
 import `in`.shpt.adapter.BannerAdapter
+import `in`.shpt.config.Config
 import `in`.shpt.config.JSONConfig
 import `in`.shpt.ext.*
 import `in`.shpt.models.BannerModel
@@ -107,9 +108,20 @@ class Home : AppCompatActivity() {
         override fun onPostExecute(result: JSONArray?) {
             cartCount = result!!.length()
 
-
             updateCartCount()
 
+            var cartData: MutableList<BannerModel> = arrayListOf()
+            for (i in 0..cartCount - 1) {
+                cartData.add(BannerModel(
+                        result.optJSONObject(i).optString("product_id").toInt(),
+                        result.optJSONObject(i).optString("name"),
+                        result.optJSONObject(i).optInt("price").toString() + ".0000",
+                        "",
+                        Config.IMAGE_PATH + result.optJSONObject(i).optString("image")
+                ))
+            }
+
+            cartPager.adapter = BannerAdapter(supportFragmentManager, cartData)
             super.onPostExecute(result)
         }
     }

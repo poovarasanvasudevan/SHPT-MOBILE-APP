@@ -21,9 +21,10 @@ object Config {
     var DELETEADDRESS = "${BASE}/index.php?route=account/address/delete&webapi=true"
     var ADDADDRESS = "${BASE}/index.php?route=account/address/insert&webapi=true"
     var WISLIST = "${BASE}/index.php?route=account/wishlist&webapi=true"
-    var PRODUCTDETAIL="${BASE}/index.php?route=product/product&webapi=true"
+    var PRODUCTDETAIL = "${BASE}/index.php?route=product/product&webapi=true"
 
 
     //config
     var COOKIE = "login_shpt_cookie"
+    var IMAGE_PATH = "${BASE}/image/"
 }

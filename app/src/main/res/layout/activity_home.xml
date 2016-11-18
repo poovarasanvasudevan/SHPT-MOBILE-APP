@@ -1,69 +1,139 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context=".activity.Home">
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true"
+                tools:context=".activity.Home">
 
     <LinearLayout
-        android:id="@+id/activity_home"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context="in.shpt.activity.Home">
+            android:id="@+id/activity_home"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:context="in.shpt.activity.Home">
 
 
         <android.support.design.widget.AppBarLayout
-            android:id="@+id/appbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:elevation="4dp"
-            app:elevation="4dp">
+                android:id="@+id/appbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:elevation="4dp"
+                app:elevation="4dp">
 
             <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?actionBarSize"
-                android:elevation="4dp"
-                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?actionBarSize"
+                    android:elevation="4dp"
+                    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
         </android.support.design.widget.AppBarLayout>
 
         <android.support.v4.widget.DrawerLayout
-            android:id="@+id/drawer"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fitsSystemWindows="true">
-
-            <RelativeLayout
-                android:id="@+id/root"
+                android:id="@+id/drawer"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/appbar">
+                android:fitsSystemWindows="true">
 
-                <android.support.v7.widget.CardView
-                    android:padding="5dp"
-                    app:cardCornerRadius="0dp"
+            <android.support.v4.widget.NestedScrollView
+                    android:id="@+id/root"
                     android:layout_width="match_parent"
-                    android:layout_height="130dp">
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/appbar">
 
-                    <android.support.v4.view.ViewPager
+                <LinearLayout
                         android:layout_width="match_parent"
-                        android:id="@+id/bannerPager"
-                        android:layout_height="match_parent" />
-                </android.support.v7.widget.CardView>
-            </RelativeLayout>
+                        android:orientation="vertical"
+                        android:layout_height="match_parent">
+
+                    <LinearLayout
+                            android:padding="5dp"
+                            android:background="@drawable/shadow"
+                            android:layout_width="match_parent"
+                            android:layout_height="140dp">
+
+                        <android.support.v4.view.ViewPager
+                                android:layout_width="match_parent"
+                                android:id="@+id/bannerPager"
+                                android:layout_height="match_parent"/>
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                            android:layout_width="match_parent"
+                            android:background="@drawable/shadow"
+                            android:layout_marginTop="10dp"
+                            android:layout_height="220dp">
+
+                        <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                            <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:orientation="vertical"
+                                    android:id="@+id/labelMessageCart"
+                                    android:layout_height="wrap_content">
+
+                                <TextView
+                                        android:layout_width="match_parent"
+                                        android:text="My Cart"
+                                        android:textStyle="bold"
+                                        android:layout_marginTop="5dp"
+                                        android:layout_marginBottom="4dp"
+                                        android:layout_marginLeft="10dp"
+                                        android:textSize="16dp"
+                                        android:layout_height="wrap_content"/>
+
+                                <View
+                                        android:layout_width="match_parent"
+                                        android:background="@color/md_grey_400"
+                                        android:layout_height="0.6dp"/>
+                            </LinearLayout>
+
+                            <android.support.v4.view.ViewPager
+                                    android:layout_width="match_parent"
+                                    android:id="@+id/cartPager"
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_marginRight="5dp"
+                                    android:layout_below="@+id/labelMessageCart"
+                                    android:layout_above="@+id/homeCheckoutBtn"
+                                    android:layout_height="match_parent"/>
+
+                            <in.shpt.widget.Ripple
+                                    android:layout_width="match_parent"
+                                    android:id="@+id/homeCheckoutBtn"
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_marginRight="5dp"
+                                    app:mrl_rippleColor="@color/md_grey_700"
+                                    app:mrl_rippleOverlay="true"
+                                    android:layout_marginBottom="5dp"
+                                    android:layout_alignParentBottom="true"
+                                    android:layout_height="wrap_content">
+
+                                <Button
+                                        android:layout_width="match_parent"
+                                        android:text="Checkout"
+                                        android:textColor="#fff"
+                                        android:background="@drawable/edit_btn"
+                                        android:layout_height="35dp"/>
+                            </in.shpt.widget.Ripple>
+
+                        </RelativeLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </android.support.v4.widget.NestedScrollView>
 
             <android.support.design.widget.NavigationView
-                android:id="@+id/navigation_view"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                app:paddingStart="5dp"
-                android:layout_gravity="start"
-                app:menu="@menu/drawer" />
+                    android:id="@+id/navigation_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    app:paddingStart="5dp"
+                    android:layout_gravity="start"
+                    app:menu="@menu/drawer"/>
         </android.support.v4.widget.DrawerLayout>
     </LinearLayout>
 </RelativeLayout>
