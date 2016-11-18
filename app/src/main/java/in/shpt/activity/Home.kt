@@ -84,11 +84,15 @@ class Home : AppCompatActivity() {
             var categoriesMenu: SubMenu = navMenu.addSubMenu("Categories")
             for (i in 0..(categories.length() - 1)) {
                 val item = categories.getJSONObject(i)
-                var mItem: MenuItem = categoriesMenu.add(item.optString("name").toCamelCase()).setIcon(applicationContext.getIcon(FontAwesome.Icon.faw_bookmark_o, Color.GRAY, 20))
-                for (j in 0..(categories.getJSONObject(i).optJSONArray("children").length() - 1)) {
-                    // mItem.add(categories.getJSONObject(i).optJSONArray("children").optJSONObject(j).optString("name"))
-                }
-                //drawer.addDrawerItems(PrimaryDrawerItem().withName(item.optString("name")).withIdentifier(item.optString("category_id").toLong()))
+                var mItem: MenuItem = categoriesMenu
+                        .add(item.optString("name").toCamelCase())
+                        .setIcon(applicationContext.getIcon(FontAwesome.Icon.faw_bookmark_o, Color.GRAY, 20))
+                        .setOnMenuItemClickListener {
+                            var intent1 = Intent(this@Home, CategoryView::class.java)
+                            intent1.putExtra("CATEGORYID", item.optString("category_id"))
+                            startActivity(intent1)
+                            true
+                        }
             }
 
 

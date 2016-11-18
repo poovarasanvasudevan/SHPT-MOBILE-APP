@@ -3,7 +3,6 @@ package `in`.shpt.activity
 import `in`.shpt.R
 import `in`.shpt.config.Config
 import `in`.shpt.pref.Prefs
-import android.content.Context
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -16,7 +15,6 @@ import android.webkit.WebViewClient
 import com.mcxiaoke.koi.ext.startActivity
 import com.mcxiaoke.koi.log.logi
 import kotlinx.android.synthetic.main.activity_login_web_view.*
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
 
 class LoginWebView : AppCompatActivity() {
@@ -68,10 +66,6 @@ class LoginWebView : AppCompatActivity() {
         override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
             return super.shouldOverrideUrlLoading(view, url)
         }
-    }
-
-    protected override fun attachBaseContext(newBase: Context) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
     }
 
     fun saveCookie(url: String?) {

@@ -136,6 +136,12 @@ fun Context.getProductDetail(product_id: Int): JSONObject? {
     return JSONObject(getAdapter().getProductDetail(Config.PRODUCTDETAIL, product_id).execute().body().string())
 }
 
+
+fun Context.getCategortProducts(category: String): JSONObject? {
+    // Log.i("Hello", getAdapter().editAddress(Config.STATEURL, state_id!!).execute().body().string())
+    return JSONObject(getAdapter().getCategotyProduct(Config.CATEGORYPRODUCTDETAIL, category).execute().body().string())
+}
+
 fun Context.updateAddress(
         address_id: Int,
         firstname: String,

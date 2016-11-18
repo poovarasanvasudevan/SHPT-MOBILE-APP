@@ -5,6 +5,7 @@
     <item name="myorderdetailpaymentadapter" type="id"></item>
     <item name="myorderdetailhistoryadapter" type="id"></item>
     <item name="addressbookadapter" type="id"></item>
+    <item name="categoryadapter" type="id"></item>
     <declare-styleable name="ProgressWheel">
         <attr name="matProg_progressIndeterminate" format="boolean" />
         <attr name="matProg_barColor" format="color" />

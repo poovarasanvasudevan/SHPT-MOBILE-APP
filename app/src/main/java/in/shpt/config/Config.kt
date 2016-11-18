@@ -22,6 +22,7 @@ object Config {
     var ADDADDRESS = "${BASE}/index.php?route=account/address/insert&webapi=true"
     var WISLIST = "${BASE}/index.php?route=account/wishlist&webapi=true"
     var PRODUCTDETAIL = "${BASE}/index.php?route=product/product&webapi=true"
+    var CATEGORYPRODUCTDETAIL = "${BASE}/index.php?route=product/category&webapi=true"
 
 
     //config

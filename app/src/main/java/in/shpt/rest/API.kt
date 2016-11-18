@@ -63,6 +63,9 @@ interface API {
     @GET
     fun getProductDetail(@Url url: String, @Query("product_id") product_id: Int): Call<ResponseBody>
 
+    @GET
+    fun getCategotyProduct(@Url url: String, @Query("path") category: String): Call<ResponseBody>
+
 
     @FormUrlEncoded
     @POST
