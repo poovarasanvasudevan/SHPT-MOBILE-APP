@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="in.shpt"
+          android:installLocation="auto">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <application
+            android:name=".app.App"
+            android:allowBackup="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/app_name"
+            android:supportsRtl="true"
+            android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".activity.LoginActivity"/>
+        <activity
+                android:name=".activity.LoginWebView"
+                android:label="Login"/>
+        <activity android:name=".activity.Home"/>
+        <activity
+                android:name=".activity.ProfileUpdate"
+                android:windowSoftInputMode="adjustResize|stateHidden"/>
+        <activity
+                android:name=".activity.ShoppingCart"
+                android:label="Shopping Cart"/>
+        <activity
+                android:name=".activity.MyOrders"
+                android:label="Order History"/>
+        <activity android:name=".activity.OrderDetails"/>
+        <activity android:name=".activity.AddressBook"/>
+        <activity
+                android:name=".activity.EditAddress"
+                android:windowSoftInputMode="adjustResize|stateHidden"/>
+        <activity android:name=".activity.WishList"/>
+        <activity android:name=".activity.ProductDetail">
+        </activity>
+    </application>
+
+</manifest>

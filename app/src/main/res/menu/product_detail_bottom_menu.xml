@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+            android:id="@+id/productdetailshoppingcart"
+            android:enabled="true"
+            android:title="Shopping Cart"
+            app:showAsAction="ifRoom"/>
+
+    <item
+            android:id="@+id/productdetailwishlist"
+            android:enabled="true"
+            android:title="WishList"
+            app:showAsAction="ifRoom"/>
+
+    <item
+            android:id="@+id/productdetailaddtowishlist"
+            android:enabled="true"
+            android:title="Add to wish list"
+            app:showAsAction="ifRoom"/>
+
+    <item
+            android:id="@+id/addtocart"
+            android:enabled="true"
+            android:title="Add to cart"
+            app:showAsAction="ifRoom"/>
+</menu>

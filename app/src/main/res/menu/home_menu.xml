@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/search"
+        android:title="Search"
+        app:actionViewClass="android.support.v7.widget.SearchView"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/notification"
+        android:title="Wishlist"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/shoppingcart"
+        android:title="ShoppingCart"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/myaccount"
+        android:title="My Account"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/giftcard"
+        android:title="Send Giftcard"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/settings"
+        android:title="Settings"
+        app:showAsAction="never" />
+</menu>

@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">SHPT</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="address_delete_success">Address Deleted Succesfully...</string>
+</resources>
