@@ -60,6 +60,7 @@ class CategoryView : AppCompatActivity() {
                         products.optJSONObject(i).optString("name"),
                         products.optJSONObject(i).optString("price"),
                         products.optJSONObject(i).optString("description"),
+                        products.optJSONObject(i).optString("product_id").toInt(),
                         this@CategoryView
                 ))
             }

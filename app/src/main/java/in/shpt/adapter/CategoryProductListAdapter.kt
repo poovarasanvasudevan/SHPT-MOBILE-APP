@@ -1,14 +1,17 @@
 package `in`.shpt.adapter
 
 import `in`.shpt.R
+import `in`.shpt.activity.ProductDetail
 import `in`.shpt.ext.limitsTo
 import `in`.shpt.ext.loadUrl
 import `in`.shpt.widget.Ripple
 import android.app.Activity
+import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import com.mcxiaoke.koi.ext.onClick
 import com.mikepenz.fastadapter.items.AbstractItem
 
 /**
@@ -20,6 +23,7 @@ class CategoryProductListAdapter(
         var productName: String,
         var productPrice: String,
         var productDesc: String,
+        var product_id: Int,
         var context: Activity) : AbstractItem<CategoryProductListAdapter, CategoryProductListAdapter.ViewHolder>() {
 
     override fun getType(): Int {
@@ -37,6 +41,13 @@ class CategoryProductListAdapter(
         holder.productName.text = productName
         holder.productPrice.text = productPrice
         holder.productShortDescription.text = productDesc.limitsTo(50)
+
+        holder.productBannerLayout.onClick {
+            var productDetailIntent: Intent = Intent(context, ProductDetail::class.java)
+            productDetailIntent.putExtra("PRODUCTID", product_id)
+            context.startActivity(productDetailIntent)
+
+        }
     }
 
 
