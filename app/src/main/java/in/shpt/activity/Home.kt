@@ -190,6 +190,7 @@ class Home : AppCompatActivity() {
             startActivity<WishList>()
             true
         }
+        settingMenu.add("Feedback").icon = getIcon(FontAwesome.Icon.faw_envelope_open);
         settingMenu.add("Settings").icon = getIcon(FontAwesome.Icon.faw_cogs);
     }
 

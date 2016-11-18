@@ -1,8 +1,6 @@
 package `in`.shpt.app
 
-import `in`.shpt.R
 import android.app.Application
-import uk.co.chrisjenx.calligraphy.CalligraphyConfig
 
 
 
@@ -15,12 +13,5 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
-
-
-        CalligraphyConfig.initDefault(CalligraphyConfig.Builder()
-                .setDefaultFontPath("fonts/myfont.ttf")
-                .setFontAttrId(R.attr.fontPath)
-                .build()
-        )
     }
 }

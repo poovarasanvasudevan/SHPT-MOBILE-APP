@@ -40,7 +40,6 @@ dependencies {
 
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.mcxiaoke.koi:core:0.5.3' // useful extensions (only ~100k)
-    compile 'uk.co.chrisjenx:calligraphy:2.2.0'
     compile "com.mikepenz:iconics-core:2.8.1@aar"
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.mikepenz:actionitembadge:3.3.0@aar'

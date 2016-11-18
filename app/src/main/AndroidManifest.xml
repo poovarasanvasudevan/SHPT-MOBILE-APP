@@ -41,6 +41,8 @@
         <activity android:name=".activity.WishList"/>
         <activity android:name=".activity.ProductDetail">
         </activity>
+        <activity android:name=".activity.CategoryView">
+        </activity>
     </application>
 
 </manifest>
