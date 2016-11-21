@@ -59,7 +59,6 @@ class CategoryProductListAdapter(
         internal var productShortDescription: TextView
         internal var productBannerLayout: Ripple
 
-
         init {
 
             productName = view.findViewById(R.id.productName) as TextView
