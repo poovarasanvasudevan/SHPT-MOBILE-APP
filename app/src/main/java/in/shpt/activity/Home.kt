@@ -125,7 +125,7 @@ class Home : AppCompatActivity() {
                 ))
             }
 
-            cartPager.adapter = BannerAdapter(supportFragmentManager, cartData)
+           // cartPager.adapter = BannerAdapter(supportFragmentManager, cartData)
             super.onPostExecute(result)
         }
     }

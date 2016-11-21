@@ -50,6 +50,7 @@ class MyOrders : AppCompatActivity() {
 
                 page += 1
                 AsyncTaskCompat.executeParallel(OrderHistoryLoader(), page)
+
             }
         })
     }
@@ -87,6 +88,7 @@ class MyOrders : AppCompatActivity() {
                 )
             }
             footerAdapter.clear();
+
             super.onPostExecute(result)
         }
     }

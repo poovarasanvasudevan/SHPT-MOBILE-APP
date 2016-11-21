@@ -69,10 +69,11 @@ class ProductDetail : AppCompatActivity() {
 
             var imageList = ArrayList<String>()
             var images: JSONArray = result.optJSONArray("images")
+            imageList.add(result.optString("thumb"))
             for (i in 0..images.length() - 1) {
                 imageList.add(images.optJSONObject(i).optString("thumb"))
             }
-            imageList.add(result.optString("thumb"))
+
             imageList.add(result.optString("thumb"))
             var imageAdapter = ImagePagerAdapter(supportFragmentManager, imageList)
             imagePager.adapter = imageAdapter

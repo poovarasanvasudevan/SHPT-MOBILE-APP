@@ -29,5 +29,11 @@ fun Context.bitmap2drawable(bitmap: Bitmap): Drawable {
 }
 
 fun ImageView.loadUrl(url: String) {
-    Glide.with(context).load(url).placeholder(R.drawable.no_image).error(R.drawable.no_image).into(this)
+    Glide.with(context)
+            .load(url)
+            .crossFade()
+            .fitCenter()
+            .placeholder(R.drawable.no_image)
+            .error(R.drawable.no_image)
+            .into(this)
 }
