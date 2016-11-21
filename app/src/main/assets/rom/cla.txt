@@ -1,0 +1,161 @@
+<?php
+
+class ControllerApiMobile extends Controller
+{
+
+    function categories()
+    {
+
+        if (isset($this->request->get['webapi'])) {
+            $this->load->model('catalog/category');
+            $this->load->model('catalog/product');
+            $this->load->model('tool/image');
+            $this->data['categories'] = array();
+
+            $categories_1 = $this->model_catalog_category->getCategories(0);
+
+            foreach ($categories_1 as $category_1) {
+                $level_2_data = array();
+
+                $categories_2 = $this->model_catalog_category->getCategories($category_1['category_id']);
+
+                foreach ($categories_2 as $category_2) {
+                    $level_3_data = array();
+
+                    $categories_3 = $this->model_catalog_category->getCategories($category_2['category_id']);
+
+                    foreach ($categories_3 as $category_3) {
+                        $level_3_data[] = array(
+                            'category_id' => $category_3['category_id'],
+                            'name' => $category_3['name'],
+                        );
+                    }
+
+                    $level_2_data[] = array(
+                        'category_id' => $category_2['category_id'],
+                        'name' => $category_2['name'],
+                        'children' => $level_3_data
+                    );
+                }
+
+                $this->data['categories'][] = array(
+                    'category_id' => $category_1['category_id'],
+                    'name' => $category_1['name'],
+                    'children' => $level_2_data
+                );
+            }
+
+            header('Content-type: application/json');
+            echo json_encode(array('code' => 200, "categories" => $this->data['categories']));
+            return;
+        }
+    }
+
+    public function settings($isjson = true)
+    {
+        # code...
+        $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "setting WHERE store_id = '0' OR store_id = '" . (int)$this->config->get('config_store_id') . "' ORDER BY store_id ASC");
+
+        $sVal = array();
+        foreach ($query->rows as $setting) {
+            if (!$setting['serialized']) {
+                $sVal[$setting['key']] = $setting['value'];
+            } else {
+                $sVal[$setting['key']] = unserialize($setting['value']);
+            }
+        }
+
+        if ($isjson == false) {
+            return $sVal;
+        }
+        header('Content-type: application/json');
+        echo json_encode($sVal);
+        return;
+    }
+
+    public function banner()
+    {
+        # code...
+        $bannerId = $this->settings(false)['slideshow_module'];
+
+//echo json_encode($bannerId);
+        $bannerId0 = 0;
+        $height = 0;
+        $width = 0;
+        for ($i = 0; $i < sizeof($bannerId); $i++) {
+            if ($bannerId[$i]['status'] == 1) {
+                $bannerId0 = $bannerId[$i]['banner_id'];
+                $height = $bannerId[$i]['height'];
+                $width = $bannerId[$i]['width'];
+                break;
+            }
+        }
+        $this->load->model('design/banner');
+        $this->load->model('tool/image');
+        $this->load->model('catalog/product');
+        $results = $this->model_design_banner->getBanner($bannerId0);
+
+//echo json_encode($results);
+
+        foreach ($results as $result) {
+            $pos = strpos($result['link'], 'product_id');
+            $id = str_ireplace("product_id=", "", substr($result['link'], $pos));
+            $this->data['banners'][] = array(
+                'title' => $result['title'],
+                'link' => $result['link'],
+                'image' => $this->model_tool_image->resize($result['image'], $height, $width),
+                'product_id' => $id,
+                'full_detail' => $this->model_catalog_product->getProduct($id)
+            );
+
+        }
+
+        if (isset($this->request->get['webapi'])) {
+            header('Content-type: application/json');
+
+            echo json_encode($this->data);
+            return;
+        } else {
+            header('Content-type: application/json');
+
+            echo json_encode(array("code" => 201, "message" => "Web API Not Found"));
+            return;
+        }
+    }
+
+    function mycart()
+    {
+        if (isset($this->request->get['webapi'])) {
+            header('Content-type: application/json');
+            $cart = $this->cart->getProducts();
+            $fullcart = array();
+            foreach ($cart as $key => $value) {
+                # code...
+                array_push($fullcart, $value);
+            }
+
+            echo json_encode($fullcart);
+            return;
+        } else {
+            header('Content-type: application/json');
+
+            echo json_encode(array("code" => 201, "message" => "Web API Not Found"));
+            return;
+        }
+    }
+
+    function completeorder()
+    {
+        if (isset($this->request->get['webapi'])) {
+            $order_id = $this->request->get['order_id'];
+            $result = $this->db->query("select * from `order` where order_id=" . $order_id);
+            header('Content-type: application/json');
+            echo json_encode($result->rows[0]);
+            return;
+        } else {
+            header('Content-type: application/json');
+            echo json_encode(array("code" => 201, "message" => "Web API Not Found"));
+            return;
+        }
+    }
+}
