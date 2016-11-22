@@ -10,7 +10,6 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.AsyncTask
 import android.os.Bundle
-import android.support.design.widget.NavigationView
 import android.support.v4.os.AsyncTaskCompat
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
@@ -45,13 +44,10 @@ class Home : AppCompatActivity() {
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setHomeAsUpIndicator(getIcon(FontAwesome.Icon.faw_bars))
 
-        navigation_view.setNavigationItemSelectedListener(object : NavigationView.OnNavigationItemSelectedListener {
-            override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {
-
-                drawer.closeDrawers()
-                return true
-            }
-        })
+        navigation_view.setNavigationItemSelectedListener {
+            drawer.closeDrawers()
+            true
+        }
 
         //navMenu = navigation_view.menu
         val actionBarDrawerToggle = object : ActionBarDrawerToggle(this, drawer, toolbar, R.string.open, R.string.close) {
@@ -104,6 +100,7 @@ class Home : AppCompatActivity() {
                         .setOnMenuItemClickListener {
                             var intent1 = Intent(this@Home, CategoryView::class.java)
                             intent1.putExtra("CATEGORYID", item.optString("category_id"))
+                            intent1.putExtra("SUBCATEGORY", item.optJSONArray("children").toString())
                             startActivity(intent1)
                             true
                         }
@@ -116,6 +113,7 @@ class Home : AppCompatActivity() {
             super.onPostExecute(result)
         }
     }
+
 
 
     inner class CartLoader : AsyncTask<Void, Void, JSONArray>() {

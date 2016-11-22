@@ -6,6 +6,7 @@
         android:id="@+id/activity_category_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
         tools:context="in.shpt.activity.CategoryView">
 
 
@@ -29,9 +30,25 @@
             android:layout_below="@+id/appbar"
             android:layout_height="match_parent">
 
-        <android.support.v7.widget.RecyclerView
+        <android.support.v4.widget.DrawerLayout
+                android:id="@+id/drawer"
                 android:layout_width="match_parent"
-                android:id="@+id/productList"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true">
+
+            <android.support.v7.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:id="@+id/productList"
+                    android:background="@color/md_white_1000"
+                    android:layout_height="match_parent"/>
+
+            <android.support.design.widget.NavigationView
+                    android:id="@+id/navigation_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    app:paddingStart="5dp"
+                    android:layout_gravity="right"
+                    app:menu="@menu/drawer"/>
+        </android.support.v4.widget.DrawerLayout>
     </RelativeLayout>
 </RelativeLayout>

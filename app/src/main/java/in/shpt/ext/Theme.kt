@@ -3,6 +3,7 @@ package `in`.shpt.ext
 import `in`.shpt.config.Config
 import `in`.shpt.pref.Prefs
 import android.content.Context
+import com.mcxiaoke.koi.ext.isConnected
 
 /**
  * Created by poovarasanv on 22/11/16.
@@ -40,18 +41,22 @@ fun Context.indigoTheme() {
 }
 
 fun Context.theme() {
-    if (Prefs.with(this).contains(Config.THEME)) {
-        when (Prefs.with(this).readInt(Config.THEME)) {
-            1 -> blueTheme()
-            2 -> redTheme()
-            3 -> greenTheme()
-            4 -> tealTheme()
-            5 -> yellowTheme()
-            6 -> orangeTheme()
-            7 -> indigoTheme()
-            else -> redTheme()
+    if (isConnected()) {
+        if (Prefs.with(this).contains(Config.THEME)) {
+            when (Prefs.with(this).readInt(Config.THEME)) {
+                1 -> blueTheme()
+                2 -> redTheme()
+                3 -> greenTheme()
+                4 -> tealTheme()
+                5 -> yellowTheme()
+                6 -> orangeTheme()
+                7 -> indigoTheme()
+                else -> redTheme()
+            }
+        } else {
+            indigoTheme()
         }
     } else {
-        blueTheme()
+        redTheme()
     }
 }
