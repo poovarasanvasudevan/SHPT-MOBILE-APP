@@ -3,6 +3,7 @@ package `in`.shpt.activity
 import `in`.shpt.R
 import `in`.shpt.adapter.OrderHistoryAdapter
 import `in`.shpt.ext.getMyOrders
+import `in`.shpt.ext.theme
 import android.os.AsyncTask
 import android.os.Bundle
 import android.support.v4.os.AsyncTaskCompat
@@ -26,6 +27,7 @@ class MyOrders : AppCompatActivity() {
     lateinit var footerAdapter: FooterAdapter<ProgressItem>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        theme()
         setContentView(R.layout.activity_my_orders)
 
         setSupportActionBar(toolbar)

@@ -3,19 +3,25 @@ package `in`.shpt.activity
 import `in`.shpt.R
 import `in`.shpt.adapter.CategoryProductListAdapter
 import `in`.shpt.ext.getCategortProducts
+import `in`.shpt.ext.getIcon
+import `in`.shpt.ext.theme
 import `in`.shpt.widget.SimpleDividerItemDecoration
 import android.os.AsyncTask
 import android.os.Bundle
 import android.support.v4.os.AsyncTaskCompat
+import android.support.v4.view.MenuItemCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.SearchView
 import android.view.Menu
 import android.view.MenuItem
+import com.mikepenz.fastadapter.IItemAdapter
 import com.mikepenz.fastadapter.adapters.FastItemAdapter
 import com.mikepenz.fastadapter.adapters.FooterAdapter
 import com.mikepenz.fastadapter_extensions.items.ProgressItem
 import com.mikepenz.fastadapter_extensions.scroll.EndlessRecyclerOnScrollListener
+import com.mikepenz.fontawesome_typeface_library.FontAwesome
 import kotlinx.android.synthetic.main.activity_category_view.*
 import org.json.JSONObject
 
@@ -25,10 +31,12 @@ class CategoryView : AppCompatActivity() {
     var categoryId: String = ""
     lateinit var fastAdapter: FastItemAdapter<CategoryProductListAdapter>
     lateinit var footerAdapter: FooterAdapter<ProgressItem>
+    lateinit var search: SearchView
 
     var page: Int = 1
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        theme()
         setContentView(R.layout.activity_category_view)
 
         setSupportActionBar(toolbar)
@@ -42,6 +50,11 @@ class CategoryView : AppCompatActivity() {
         productList.layoutManager = llm
         productList.addItemDecoration(SimpleDividerItemDecoration(applicationContext))
         fastAdapter = FastItemAdapter()
+        fastAdapter.withFilterPredicate(IItemAdapter.Predicate<CategoryProductListAdapter> { item, constraint ->
+            run {
+                !item.productName.toLowerCase().contains(constraint.toString().toLowerCase())
+            }
+        })
         footerAdapter = FooterAdapter()
 
         productList.itemAnimator = DefaultItemAnimator()
@@ -89,6 +102,26 @@ class CategoryView : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.product_category_menu, menu)
+        menu!!.findItem(R.id.search).icon = getIcon(FontAwesome.Icon.faw_search)
+        search = MenuItemCompat.getActionView(menu.findItem(R.id.search)) as SearchView
+
+        search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                callSearch(query)
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                callSearch(newText)
+                return true
+            }
+
+            fun callSearch(query: String) {
+                fastAdapter.filter(query)
+            }
+
+        })
         return super.onCreateOptionsMenu(menu)
     }
 

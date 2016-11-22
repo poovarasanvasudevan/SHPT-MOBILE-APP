@@ -5,6 +5,7 @@ import `in`.shpt.adapter.ImagePagerAdapter
 import `in`.shpt.ext.getCart
 import `in`.shpt.ext.getIcon
 import `in`.shpt.ext.getProductDetail
+import `in`.shpt.ext.theme
 import android.os.AsyncTask
 import android.os.Bundle
 import android.support.v4.os.AsyncTaskCompat
@@ -26,6 +27,7 @@ class ProductDetail : AppCompatActivity() {
     var cartCount: Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        theme()
         setContentView(R.layout.activity_product_detail)
 
         setSupportActionBar(toolbar)

@@ -3,4 +3,5 @@
     <string name="open">Open</string>
     <string name="close">Close</string>
     <string name="address_delete_success">Address Deleted Succesfully...</string>
+    <string name="no_internet">No Internet Connection...</string>
 </resources>

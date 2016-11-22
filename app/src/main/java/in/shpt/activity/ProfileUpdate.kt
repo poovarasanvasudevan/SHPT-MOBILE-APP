@@ -4,6 +4,7 @@ import `in`.shpt.R
 import `in`.shpt.config.JSONConfig
 import `in`.shpt.ext.getuserprofile
 import `in`.shpt.ext.saveUserDetails
+import `in`.shpt.ext.theme
 import android.os.AsyncTask
 import android.os.Bundle
 import android.support.v4.os.AsyncTaskCompat
@@ -24,6 +25,7 @@ class ProfileUpdate : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        theme()
         setContentView(R.layout.activity_profile_update)
 
         setSupportActionBar(toolbar)

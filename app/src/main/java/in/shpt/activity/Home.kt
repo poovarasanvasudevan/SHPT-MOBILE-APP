@@ -19,6 +19,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.SubMenu
 import android.view.View
+import com.mcxiaoke.koi.ext.isConnected
 import com.mcxiaoke.koi.ext.startActivity
 import com.mcxiaoke.koi.ext.toast
 import com.mikepenz.actionitembadge.library.ActionItemBadge
@@ -36,6 +37,7 @@ class Home : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        theme()
         setContentView(R.layout.activity_home)
 
 
@@ -67,9 +69,21 @@ class Home : AppCompatActivity() {
         }
         drawer.setDrawerListener(actionBarDrawerToggle)
         actionBarDrawerToggle.syncState()
-        AsyncTaskCompat.executeParallel(CategoriesLoaderTask(), null)
-        AsyncTaskCompat.executeParallel(BannerLoader(), null)
-        AsyncTaskCompat.executeParallel(CartLoader(), null)
+
+
+        if (isConnected()) {
+            emptyLayout.visibility = View.GONE
+            AsyncTaskCompat.executeParallel(CategoriesLoaderTask(), null)
+            AsyncTaskCompat.executeParallel(BannerLoader(), null)
+            AsyncTaskCompat.executeParallel(CartLoader(), null)
+        } else {
+
+            contentLayout.visibility = View.GONE
+            emptyLayout.visibility = View.VISIBLE
+            emptyIcon.setImageDrawable(getIcon(FontAwesome.Icon.faw_frown_o, Color.GRAY, 120))
+            emptyText.text = "No Internet Connection..."
+            addSettingMenu()
+        }
     }
 
     inner class CategoriesLoaderTask : AsyncTask<Void, Void, JSONObject?>() {
@@ -125,7 +139,7 @@ class Home : AppCompatActivity() {
                 ))
             }
 
-           // cartPager.adapter = BannerAdapter(supportFragmentManager, cartData)
+            // cartPager.adapter = BannerAdapter(supportFragmentManager, cartData)
             super.onPostExecute(result)
         }
     }

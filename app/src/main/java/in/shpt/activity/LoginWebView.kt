@@ -2,8 +2,11 @@ package `in`.shpt.activity
 
 import `in`.shpt.R
 import `in`.shpt.config.Config
+import `in`.shpt.ext.getIcon
+import `in`.shpt.ext.theme
 import `in`.shpt.pref.Prefs
 import android.graphics.Bitmap
+import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
@@ -12,8 +15,11 @@ import android.webkit.CookieManager
 import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import com.mcxiaoke.koi.ext.isConnected
 import com.mcxiaoke.koi.ext.startActivity
+import com.mcxiaoke.koi.ext.toast
 import com.mcxiaoke.koi.log.logi
+import com.mikepenz.fontawesome_typeface_library.FontAwesome
 import kotlinx.android.synthetic.main.activity_login_web_view.*
 
 
@@ -21,16 +27,26 @@ class LoginWebView : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        theme()
         setContentView(R.layout.activity_login_web_view)
 
         setSupportActionBar(toolbar)
 
-        progressLoader.visibility = View.VISIBLE
-        loginWebView.visibility = View.GONE
-        loginWebView.settings.javaScriptEnabled = true
-        loginWebView.setWebChromeClient(WebChromeClient())
-        loginWebView.setWebViewClient(SHPTWebViewClient())
-        loginWebView.loadUrl(Config.LOGIN_PAGE)
+        if (isConnected()) {
+            progressLoader.visibility = View.VISIBLE
+            loginWebView.visibility = View.GONE
+            loginWebView.settings.javaScriptEnabled = true
+            loginWebView.setWebChromeClient(WebChromeClient())
+            loginWebView.setWebViewClient(SHPTWebViewClient())
+            loginWebView.loadUrl(Config.LOGIN_PAGE)
+        } else {
+            contentLayout.visibility = View.GONE
+            emptyLayout.visibility = View.VISIBLE
+            emptyIcon.setImageDrawable(getIcon(FontAwesome.Icon.faw_frown_o, Color.GRAY, 120))
+            emptyText.text = getString(`in`.shpt.R.string.no_internet)
+
+            toast(R.string.no_internet)
+        }
     }
 
     inner class SHPTWebViewClient : WebViewClient() {

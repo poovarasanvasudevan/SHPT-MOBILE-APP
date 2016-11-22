@@ -2,6 +2,7 @@ package `in`.shpt.activity
 
 import `in`.shpt.R
 import `in`.shpt.ext.getIcon
+import `in`.shpt.ext.theme
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
@@ -13,6 +14,7 @@ class ShoppingCart : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        theme()
         setContentView(R.layout.activity_shopping_cart)
 
         setSupportActionBar(toolbar)

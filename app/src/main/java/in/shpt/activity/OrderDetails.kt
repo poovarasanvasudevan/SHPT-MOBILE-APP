@@ -5,6 +5,7 @@ import `in`.shpt.adapter.OrderDetailHistoryAdapter
 import `in`.shpt.adapter.OrderDetailPaymentAdapter
 import `in`.shpt.adapter.OrderDetailProductAdapter
 import `in`.shpt.ext.getOrderDetail
+import `in`.shpt.ext.theme
 import android.os.AsyncTask
 import android.os.Bundle
 import android.support.v4.os.AsyncTaskCompat
@@ -29,6 +30,7 @@ class OrderDetails : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        theme()
         setContentView(R.layout.activity_order_details)
 
         setSupportActionBar(toolbar)

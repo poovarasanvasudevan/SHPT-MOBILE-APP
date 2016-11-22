@@ -3,6 +3,7 @@ package `in`.shpt.activity
 import `in`.shpt.R
 import `in`.shpt.ext.getIcon
 import `in`.shpt.ext.getWishList
+import `in`.shpt.ext.theme
 import android.graphics.Color
 import android.os.AsyncTask
 import android.os.Bundle
@@ -19,6 +20,7 @@ class WishList : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        theme()
         setContentView(R.layout.activity_wish_list)
 
         setSupportActionBar(toolbar)

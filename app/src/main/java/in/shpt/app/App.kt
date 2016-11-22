@@ -1,5 +1,6 @@
 package `in`.shpt.app
 
+import `in`.shpt.R
 import android.app.Application
 
 
@@ -13,5 +14,7 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
+
+        setTheme(R.style.BlueTheme)
     }
 }

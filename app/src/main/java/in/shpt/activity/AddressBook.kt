@@ -4,6 +4,7 @@ import `in`.shpt.R
 import `in`.shpt.adapter.AddressListAdapter
 import `in`.shpt.ext.getAddress
 import `in`.shpt.ext.getIcon
+import `in`.shpt.ext.theme
 import android.os.AsyncTask
 import android.os.Bundle
 import android.support.v4.os.AsyncTaskCompat
@@ -25,6 +26,8 @@ class AddressBook : AppCompatActivity() {
     lateinit var addressAdapter: FastItemAdapter<AddressListAdapter>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        theme()
         setContentView(R.layout.activity_address_book)
 
         setSupportActionBar(toolbar)

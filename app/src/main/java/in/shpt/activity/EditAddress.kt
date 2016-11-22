@@ -27,6 +27,7 @@ class EditAddress : AppCompatActivity() {
     var selectedStateId: Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        theme()
         setContentView(R.layout.activity_edit_address)
 
         setSupportActionBar(toolbar)

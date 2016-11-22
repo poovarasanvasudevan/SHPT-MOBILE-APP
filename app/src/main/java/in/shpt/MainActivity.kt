@@ -3,6 +3,7 @@ package `in`.shpt
 import `in`.shpt.activity.LoginActivity
 import `in`.shpt.activity.LoginWebView
 import `in`.shpt.config.Config
+import `in`.shpt.ext.theme
 import `in`.shpt.pref.Prefs
 import android.os.Bundle
 import android.os.Handler
@@ -13,6 +14,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        theme()
         setContentView(R.layout.activity_main)
         
         if (Prefs.with(this).contains(Config.COOKIE)) {

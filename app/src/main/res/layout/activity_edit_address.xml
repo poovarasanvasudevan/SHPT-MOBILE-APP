@@ -11,8 +11,8 @@
         android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:elevation="4dp"
-        app:elevation="4dp">
+        android:stateListAnimator="@null"
+        android:elevation="@dimen/design_appbar_elevation">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
@@ -199,7 +199,7 @@
                     android:layout_height="40dp"
                     android:background="@drawable/et"
                     android:paddingLeft="6dp"
-                    android:popupBackground="#000000" />
+                    android:popupBackground="#fff" />
             </LinearLayout>
 
 
@@ -221,7 +221,7 @@
                     android:layout_height="40dp"
                     android:background="@drawable/et"
                     android:paddingLeft="6dp"
-                    android:popupBackground="#000000" />
+                    android:popupBackground="#fff" />
             </LinearLayout>
 
             <LinearLayout

@@ -27,5 +27,6 @@ object Config {
 
     //config
     var COOKIE = "login_shpt_cookie"
+    var THEME = "my_theme"
     var IMAGE_PATH = "${BASE}/image/"
 }
