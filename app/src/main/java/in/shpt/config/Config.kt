@@ -1,5 +1,7 @@
 package `in`.shpt.config
 
+import `in`.shpt.ext.Theme
+
 /**
  * Created by poovarasanv on 14/11/16.
  */
@@ -28,5 +30,6 @@ object Config {
     //config
     var COOKIE = "login_shpt_cookie"
     var THEME = "my_theme"
+    var DEFAULT_THEME = Theme.INDIGO
     var IMAGE_PATH = "${BASE}/image/"
 }

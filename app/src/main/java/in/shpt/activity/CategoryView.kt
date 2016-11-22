@@ -107,6 +107,7 @@ class CategoryView : AppCompatActivity() {
                 for (j in 0..smallMenuItems.length() - 1) {
                     mainMenu
                             .add(smallMenuItems.optJSONObject(j).optString("name"))
+                            //  .setIcon(applicationContext.getIcon(FontAwesome.Icon.faw_angle_right, Color.WHITE, 6))
                             .setOnMenuItemClickListener {
                                 page = 1
                                 tempCategoryId = tempCategoryId + "_" + smallMenuItems.optJSONObject(j).optString("category_id")
@@ -115,7 +116,6 @@ class CategoryView : AppCompatActivity() {
 
                                 true
                             }
-                    // .setIcon(applicationContext.getIcon(FontAwesome.Icon.faw_angle_right, Color.GRAY, 20))
                 }
             }
 
