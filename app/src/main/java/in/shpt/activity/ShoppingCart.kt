@@ -18,7 +18,7 @@ import android.view.MenuItem
 import android.view.View
 import com.mcxiaoke.koi.ext.isConnected
 import com.mikepenz.fastadapter.adapters.FastItemAdapter
-import com.mikepenz.fastadapter.adapters.HeaderAdapter
+import com.mikepenz.fastadapter.adapters.FooterAdapter
 import com.mikepenz.fontawesome_typeface_library.FontAwesome
 import kotlinx.android.synthetic.main.activity_shopping_cart.*
 import org.json.JSONArray
@@ -26,7 +26,7 @@ import org.json.JSONObject
 
 class ShoppingCart : AppCompatActivity() {
     lateinit var fastAdapter: FastItemAdapter<ShoppingCartProductAdapter>
-    lateinit var voucherAdapter: HeaderAdapter<ShoppingCartVoucherAdapter>
+    lateinit var voucherAdapter: FooterAdapter<ShoppingCartVoucherAdapter>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +42,7 @@ class ShoppingCart : AppCompatActivity() {
         shoppingCartProducts.layoutManager = llm
 
         fastAdapter = FastItemAdapter()
-        voucherAdapter = HeaderAdapter()
+        voucherAdapter = FooterAdapter()
         shoppingCartProducts.itemAnimator = DefaultItemAnimator()
         shoppingCartProducts.adapter = voucherAdapter.wrap(fastAdapter)
 
@@ -86,6 +86,9 @@ class ShoppingCart : AppCompatActivity() {
             } else {
 
                 fastAdapter.clear()
+                voucherAdapter.clear()
+
+
                 var products: JSONArray = result.optJSONArray("products")
                 for (i in 0..products.length() - 1) {
                     fastAdapter.add(ShoppingCartProductAdapter(
@@ -98,7 +101,6 @@ class ShoppingCart : AppCompatActivity() {
                     ))
                 }
 
-                voucherAdapter.clear()
                 var voucher: JSONArray = result.optJSONArray("vouchers")
                 for (i in 0..voucher.length() - 1) {
                     voucherAdapter.add(ShoppingCartVoucherAdapter(

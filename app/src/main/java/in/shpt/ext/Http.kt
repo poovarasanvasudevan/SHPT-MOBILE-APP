@@ -188,3 +188,30 @@ fun Context.addNewAddress(
     return JSONObject(getAdapter().addNewAddress(Config.ADDADDRESS, firstname, lastname, company, address_1, address_2, city, postcode, country_id, zone_id, default).execute().body().string())
 
 }
+
+
+fun Context.addGiftVoucher(
+        to_name: String,
+        to_email: String,
+        from_name: String,
+        from_email: String,
+        voucher_theme_id: String,
+        message: String,
+        amount: String
+): JSONObject {
+
+
+    var response = getAdapter().addGiftVoucher(
+            Config.VOUCHERPURCHASE,
+            to_name,
+            to_email,
+            from_name,
+            from_email,
+            voucher_theme_id,
+            message,
+            amount,
+            "1"
+    ).execute().body().string()
+
+    return JSONObject(response)
+}

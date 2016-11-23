@@ -108,4 +108,19 @@ interface API {
 
     @GET
     fun getGiftVoucherPage(@Url url: String): Call<ResponseBody>
+
+
+    @POST
+    @FormUrlEncoded
+    fun addGiftVoucher(
+            @Url url: String,
+            @Field("to_name") to_name: String,
+            @Field("to_email") to_email: String,
+            @Field("from_name") from_name: String,
+            @Field("from_email") from_email: String,
+            @Field("voucher_theme_id") voucher_theme_id: String,
+            @Field("message") message: String,
+            @Field("amount") amount: String,
+            @Field("agree") agree: String
+    ): Call<ResponseBody>
 }

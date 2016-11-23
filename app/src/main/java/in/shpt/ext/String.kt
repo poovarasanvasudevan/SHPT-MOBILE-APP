@@ -62,3 +62,7 @@ fun String.addressValidate(): Boolean {
 
     return false
 }
+
+fun getRequiredError(text: String): String {
+    return text + " is Required"
+}

@@ -19,13 +19,19 @@
                 android:orientation="horizontal"
                 android:layout_height="match_parent">
 
-            <com.mikepenz.iconics.view.IconicsImageView
+            <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_weight="7"
-                    app:iiv_color="?colorPrimary"
-                    app:iiv_icon="{faw-gift}"
-                    app:iiv_size="20dp"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent">
+
+                <ImageView
+                        android:layout_width="40dp"
+                        android:id="@+id/voucherImage"
+                        android:layout_centerVertical="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_height="40dp"/>
+
+            </RelativeLayout>
 
             <RelativeLayout
                     android:layout_width="match_parent"

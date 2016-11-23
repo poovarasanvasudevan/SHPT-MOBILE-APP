@@ -8,6 +8,22 @@
     <item name="categoryadapter" type="id"></item>
     <item name="shoppingcartproductadapter" type="id"></item>
     <item name="shoppingcartvoucheradapter" type="id"></item>
+
+
+
+
+
+
+
+
+
+
+
+    <item name="giftcardthemeselection" type="id"></item>
+
+
+
+
     <declare-styleable name="ProgressWheel">
         <attr name="matProg_progressIndeterminate" format="boolean"/>
         <attr name="matProg_barColor" format="color"/>
