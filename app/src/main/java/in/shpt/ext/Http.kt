@@ -142,6 +142,18 @@ fun Context.getCategortProducts(category: String, page: String): JSONObject? {
     return JSONObject(getAdapter().getCategotyProduct(Config.CATEGORYPRODUCTDETAIL, category, page).execute().body().string())
 }
 
+
+fun Context.getFullCart(): JSONObject? {
+    // Log.i("Hello", getAdapter().editAddress(Config.STATEURL, state_id!!).execute().body().string())
+    return JSONObject(getAdapter().getFullCart(Config.CHECKOUTCART).execute().body().string())
+}
+
+fun Context.getGiftVoucherPage(): JSONObject? {
+    // Log.i("Hello", getAdapter().editAddress(Config.STATEURL, state_id!!).execute().body().string())
+    return JSONObject(getAdapter().getGiftVoucherPage(Config.VOUCHERPURCHASE).execute().body().string())
+}
+
+
 fun Context.updateAddress(
         address_id: Int,
         firstname: String,

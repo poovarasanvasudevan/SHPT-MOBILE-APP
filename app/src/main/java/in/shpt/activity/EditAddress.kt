@@ -114,7 +114,7 @@ class EditAddress : AppCompatActivity() {
 
             var code: Int = result!!.optInt("code")
             if (code == 200) {
-                toast(result!!.optString("message"))
+                toast(result.optString("message"))
                 finish()
             }
             Log.i("UpdateAddress", result.toString())
@@ -140,7 +140,7 @@ class EditAddress : AppCompatActivity() {
 
         override fun onPostExecute(result: JSONObject?) {
             supportActionBar!!.title = result!!.optString("text_edit_address")
-            aFnameLabel.text = getHTMLLabel(result!!.optString("entry_firstname"), "*")
+            aFnameLabel.text = getHTMLLabel(result.optString("entry_firstname"), "*")
             aLnameLabel.text = getHTMLLabel(result!!.optString("entry_lastname"), "*")
             aCompanyLabel.text = getHTMLLabel(result!!.optString("entry_company"), "")
             aAddress1Label.text = getHTMLLabel(result!!.optString("entry_address_1"), "*")

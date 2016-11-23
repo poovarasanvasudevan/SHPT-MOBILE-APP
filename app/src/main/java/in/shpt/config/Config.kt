@@ -25,11 +25,13 @@ object Config {
     var WISLIST = "${BASE}/index.php?route=account/wishlist&webapi=true"
     var PRODUCTDETAIL = "${BASE}/index.php?route=product/product&webapi=true"
     var CATEGORYPRODUCTDETAIL = "${BASE}/index.php?route=product/category&webapi=true"
+    var CHECKOUTCART = "${BASE}/index.php?route=checkout/cart&webapi=true"
+    var VOUCHERPURCHASE = "${BASE}/index.php?route=account/voucher&webapi=true"
 
 
     //config
     var COOKIE = "login_shpt_cookie"
     var THEME = "my_theme"
-    var DEFAULT_THEME = Theme.INDIGO
+    var DEFAULT_THEME = Theme.RED
     var IMAGE_PATH = "${BASE}/image/"
 }

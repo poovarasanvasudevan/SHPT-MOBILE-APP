@@ -12,6 +12,7 @@ import android.support.annotation.UiThread
 import android.support.v4.os.AsyncTaskCompat
 import android.support.v4.view.GravityCompat
 import android.support.v4.view.MenuItemCompat
+import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
@@ -182,6 +183,7 @@ class CategoryView : AppCompatActivity() {
 
         if (isSubCategoryAvailable == false) {
             drawerMenu.setVisible(false)
+            drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         }
         return super.onCreateOptionsMenu(menu)
     }

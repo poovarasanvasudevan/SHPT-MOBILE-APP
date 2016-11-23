@@ -30,7 +30,8 @@
                 android:windowSoftInputMode="adjustResize|stateHidden"/>
         <activity
                 android:name=".activity.ShoppingCart"
-                android:label="Shopping Cart"/>
+                android:label="Shopping Cart"
+                android:windowSoftInputMode="stateHidden"/>
         <activity
                 android:name=".activity.MyOrders"
                 android:label="Order History"/>
@@ -43,6 +44,8 @@
         <activity android:name=".activity.ProductDetail">
         </activity>
         <activity android:name=".activity.CategoryView">
+        </activity>
+        <activity android:name=".activity.GiftCard">
         </activity>
     </application>
 

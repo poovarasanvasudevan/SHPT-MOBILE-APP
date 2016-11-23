@@ -64,7 +64,7 @@ interface API {
     fun getProductDetail(@Url url: String, @Query("product_id") product_id: Int): Call<ResponseBody>
 
     @GET
-    fun getCategotyProduct(@Url url: String, @Query("path") category: String,@Query("page") page: String): Call<ResponseBody>
+    fun getCategotyProduct(@Url url: String, @Query("path") category: String, @Query("page") page: String): Call<ResponseBody>
 
 
     @FormUrlEncoded
@@ -100,4 +100,12 @@ interface API {
             @Field("zone_id") zone_id: Int,
             @Field("default") default: Int
     ): Call<ResponseBody>
+
+
+    @GET
+    fun getFullCart(@Url url: String): Call<ResponseBody>
+
+
+    @GET
+    fun getGiftVoucherPage(@Url url: String): Call<ResponseBody>
 }

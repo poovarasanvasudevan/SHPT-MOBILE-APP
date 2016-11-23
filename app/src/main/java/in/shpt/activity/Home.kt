@@ -115,7 +115,6 @@ class Home : AppCompatActivity() {
     }
 
 
-
     inner class CartLoader : AsyncTask<Void, Void, JSONArray>() {
         override fun doInBackground(vararg p0: Void?): JSONArray? {
             return getCart()
@@ -201,7 +200,13 @@ class Home : AppCompatActivity() {
                 }
 
         settingMenu.add("Track Order").icon = getIcon(FontAwesome.Icon.faw_location_arrow);
-        settingMenu.add("Send Gift Card").icon = getIcon(FontAwesome.Icon.faw_gift);
+        settingMenu
+                .add("Gift Certificate")
+                .setIcon(getIcon(FontAwesome.Icon.faw_gift))
+                .setOnMenuItemClickListener {
+                    startActivity<GiftCard>()
+                    true
+                }
         settingMenu.add("Wishlist").setIcon(getIcon(FontAwesome.Icon.faw_shopping_bag)).setOnMenuItemClickListener {
             startActivity<WishList>()
             true

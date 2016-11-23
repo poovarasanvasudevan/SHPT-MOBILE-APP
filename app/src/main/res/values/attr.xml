@@ -6,99 +6,101 @@
     <item name="myorderdetailhistoryadapter" type="id"></item>
     <item name="addressbookadapter" type="id"></item>
     <item name="categoryadapter" type="id"></item>
+    <item name="shoppingcartproductadapter" type="id"></item>
+    <item name="shoppingcartvoucheradapter" type="id"></item>
     <declare-styleable name="ProgressWheel">
-        <attr name="matProg_progressIndeterminate" format="boolean" />
-        <attr name="matProg_barColor" format="color" />
-        <attr name="matProg_rimColor" format="color" />
-        <attr name="matProg_rimWidth" format="dimension" />
-        <attr name="matProg_spinSpeed" format="float" />
-        <attr name="matProg_barSpinCycleTime" format="integer" />
-        <attr name="matProg_circleRadius" format="dimension" />
-        <attr name="matProg_fillRadius" format="boolean" />
-        <attr name="matProg_barWidth" format="dimension" />
-        <attr name="matProg_linearProgress" format="boolean" />
+        <attr name="matProg_progressIndeterminate" format="boolean"/>
+        <attr name="matProg_barColor" format="color"/>
+        <attr name="matProg_rimColor" format="color"/>
+        <attr name="matProg_rimWidth" format="dimension"/>
+        <attr name="matProg_spinSpeed" format="float"/>
+        <attr name="matProg_barSpinCycleTime" format="integer"/>
+        <attr name="matProg_circleRadius" format="dimension"/>
+        <attr name="matProg_fillRadius" format="boolean"/>
+        <attr name="matProg_barWidth" format="dimension"/>
+        <attr name="matProg_linearProgress" format="boolean"/>
     </declare-styleable>
     <declare-styleable name="Ripple">
-        <attr name="mrl_rippleColor" format="color" localization="suggested" />
-        <attr name="mrl_rippleDimension" format="dimension" localization="suggested" />
-        <attr name="mrl_rippleOverlay" format="boolean" localization="suggested" />
-        <attr name="mrl_rippleAlpha" format="float" localization="suggested" />
-        <attr name="mrl_rippleDuration" format="integer" localization="suggested" />
-        <attr name="mrl_rippleFadeDuration" format="integer" localization="suggested" />
-        <attr name="mrl_rippleHover" format="boolean" localization="suggested" />
-        <attr name="mrl_rippleBackground" format="color" localization="suggested" />
-        <attr name="mrl_rippleDelayClick" format="boolean" localization="suggested" />
-        <attr name="mrl_ripplePersistent" format="boolean" localization="suggested" />
-        <attr name="mrl_rippleInAdapter" format="boolean" localization="suggested" />
-        <attr name="mrl_rippleRoundedCorners" format="dimension" localization="suggested" />
+        <attr name="mrl_rippleColor" format="color" localization="suggested"/>
+        <attr name="mrl_rippleDimension" format="dimension" localization="suggested"/>
+        <attr name="mrl_rippleOverlay" format="boolean" localization="suggested"/>
+        <attr name="mrl_rippleAlpha" format="float" localization="suggested"/>
+        <attr name="mrl_rippleDuration" format="integer" localization="suggested"/>
+        <attr name="mrl_rippleFadeDuration" format="integer" localization="suggested"/>
+        <attr name="mrl_rippleHover" format="boolean" localization="suggested"/>
+        <attr name="mrl_rippleBackground" format="color" localization="suggested"/>
+        <attr name="mrl_rippleDelayClick" format="boolean" localization="suggested"/>
+        <attr name="mrl_ripplePersistent" format="boolean" localization="suggested"/>
+        <attr name="mrl_rippleInAdapter" format="boolean" localization="suggested"/>
+        <attr name="mrl_rippleRoundedCorners" format="dimension" localization="suggested"/>
     </declare-styleable>
     <declare-styleable name="CircleImageView">
-        <attr name="civ_border_width" format="dimension" />
-        <attr name="civ_border_color" format="color" />
-        <attr name="civ_border_overlay" format="boolean" />
-        <attr name="civ_fill_color" format="color" />
+        <attr name="civ_border_width" format="dimension"/>
+        <attr name="civ_border_color" format="color"/>
+        <attr name="civ_border_overlay" format="boolean"/>
+        <attr name="civ_fill_color" format="color"/>
     </declare-styleable>
     <declare-styleable name="FancyButton">
-        <attr name="fb_defaultColor" format="color" />
-        <attr name="fb_text" format="string" />
+        <attr name="fb_defaultColor" format="color"/>
+        <attr name="fb_text" format="string"/>
 
-        <attr name="fb_textColor" format="color" />
-        <attr name="fb_iconColor" format="color" />
+        <attr name="fb_textColor" format="color"/>
+        <attr name="fb_iconColor" format="color"/>
 
-        <attr name="fb_textFont" format="string" />
-        <attr name="fb_iconFont" format="string" />
+        <attr name="fb_textFont" format="string"/>
+        <attr name="fb_iconFont" format="string"/>
 
-        <attr name="fb_textSize" format="dimension" />
-        <attr name="fb_iconResource" format="integer" />
-        <attr name="fb_fontIconResource" format="string" />
-        <attr name="fb_fontIconSize" format="dimension" />
+        <attr name="fb_textSize" format="dimension"/>
+        <attr name="fb_iconResource" format="integer"/>
+        <attr name="fb_fontIconResource" format="string"/>
+        <attr name="fb_fontIconSize" format="dimension"/>
         <attr name="fb_iconPosition" format="enum">
-            <enum name="left" value="1" />
-            <enum name="right" value="2" />
-            <enum name="top" value="3" />
-            <enum name="bottom" value="4" />
+            <enum name="left" value="1"/>
+            <enum name="right" value="2"/>
+            <enum name="top" value="3"/>
+            <enum name="bottom" value="4"/>
         </attr>
 
         <attr name="fb_textPosition" format="enum">
-            <enum name="left" value="1" />
-            <enum name="right" value="2" />
-            <enum name="top" value="3" />
-            <enum name="bottom" value="4" />
+            <enum name="left" value="1"/>
+            <enum name="right" value="2"/>
+            <enum name="top" value="3"/>
+            <enum name="bottom" value="4"/>
         </attr>
 
         <attr name="fb_textGravity" format="enum">
-            <enum name="top" value="0x30" />
-            <enum name="bottom" value="0x50" />
-            <enum name="left" value="0x03" />
-            <enum name="right" value="0x05" />
-            <enum name="center_vertical" value="0x10" />
-            <enum name="fill_vertical" value="0x70" />
-            <enum name="center_horizontal" value="0x01" />
-            <enum name="fill_horizontal" value="0x07" />
-            <enum name="center" value="0x11" />
-            <enum name="fill" value="0x77" />
-            <enum name="clip_vertical" value="0x80" />
-            <enum name="clip_horizontal" value="0x08" />
-            <enum name="start" value="0x00800003" />
-            <enum name="end" value="0x00800005" />
+            <enum name="top" value="0x30"/>
+            <enum name="bottom" value="0x50"/>
+            <enum name="left" value="0x03"/>
+            <enum name="right" value="0x05"/>
+            <enum name="center_vertical" value="0x10"/>
+            <enum name="fill_vertical" value="0x70"/>
+            <enum name="center_horizontal" value="0x01"/>
+            <enum name="fill_horizontal" value="0x07"/>
+            <enum name="center" value="0x11"/>
+            <enum name="fill" value="0x77"/>
+            <enum name="clip_vertical" value="0x80"/>
+            <enum name="clip_horizontal" value="0x08"/>
+            <enum name="start" value="0x00800003"/>
+            <enum name="end" value="0x00800005"/>
         </attr>
 
-        <attr name="fb_iconPaddingLeft" format="dimension" />
-        <attr name="fb_iconPaddingRight" format="dimension" />
-        <attr name="fb_iconPaddingTop" format="dimension" />
-        <attr name="fb_iconPaddingBottom" format="dimension" />
+        <attr name="fb_iconPaddingLeft" format="dimension"/>
+        <attr name="fb_iconPaddingRight" format="dimension"/>
+        <attr name="fb_iconPaddingTop" format="dimension"/>
+        <attr name="fb_iconPaddingBottom" format="dimension"/>
 
-        <attr name="fb_borderColor" format="color" />
-        <attr name="fb_borderWidth" format="dimension" />
-        <attr name="fb_focusColor" format="color" />
-        <attr name="fb_disabledColor" format="color" />
-        <attr name="fb_disabledTextColor" format="color" />
-        <attr name="fb_disabledBorderColor" format="color" />
-        <attr name="fb_radius" format="dimension" />
-        <attr name="fb_textAllCaps" format="boolean" />
+        <attr name="fb_borderColor" format="color"/>
+        <attr name="fb_borderWidth" format="dimension"/>
+        <attr name="fb_focusColor" format="color"/>
+        <attr name="fb_disabledColor" format="color"/>
+        <attr name="fb_disabledTextColor" format="color"/>
+        <attr name="fb_disabledBorderColor" format="color"/>
+        <attr name="fb_radius" format="dimension"/>
+        <attr name="fb_textAllCaps" format="boolean"/>
 
-        <attr name="fb_ghost" format="boolean" />
-        <attr name="fb_useSystemFont" format="boolean" />
+        <attr name="fb_ghost" format="boolean"/>
+        <attr name="fb_useSystemFont" format="boolean"/>
     </declare-styleable>
 
     <declare-styleable name="CircularIndicator">

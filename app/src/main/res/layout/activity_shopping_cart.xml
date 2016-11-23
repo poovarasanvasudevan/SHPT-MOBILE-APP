@@ -1,68 +1,242 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_shopping_cart"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="in.shpt.activity.ShoppingCart">
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/activity_shopping_cart"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context="in.shpt.activity.ShoppingCart">
 
 
     <android.support.design.widget.AppBarLayout
-        android:id="@+id/appbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:stateListAnimator="@null"
-        android:elevation="@dimen/design_appbar_elevation">
+            android:id="@+id/appbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:stateListAnimator="@null"
+            android:elevation="@dimen/design_appbar_elevation">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?actionBarSize"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
     </android.support.design.widget.AppBarLayout>
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/appbar">
-
-
-        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:background="@color/md_white_1000">
+            android:layout_height="match_parent"
+            android:layout_below="@+id/appbar">
+
+        <android.support.v4.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:id="@+id/productPanel"
+                android:layout_above="@+id/bottomPanel"
+                android:layout_height="match_parent">
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:layout_height="match_parent">
+                <android.support.v7.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:id="@+id/shoppingCartProducts"
+                        android:layout_height="wrap_content"/>
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="vertical"
+                        android:id="@+id/couponBlock"
+                        android:layout_height="wrap_content">
+
+                    <TextView
+                            android:layout_width="match_parent"
+                            android:id="@+id/couponLabelText"
+                            android:text="Use Coupon Code : "
+                            android:layout_marginLeft="6dp"
+                            style="@style/TextAppearance.AppCompat.Medium"
+                            android:layout_height="wrap_content"/>
+
+                    <android.support.v7.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_margin="6dp"
+                            android:layout_height="wrap_content">
+
+                        <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:padding="5dp"
+                                android:layout_height="wrap_content">
+
+                            <com.mikepenz.iconics.view.IconicsImageView
+                                    android:layout_width="35dp"
+                                    app:iiv_color="?colorPrimary"
+                                    app:iiv_icon="faw-tag"
+                                    android:padding="10dp"
+                                    android:layout_alignParentLeft="true"
+                                    android:id="@+id/giftIcon"
+                                    android:layout_height="35dp"/>
+
+                            <EditText
+                                    android:layout_width="match_parent"
+                                    android:background="@null"
+                                    android:paddingLeft="6dp"
+                                    android:inputType="number"
+                                    android:id="@+id/couponCode"
+                                    android:hint="Coupon Code"
+                                    android:layout_toLeftOf="@+id/editCoupon"
+                                    android:layout_toRightOf="@+id/giftIcon"
+                                    android:layout_height="40dp"/>
+
+                            <in.shpt.widget.Ripple
+                                    android:layout_width="35dp"
+                                    android:layout_weight="7"
+                                    android:layout_marginTop="5dp"
+                                    app:mrl_rippleColor="@color/md_grey_500"
+                                    app:mrl_rippleOverlay="true"
+                                    android:layout_alignParentRight="true"
+                                    android:id="@+id/editCoupon"
+                                    android:layout_height="35dp">
+
+                                <com.mikepenz.iconics.view.IconicsButton
+                                        android:layout_width="match_parent"
+                                        android:background="@color/md_white_1000"
+                                        android:textColor="?colorPrimary"
+                                        android:text="{faw-check}"
+                                        android:layout_height="match_parent"/>
+                            </in.shpt.widget.Ripple>
+                        </RelativeLayout>
+                    </android.support.v7.widget.CardView>
+                </LinearLayout>
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="vertical"
+                        android:id="@+id/voucherBlock"
+                        android:layout_height="wrap_content">
+
+                    <TextView
+                            android:layout_width="match_parent"
+                            android:id="@+id/voucherLabelText"
+                            android:text="Use Coupon Code : "
+                            android:layout_marginLeft="6dp"
+                            style="@style/TextAppearance.AppCompat.Medium"
+                            android:layout_height="wrap_content"/>
+
+                    <android.support.v7.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_margin="6dp"
+                            android:layout_height="wrap_content">
+
+                        <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:padding="5dp"
+                                android:layout_height="wrap_content">
+
+                            <com.mikepenz.iconics.view.IconicsImageView
+                                    android:layout_width="35dp"
+                                    app:iiv_color="?colorPrimary"
+                                    app:iiv_icon="faw-gift"
+                                    android:padding="10dp"
+                                    android:layout_alignParentLeft="true"
+                                    android:id="@+id/vouchergiftIcon"
+                                    android:layout_height="35dp"/>
+
+                            <EditText
+                                    android:layout_width="match_parent"
+                                    android:background="@null"
+                                    android:paddingLeft="6dp"
+                                    android:inputType="number"
+                                    android:id="@+id/vouchercouponCode"
+                                    android:hint="Gift Voucher Code"
+                                    android:layout_toLeftOf="@+id/vouchereditIcon"
+                                    android:layout_toRightOf="@+id/vouchergiftIcon"
+                                    android:layout_height="40dp"/>
+
+                            <in.shpt.widget.Ripple
+                                    android:layout_width="35dp"
+                                    android:layout_weight="7"
+                                    android:layout_marginTop="5dp"
+                                    app:mrl_rippleColor="@color/md_grey_500"
+                                    app:mrl_rippleOverlay="true"
+                                    android:layout_alignParentRight="true"
+                                    android:id="@+id/vouchereditIcon"
+                                    android:layout_height="35dp">
+
+                                <com.mikepenz.iconics.view.IconicsButton
+                                        android:layout_width="match_parent"
+                                        android:background="@color/md_white_1000"
+                                        android:textColor="?colorPrimary"
+                                        android:text="{faw-check}"
+                                        android:layout_height="match_parent"/>
+                            </in.shpt.widget.Ripple>
+                        </RelativeLayout>
+                    </android.support.v7.widget.CardView>
+                </LinearLayout>
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:id="@+id/emptyPanel"
+                android:visibility="gone"
+                android:layout_height="match_parent">
+
+            <ImageView
+                    android:layout_width="120dp"
+                    android:id="@+id/emptyImage"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_height="120dp"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/emptyText"
+                    android:layout_below="@+id/emptyImage"
+                    android:layout_marginTop="10dp"
+                    android:layout_height="wrap_content"/>
+        </RelativeLayout>
+        <in.shpt.widget.ProgressWheel
+                android:layout_width="40dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                app:matProg_barColor="?colorPrimary"
+                app:matProg_barWidth="3dp"
+                android:id="@+id/progress"
+                app:matProg_progressIndeterminate="true"
+                android:layout_height="40dp"/>
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/bottomPanel"
+                android:layout_alignParentBottom="true"
+                android:background="@color/md_white_1000">
 
             <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
                 <android.support.v7.widget.AppCompatTextView
-                    style="@style/TextAppearance.AppCompat.Body2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_toLeftOf="@+id/checkoutButton"
-                    android:text="Total : 2300.00"
-                    android:textSize="16dp"/>
+                        style="@style/TextAppearance.AppCompat.Body2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_toLeftOf="@+id/checkoutButton"
+                        android:text="Total : 2300.00"
+                        android:textSize="16dp"/>
 
                 <in.shpt.widget.Ripple
-                    android:id="@+id/checkoutButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    app:mrl_rippleColor="@color/md_grey_700"
-                    app:mrl_rippleOverlay="true">
-
-                    <android.support.v7.widget.AppCompatButton
-                        style="@style/GreenButton"
+                        android:id="@+id/checkoutButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Checkout" />
+                        android:layout_alignParentRight="true"
+                        app:mrl_rippleColor="@color/md_grey_700"
+                        app:mrl_rippleOverlay="true">
+
+                    <android.support.v7.widget.AppCompatButton
+                            style="@style/GreenButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Checkout"/>
                 </in.shpt.widget.Ripple>
             </RelativeLayout>
         </LinearLayout>
