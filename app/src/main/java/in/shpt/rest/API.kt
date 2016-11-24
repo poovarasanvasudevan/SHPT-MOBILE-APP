@@ -109,6 +109,9 @@ interface API {
     @GET
     fun getGiftVoucherPage(@Url url: String): Call<ResponseBody>
 
+    @GET
+    fun removeFromCart(@Url url: String, @Query("remove") product_id: String) : Call<ResponseBody>
+
 
     @POST
     @FormUrlEncoded

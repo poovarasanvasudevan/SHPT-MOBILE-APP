@@ -14,7 +14,9 @@ import android.widget.LinearLayout
 import android.widget.RadioGroup
 import com.mcxiaoke.koi.ext.isConnected
 import com.mcxiaoke.koi.ext.onClick
+import com.mcxiaoke.koi.ext.startActivity
 import com.mcxiaoke.koi.ext.toast
+import com.mikepenz.fontawesome_typeface_library.FontAwesome
 import kotlinx.android.synthetic.main.activity_gift_card.*
 import org.json.JSONArray
 import org.json.JSONObject
@@ -25,6 +27,7 @@ class GiftCard : AppCompatActivity() {
     val themeConstant: Int = 10065
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        theme()
         setContentView(R.layout.activity_gift_card)
 
         setSupportActionBar(toolbar)
@@ -34,8 +37,10 @@ class GiftCard : AppCompatActivity() {
 
         loadGiftVoucher()
 
-        var error: Boolean = false
+
         purchaseButton.onClick {
+            var error: Boolean = false
+
             if (erName.isInvalid()) {
                 erName.error = getRequiredError("Recipient Name")
                 error = true
@@ -64,7 +69,7 @@ class GiftCard : AppCompatActivity() {
                 toast("You Selected ${themeGroups.checkedRadioButtonId.minus(themeConstant)}")
             }
 
-            if (eyAmount.text.toString().toInt() < 1 || eyAmount.text.toString().toInt() > 1000) {
+            if (eyAmount.text.toString().isEmpty() || eyAmount.text.toString().isBlank() || eyAmount.text.toString().toInt() < 1 || eyAmount.text.toString().toInt() > 1000) {
                 eyAmount.error = "Invalid Amount"
                 error = true
             }
@@ -77,8 +82,13 @@ class GiftCard : AppCompatActivity() {
 
             if (error == false) {
                 //insert giftVoucher....
+                getIcon(FontAwesome.Icon.faw_check)
                 addGiftVoucher()
             }
+        }
+
+        gotoCartBtn.onClick {
+            startActivity<ShoppingCart>()
         }
     }
 
@@ -111,6 +121,9 @@ class GiftCard : AppCompatActivity() {
 
             if (result!!.optInt("code", 0) != 0) {
                 toast("Voucher Added to Your Cart Succesfully")
+                fullLayout.visibility = View.GONE
+                successLayout.visibility = View.VISIBLE
+                supportActionBar!!.title = "Success"
             }
             super.onPostExecute(result)
         }

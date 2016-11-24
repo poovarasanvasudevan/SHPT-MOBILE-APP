@@ -63,14 +63,15 @@
 
                         <RelativeLayout
                                 android:layout_width="match_parent"
-                                android:padding="5dp"
+                                android:padding="4dp"
                                 android:layout_height="wrap_content">
 
                             <com.mikepenz.iconics.view.IconicsImageView
                                     android:layout_width="35dp"
                                     app:iiv_color="?colorPrimary"
                                     app:iiv_icon="faw-tag"
-                                    android:padding="10dp"
+                                    android:layout_centerVertical="true"
+                                    android:padding="7dp"
                                     android:layout_alignParentLeft="true"
                                     android:id="@+id/giftIcon"
                                     android:layout_height="35dp"/>
@@ -127,14 +128,15 @@
 
                         <RelativeLayout
                                 android:layout_width="match_parent"
-                                android:padding="5dp"
+                                android:padding="4dp"
                                 android:layout_height="wrap_content">
 
                             <com.mikepenz.iconics.view.IconicsImageView
                                     android:layout_width="35dp"
                                     app:iiv_color="?colorPrimary"
                                     app:iiv_icon="faw-gift"
-                                    android:padding="10dp"
+                                    android:padding="7dp"
+                                    android:layout_centerVertical="true"
                                     android:layout_alignParentLeft="true"
                                     android:id="@+id/vouchergiftIcon"
                                     android:layout_height="35dp"/>

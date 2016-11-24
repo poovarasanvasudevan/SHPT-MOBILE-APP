@@ -154,6 +154,14 @@ fun Context.getGiftVoucherPage(): JSONObject? {
 }
 
 
+
+fun Context.removeFromCart(product_id: String): JSONObject? {
+    // Log.i("Hello", getAdapter().editAddress(Config.STATEURL, state_id!!).execute().body().string())
+    return JSONObject(getAdapter().removeFromCart(Config.CHECKOUTCART,product_id).execute().body().string())
+}
+
+
+
 fun Context.updateAddress(
         address_id: Int,
         firstname: String,

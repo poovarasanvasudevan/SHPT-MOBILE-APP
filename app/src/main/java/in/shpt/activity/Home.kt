@@ -145,7 +145,7 @@ class Home : AppCompatActivity() {
         if (cartCount > 0) {
             ActionItemBadge.update(this, homeMenu.findItem(R.id.shoppingcart), getIcon(FontAwesome.Icon.faw_shopping_cart), ActionItemBadge.BadgeStyles.GREEN, cartCount);
         } else {
-            homeMenu.findItem(R.id.notification).icon = (getIcon(FontAwesome.Icon.faw_shopping_cart));
+            homeMenu.findItem(R.id.shoppingcart).icon = (getIcon(FontAwesome.Icon.faw_shopping_cart));
         }
     }
 

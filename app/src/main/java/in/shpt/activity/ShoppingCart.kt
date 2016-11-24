@@ -3,6 +3,7 @@ package `in`.shpt.activity
 import `in`.shpt.R
 import `in`.shpt.adapter.ShoppingCartProductAdapter
 import `in`.shpt.adapter.ShoppingCartVoucherAdapter
+import `in`.shpt.event.ItemRemovedFromCartEvent
 import `in`.shpt.ext.getFullCart
 import `in`.shpt.ext.getIcon
 import `in`.shpt.ext.theme
@@ -21,8 +22,12 @@ import com.mikepenz.fastadapter.adapters.FastItemAdapter
 import com.mikepenz.fastadapter.adapters.FooterAdapter
 import com.mikepenz.fontawesome_typeface_library.FontAwesome
 import kotlinx.android.synthetic.main.activity_shopping_cart.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import org.json.JSONArray
 import org.json.JSONObject
+
 
 class ShoppingCart : AppCompatActivity() {
     lateinit var fastAdapter: FastItemAdapter<ShoppingCartProductAdapter>
@@ -50,9 +55,26 @@ class ShoppingCart : AppCompatActivity() {
 
     }
 
+    public override fun onStart() {
+        super.onStart()
+        EventBus.getDefault().register(this)
+    }
+
+    public override fun onStop() {
+        super.onStop()
+        EventBus.getDefault().unregister(this)
+    }
+
     fun loadCart() {
         if (isConnected()) {
             AsyncTaskCompat.executeParallel(FullCartLoader(), null)
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(event: ItemRemovedFromCartEvent) {
+        if (event.isSuccess) {
+            loadCart()
         }
     }
 

@@ -1,10 +1,14 @@
 package `in`.shpt.adapter
 
 import `in`.shpt.R
+import `in`.shpt.event.ItemRemovedFromCartEvent
 import `in`.shpt.ext.getIcon
+import `in`.shpt.ext.removeFromCart
 import `in`.shpt.widget.Ripple
 import android.app.Activity
 import android.graphics.Color
+import android.os.AsyncTask
+import android.support.v4.os.AsyncTaskCompat
 import android.support.v7.widget.PopupMenu
 import android.support.v7.widget.RecyclerView
 import android.view.MenuItem
@@ -12,10 +16,13 @@ import android.view.View
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import com.mcxiaoke.koi.ext.isConnected
 import com.mcxiaoke.koi.ext.onClick
 import com.mcxiaoke.koi.ext.toast
 import com.mikepenz.fastadapter.items.AbstractItem
 import com.mikepenz.fontawesome_typeface_library.FontAwesome
+import org.greenrobot.eventbus.EventBus
+import org.json.JSONObject
 
 /**
  * Created by poovarasanv on 15/11/16.
@@ -29,8 +36,10 @@ class ShoppingCartVoucherAdapter(
 
 
     override fun onMenuItemClick(item: MenuItem?): Boolean {
-
-        context.toast("Clicked...")
+        when (item!!.itemId) {
+            R.id.delete_item -> deleteFromCart()
+            else -> context.toast("clicked")
+        }
         return true;
     }
 
@@ -58,6 +67,28 @@ class ShoppingCartVoucherAdapter(
             popup.show()
         }
 
+    }
+
+    fun deleteFromCart() {
+        if (context.isConnected()) {
+            AsyncTaskCompat.executeParallel(DeleteFromCart(), null)
+        }
+    }
+
+    inner class DeleteFromCart : AsyncTask<Void, Void, JSONObject>() {
+        override fun doInBackground(vararg p0: Void?): JSONObject? {
+            return context.removeFromCart(productId)
+        }
+
+        override fun onPostExecute(result: JSONObject?) {
+
+            if (result!!.optInt("code", 0) != 0) {
+                context.toast("Item Removed From Cart")
+
+                EventBus.getDefault().post(ItemRemovedFromCartEvent(true))
+            }
+            super.onPostExecute(result)
+        }
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
