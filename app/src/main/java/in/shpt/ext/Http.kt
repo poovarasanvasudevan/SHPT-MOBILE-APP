@@ -12,6 +12,7 @@ import org.json.JSONArray
 import org.json.JSONObject
 import retrofit2.Retrofit
 import java.io.IOException
+import java.util.*
 
 
 /**
@@ -25,8 +26,10 @@ fun Context.getAdapter(): API {
 
         Log.i("cookies", Prefs.with(this).read(Config.COOKIE))
 
+
         val client = OkHttpClient.Builder()
                 .addInterceptor(CookieInterceptor(Prefs.with(this).read(Config.COOKIE)))
+                .addInterceptor(CacheInterceptor())
                 .build()
 
 
@@ -61,6 +64,20 @@ class CookieInterceptor(cookie: String) : Interceptor {
         return chain.proceed(builder.build())
     }
 
+}
+
+class CacheInterceptor : Interceptor {
+    override fun intercept(chain: Interceptor.Chain?): Response {
+        val original = chain!!.request()
+
+        // Request customization: add request headers
+        val requestBuilder = original.newBuilder()
+                .addHeader("Cache-Control", "no-cache")
+                .addHeader("Cache-Control", "no-store")
+
+        val request = requestBuilder.build()
+        return chain.proceed(request)
+    }
 }
 
 
@@ -154,13 +171,18 @@ fun Context.getGiftVoucherPage(): JSONObject? {
 }
 
 
-
 fun Context.removeFromCart(product_id: String): JSONObject? {
     // Log.i("Hello", getAdapter().editAddress(Config.STATEURL, state_id!!).execute().body().string())
-    return JSONObject(getAdapter().removeFromCart(Config.CHECKOUTCART,product_id).execute().body().string())
+    return JSONObject(getAdapter().removeFromCart(Config.CHECKOUTCART, product_id).execute().body().string())
 }
 
+fun Context.addToCart(product_id: String, quantity: String): JSONObject? {
+    return JSONObject(getAdapter().addToCart(Config.ADDTOCART, product_id, quantity).execute().body().string())
+}
 
+fun Context.modifyCart(fieldMap: HashMap<String, String>): JSONObject? {
+    return JSONObject(getAdapter().modifyCart(Config.CHECKOUTCART, fieldMap).execute().body().string())
+}
 
 fun Context.updateAddress(
         address_id: Int,
@@ -222,4 +244,8 @@ fun Context.addGiftVoucher(
     ).execute().body().string()
 
     return JSONObject(response)
+}
+
+fun Context.paymentAddressStep(): JSONObject {
+    return JSONObject(getAdapter().getGiftVoucherPage(Config.PAYMENTADDRESSSTEP).execute().body().string())
 }

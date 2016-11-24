@@ -2,23 +2,25 @@ package `in`.shpt.activity
 
 import `in`.shpt.R
 import `in`.shpt.adapter.ImagePagerAdapter
-import `in`.shpt.ext.getCart
-import `in`.shpt.ext.getIcon
-import `in`.shpt.ext.getProductDetail
-import `in`.shpt.ext.theme
+import `in`.shpt.ext.*
 import android.os.AsyncTask
 import android.os.Bundle
 import android.support.v4.os.AsyncTaskCompat
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.text.Html
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.EditText
+import com.mcxiaoke.koi.ext.*
 import com.mikepenz.actionitembadge.library.ActionItemBadge
 import com.mikepenz.fontawesome_typeface_library.FontAwesome
 import kotlinx.android.synthetic.main.activity_product_detail.*
 import org.json.JSONArray
 import org.json.JSONObject
 import java.util.*
+
 
 class ProductDetail : AppCompatActivity() {
 
@@ -35,19 +37,56 @@ class ProductDetail : AppCompatActivity() {
         supportActionBar!!.setDisplayShowHomeEnabled(true)
 
         productId = intent.getIntExtra("PRODUCTID", 0)
-        initNavigationBar()
-
         AsyncTaskCompat.executeParallel(ProductDetailLoader(), productId)
+
+        addtocart.onClick {
+            addToCart()
+        }
+
+        addtocart.onLongClick {
+            var quantityInp: String = ""
+            var promptsView: View = inflate(R.layout.quantity_prompt)
+            val alertDialogBuilder = AlertDialog.Builder(this@ProductDetail)
+
+            // set prompts.xml to alertdialog builder
+            alertDialogBuilder.setView(promptsView)
+
+            val userInput = promptsView
+                    .findViewById(R.id.input_quantity) as EditText
+
+            alertDialogBuilder
+                    .setCancelable(true)
+                    .setPositiveButton("OK"
+                    ) { dialog, id ->
+                        quantityInp = userInput.text.toString()
+                        addToCart(quantityInp)
+                    }
+                    .setNegativeButton("Cancel"
+                    ) { dialog, id -> dialog.cancel() }
+            val alertDialog = alertDialogBuilder.create()
+            alertDialog.show()
+            true
+        }
     }
 
-    fun initNavigationBar() {
-        bottomMenu = productNavigation.menu
-        bottomMenu.findItem(R.id.productdetailshoppingcart).setIcon(getIcon(FontAwesome.Icon.faw_shopping_cart))
-        bottomMenu.findItem(R.id.productdetailwishlist).setIcon(getIcon(FontAwesome.Icon.faw_shopping_bag))
-        bottomMenu.findItem(R.id.productdetailaddtowishlist).setIcon(getIcon(FontAwesome.Icon.faw_shopping_basket))
-        bottomMenu.findItem(R.id.addtocart).setIcon(getIcon(FontAwesome.Icon.faw_cart_plus))
+    fun addToCart(quantity: String = "1") {
+        if (isConnected()) {
+            AsyncTaskCompat.executeParallel(AddToCart(), quantity)
+        }
+    }
 
-        AsyncTaskCompat.executeParallel(CartLoader(),null)
+    inner class AddToCart : AsyncTask<String, Void, JSONObject>() {
+        override fun doInBackground(vararg p0: String?): JSONObject? {
+            return addToCart(productId.toString(), p0[0] as String)
+        }
+
+        override fun onPostExecute(result: JSONObject?) {
+            if (result!!.optString("success", "NULL") != "NULL") {
+                toast("Product added to Cart Succesfully")
+                addtocart.setImageDrawable(getIcon(FontAwesome.Icon.faw_check))
+            }
+            super.onPostExecute(result)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

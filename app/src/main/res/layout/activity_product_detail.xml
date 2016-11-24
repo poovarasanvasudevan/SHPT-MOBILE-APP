@@ -78,14 +78,21 @@
             </RelativeLayout>
         </android.support.v4.widget.NestedScrollView>
 
-        <android.support.design.widget.BottomNavigationView
-                android:id="@+id/productNavigation"
-                android:layout_width="match_parent"
+
+        <android.support.design.widget.FloatingActionButton
+                android:layout_width="wrap_content"
+                app:fabSize="normal"
+                app:backgroundTint="?colorPrimary"
+                android:src="@drawable/ic_cart_plus"
+                app:elevation="4dp"
+                android:id="@+id/addtocart"
+                app:pressedTranslationZ="4dp"
+                app:rippleColor="@color/md_blue_grey_700"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="16dp"
+                android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
-                app:itemBackground="@color/md_white_1000"
-                app:itemIconTint="?colorPrimary"
-                app:menu="@menu/product_detail_bottom_menu"
-                app:itemTextColor="?colorPrimary"
                 android:layout_height="wrap_content"/>
+
     </RelativeLayout>
 </RelativeLayout>

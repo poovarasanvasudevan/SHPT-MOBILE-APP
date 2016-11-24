@@ -66,7 +66,7 @@ class GiftCard : AppCompatActivity() {
                 error = true
             } else {
                 themeError.visibility = View.GONE
-                toast("You Selected ${themeGroups.checkedRadioButtonId.minus(themeConstant)}")
+               // toast("You Selected ${themeGroups.checkedRadioButtonId.minus(themeConstant)}")
             }
 
             if (eyAmount.text.toString().isEmpty() || eyAmount.text.toString().isBlank() || eyAmount.text.toString().toInt() < 1 || eyAmount.text.toString().toInt() > 1000) {

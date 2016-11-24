@@ -49,6 +49,7 @@
                 android:name=".activity.GiftCard"
                 android:windowSoftInputMode="stateHidden">
         </activity>
+        <activity android:name=".checkout.Checkout"/>
     </application>
 
 </manifest>

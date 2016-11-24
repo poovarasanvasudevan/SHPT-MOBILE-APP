@@ -2,11 +2,14 @@ package `in`.shpt.activity
 
 import `in`.shpt.R
 import `in`.shpt.adapter.ShoppingCartProductAdapter
+import `in`.shpt.adapter.ShoppingCartTotalAdapter
 import `in`.shpt.adapter.ShoppingCartVoucherAdapter
+import `in`.shpt.checkout.Checkout
 import `in`.shpt.event.ItemRemovedFromCartEvent
 import `in`.shpt.ext.getFullCart
 import `in`.shpt.ext.getIcon
 import `in`.shpt.ext.theme
+import android.content.Intent
 import android.graphics.Color
 import android.os.AsyncTask
 import android.os.Bundle
@@ -18,6 +21,9 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import com.mcxiaoke.koi.ext.isConnected
+import com.mcxiaoke.koi.ext.onClick
+import com.mcxiaoke.koi.ext.startActivityForResult
+import com.mcxiaoke.koi.ext.toast
 import com.mikepenz.fastadapter.adapters.FastItemAdapter
 import com.mikepenz.fastadapter.adapters.FooterAdapter
 import com.mikepenz.fontawesome_typeface_library.FontAwesome
@@ -32,6 +38,7 @@ import org.json.JSONObject
 class ShoppingCart : AppCompatActivity() {
     lateinit var fastAdapter: FastItemAdapter<ShoppingCartProductAdapter>
     lateinit var voucherAdapter: FooterAdapter<ShoppingCartVoucherAdapter>
+    lateinit var totalAdapter: FastItemAdapter<ShoppingCartTotalAdapter>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,13 +53,32 @@ class ShoppingCart : AppCompatActivity() {
         llm.orientation = LinearLayoutManager.VERTICAL
         shoppingCartProducts.layoutManager = llm
 
+
+        val llm1 = LinearLayoutManager(this)
+        llm1.orientation = LinearLayoutManager.VERTICAL
+        totalList.layoutManager = llm1
+
         fastAdapter = FastItemAdapter()
         voucherAdapter = FooterAdapter()
+        totalAdapter = FastItemAdapter()
+
+        totalList.adapter = totalAdapter
+
         shoppingCartProducts.itemAnimator = DefaultItemAnimator()
         shoppingCartProducts.adapter = voucherAdapter.wrap(fastAdapter)
 
         loadCart()
 
+        checkoutButton.onClick {
+            startActivityForResult<Checkout>(1234)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        when (requestCode) {
+            1234 -> toast("Returned")
+        }
+        super.onActivityResult(requestCode, resultCode, data)
     }
 
     public override fun onStart() {
@@ -94,9 +120,7 @@ class ShoppingCart : AppCompatActivity() {
 
         override fun onPostExecute(result: JSONObject?) {
 
-            productPanel.visibility = View.VISIBLE
-            bottomPanel.visibility = View.VISIBLE
-            progress.visibility = View.GONE
+
             supportActionBar!!.title = result!!.optString("heading_title")
             if (result.optJSONArray("products") == null) {
                 bottomPanel.visibility = View.GONE
@@ -116,7 +140,7 @@ class ShoppingCart : AppCompatActivity() {
                     fastAdapter.add(ShoppingCartProductAdapter(
                             products.optJSONObject(i).optString("model"),
                             products.optJSONObject(i).optString("name"),
-                            products.optJSONObject(i).optString("thumb"),
+                            products.optJSONObject(i).optString("thumb").replace("47x47", "550x550"),
                             products.optJSONObject(i).optInt("quantity").toString(),
                             products.optJSONObject(i).optString("total"),
                             this@ShoppingCart
@@ -133,6 +157,18 @@ class ShoppingCart : AppCompatActivity() {
                     ))
                 }
 
+
+                var totals: JSONArray = result.optJSONArray("totals")
+                for (i in 0..totals.length() - 1) {
+                    totalAdapter.add(ShoppingCartTotalAdapter(
+                            totals.optJSONObject(i).optString("title"),
+                            totals.optJSONObject(i).optString("text")
+                    ))
+                    if (totals.optJSONObject(i).optString("code") == "total") {
+                        totalAmount.text = "Total : ${totals.optJSONObject(i).optString("text")}"
+                    }
+                }
+
                 couponCode.setText(result.optString("coupon"))
                 vouchercouponCode.setText(result.optString("voucher"))
                 couponLabelText.text = result.optString("text_use_coupon")
@@ -147,11 +183,13 @@ class ShoppingCart : AppCompatActivity() {
                 if (result.optString("voucher_status").toInt() == 0) {
                     voucherBlock.visibility = View.GONE
                 }
-
-
             }
             // getIcon(FontAwesome.Icon.faw_gift)
 
+
+            productPanel.visibility = View.VISIBLE
+            bottomPanel.visibility = View.VISIBLE
+            progress.visibility = View.GONE
             super.onPostExecute(result)
         }
     }

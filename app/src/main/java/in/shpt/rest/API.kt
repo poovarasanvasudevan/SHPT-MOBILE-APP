@@ -3,10 +3,12 @@ package `in`.shpt.rest
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*
+import java.util.*
 
 /**
  * Created by poovarasanv on 14/11/16.
  */
+
 
 interface API {
 
@@ -110,8 +112,16 @@ interface API {
     fun getGiftVoucherPage(@Url url: String): Call<ResponseBody>
 
     @GET
-    fun removeFromCart(@Url url: String, @Query("remove") product_id: String) : Call<ResponseBody>
+    fun removeFromCart(@Url url: String, @Query("remove") product_id: String): Call<ResponseBody>
 
+    @POST
+    @FormUrlEncoded
+    fun addToCart(@Url url: String, @Field("product_id") product_id: String, @Field("quantity") quantity: String): Call<ResponseBody>
+
+
+    @POST
+    @FormUrlEncoded
+    fun modifyCart(@Url url: String, @FieldMap(encoded = false) fieldMap: HashMap<String, String>): Call<ResponseBody>
 
     @POST
     @FormUrlEncoded
@@ -126,4 +136,7 @@ interface API {
             @Field("amount") amount: String,
             @Field("agree") agree: String
     ): Call<ResponseBody>
+
+    @GET
+    fun paymentAddressStep(@Url url: String): Call<ResponseBody>
 }

@@ -27,8 +27,8 @@ object Config {
     var CATEGORYPRODUCTDETAIL = "${BASE}/index.php?route=product/category&webapi=true"
     var CHECKOUTCART = "${BASE}/index.php?route=checkout/cart&webapi=true"
     var VOUCHERPURCHASE = "${BASE}/index.php?route=account/voucher&webapi=true"
-
-
+    var ADDTOCART = "${BASE}/index.php?route=checkout/cart/add"
+    var PAYMENTADDRESSSTEP = "${BASE}/index.php?route=checkout/payment_address&webapi=true"
     //config
     var COOKIE = "login_shpt_cookie"
     var THEME = "my_theme"

@@ -9,6 +9,7 @@ import android.app.Activity
 import android.graphics.Color
 import android.os.AsyncTask
 import android.support.v4.os.AsyncTaskCompat
+import android.support.v7.app.AlertDialog
 import android.support.v7.widget.PopupMenu
 import android.support.v7.widget.RecyclerView
 import android.view.MenuItem
@@ -43,6 +44,7 @@ class ShoppingCartVoucherAdapter(
         return true;
     }
 
+
     override fun getType(): Int {
         return R.id.shoppingcartvoucheradapter
     }
@@ -62,7 +64,7 @@ class ShoppingCartVoucherAdapter(
 
         holder.overflowIcon.onClick { view ->
             val popup = PopupMenu(view.context, view)
-            popup.inflate(R.menu.cart_item_menu)
+            popup.inflate(R.menu.cart_voucher_menu)
             popup.setOnMenuItemClickListener(this)
             popup.show()
         }
@@ -71,7 +73,18 @@ class ShoppingCartVoucherAdapter(
 
     fun deleteFromCart() {
         if (context.isConnected()) {
-            AsyncTaskCompat.executeParallel(DeleteFromCart(), null)
+            val builder = AlertDialog.Builder(context)
+            builder.setTitle("Are You Sure?")
+            builder.setMessage("Are you sure you want to remove ${productName} from cart ...")
+            builder.setPositiveButton("OK", { dialogInterface, i ->
+                run {
+                    AsyncTaskCompat.executeParallel(DeleteFromCart(), null)
+                }
+            })
+            builder.setNegativeButton("Cancel", null)
+            builder.show()
+        } else {
+            context.toast("No Internet Connection")
         }
     }
 

@@ -8,20 +8,11 @@
     <item name="categoryadapter" type="id"></item>
     <item name="shoppingcartproductadapter" type="id"></item>
     <item name="shoppingcartvoucheradapter" type="id"></item>
-
-
-
-
-
-
-
-
-
+    <item name="shoppingcarttotaladapter" type="id"></item>
 
 
     <item name="giftcardthemeselection" type="id"></item>
-
-
+    <item name="paymentaddressselection" type="id"></item>
 
 
     <declare-styleable name="ProgressWheel">
