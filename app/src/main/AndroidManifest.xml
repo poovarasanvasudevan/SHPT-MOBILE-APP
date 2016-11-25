@@ -20,36 +20,56 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".activity.LoginActivity"/>
+        <activity
+                android:name=".activity.LoginActivity"
+                android:screenOrientation="portrait"/>
         <activity
                 android:name=".activity.LoginWebView"
+                android:screenOrientation="portrait"
                 android:label="Login"/>
         <activity android:name=".activity.Home"/>
         <activity
                 android:name=".activity.ProfileUpdate"
+                android:screenOrientation="portrait"
                 android:windowSoftInputMode="adjustResize|stateHidden"/>
         <activity
                 android:name=".activity.ShoppingCart"
+                android:screenOrientation="portrait"
                 android:label="Shopping Cart"
                 android:windowSoftInputMode="stateHidden"/>
         <activity
                 android:name=".activity.MyOrders"
+                android:screenOrientation="portrait"
                 android:label="Order History"/>
-        <activity android:name=".activity.OrderDetails"/>
-        <activity android:name=".activity.AddressBook"/>
+        <activity
+                android:name=".activity.OrderDetails"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name=".activity.AddressBook"
+                android:screenOrientation="portrait"/>
         <activity
                 android:name=".activity.EditAddress"
+                android:screenOrientation="portrait"
                 android:windowSoftInputMode="adjustResize|stateHidden"/>
-        <activity android:name=".activity.WishList"/>
-        <activity android:name=".activity.ProductDetail">
+        <activity
+                android:name=".activity.WishList"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name=".activity.ProductDetail"
+                android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".activity.CategoryView">
+        <activity
+                android:name=".activity.CategoryView"
+                android:screenOrientation="portrait">
         </activity>
         <activity
                 android:name=".activity.GiftCard"
+                android:screenOrientation="portrait"
                 android:windowSoftInputMode="stateHidden">
         </activity>
-        <activity android:name=".checkout.Checkout"/>
+        <activity
+                android:name=".checkout.Checkout"
+                android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
