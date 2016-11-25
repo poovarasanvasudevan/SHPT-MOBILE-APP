@@ -178,5 +178,166 @@
 
 	</file>
 
+	<file name="catalog/controller/checkout/cart.php">
+		<operation>
+			<search position="replace"><![CDATA[$this->response->setOutput($this->render());]]></search>
+			<add><![CDATA[
+					if(isset($this->request->get['webapi'])) {
+						    header('Content-type: application/json');
+						    //unset($this->data['text_shipping_charges']);
+						    unset($this->data['breadcrumbs']);
+
+							echo json_encode($this->data);
+					} else {
+						$this->response->setOutput($this->render());
+					}
+				]]></add>
+		</operation>
+
+		<operation>
+			<search position="replace"><![CDATA[$this->redirect($this->url->link('checkout/cart'));]]></search>
+			<add><![CDATA[
+					if(isset($this->request->get['webapi'])) {
+						    header('Content-type: application/json');
+
+							echo json_encode(array("code"=>200,"message"=>"Success"));
+					} else {
+						$this->redirect($this->url->link('checkout/cart'));
+					}
+				]]></add>
+		</operation>
+
+	</file>
+
+	<file name="catalog/controller/account/voucher.php">
+		<operation>
+			<search position="replace"><![CDATA[$this->response->setOutput($this->render());]]></search>
+			<add><![CDATA[
+					if(isset($this->request->get['webapi'])) {
+						    header('Content-type: application/json');
+							echo json_encode($this->data);
+					} else {
+						$this->response->setOutput($this->render());
+					}
+				]]></add>
+		</operation>
+		<operation>
+
+			<search position="replace"><![CDATA[$this->redirect($this->url->link('account/voucher/success'));]]></search>
+			<add><![CDATA[
+					if(isset($this->request->get['webapi'])) {
+						    header('Content-type: application/json');
+							echo json_encode(array("code"=>200,"message"=>"Voucher Created Succesfully"));
+							return;
+					} else {
+						$this->redirect($this->url->link('account/voucher/success'));
+					}
+				]]></add>
+		</operation>
+	</file>
+
+	<file name="catalog/controller/checkout/checkout.php">
+		<operation>
+			<search position="replace"><![CDATA[$this->response->setOutput($this->render());]]></search>
+			<add><![CDATA[
+					if(isset($this->request->get['webapi'])) {
+						    header('Content-type: application/json');
+							echo json_encode($this->data);
+					} else {
+						$this->response->setOutput($this->render());
+					}
+				]]></add>
+		</operation>
+		<operation>
+
+			<search position="replace"><![CDATA[$this->redirect($this->url->link('account/edit', '', 'SSL'));]]></search>
+			<add><![CDATA[
+					if(isset($this->request->get['webapi'])) {
+						    header('Content-type: application/json');
+							echo json_encode(array("code"=>201,"message"=> $this->session->data['error_warning']));
+							return;
+					} else {
+						$this->redirect($this->url->link('account/edit', '', 'SSL'));
+					}
+				]]></add>
+		</operation>
+	</file>
+
+	<file name="catalog/controller/checkout/payment_address.php">
+		<operation>
+			<search position="replace"><![CDATA[$this->response->setOutput($this->render());]]></search>
+			<add><![CDATA[
+					if(isset($this->request->get['webapi'])) {
+						    header('Content-type: application/json');
+							echo json_encode($this->data);
+					} else {
+						$this->response->setOutput($this->render());
+					}
+				]]></add>
+		</operation>
+
+	</file>
+
+	<file name="catalog/controller/checkout/shipping_address.php">
+		<operation>
+			<search position="replace"><![CDATA[$this->response->setOutput($this->render());]]></search>
+			<add><![CDATA[
+					if(isset($this->request->get['webapi'])) {
+						    header('Content-type: application/json');
+							echo json_encode($this->data);
+					} else {
+						$this->response->setOutput($this->render());
+					}
+				]]></add>
+		</operation>
+
+	</file>
+
+
+	<file name="catalog/controller/checkout/shipping_method.php">
+		<operation>
+			<search position="replace"><![CDATA[$this->response->setOutput($this->render());]]></search>
+			<add><![CDATA[
+					if(isset($this->request->get['webapi'])) {
+						    header('Content-type: application/json');
+							echo json_encode($this->data);
+					} else {
+						$this->response->setOutput($this->render());
+					}
+				]]></add>
+		</operation>
+
+	</file>
+
+	<file name="catalog/controller/checkout/payment_method.php">
+		<operation>
+			<search position="replace"><![CDATA[$this->response->setOutput($this->render());]]></search>
+			<add><![CDATA[
+					if(isset($this->request->get['webapi'])) {
+						    header('Content-type: application/json');
+							echo json_encode($this->data);
+					} else {
+						$this->response->setOutput($this->render());
+					}
+				]]></add>
+		</operation>
+
+	</file>
+
+	<file name="catalog/controller/checkout/confirm.php">
+		<operation>
+			<search position="replace"><![CDATA[$this->response->setOutput($this->render());]]></search>
+			<add><![CDATA[
+					if(isset($this->request->get['webapi'])) {
+						    header('Content-type: application/json');
+							echo json_encode($this->data);
+					} else {
+						$this->response->setOutput($this->render());
+					}
+				]]></add>
+		</operation>
+
+	</file>
+
 
 </modification>

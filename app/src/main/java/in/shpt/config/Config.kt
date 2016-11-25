@@ -29,9 +29,33 @@ object Config {
     var VOUCHERPURCHASE = "${BASE}/index.php?route=account/voucher&webapi=true"
     var ADDTOCART = "${BASE}/index.php?route=checkout/cart/add"
     var PAYMENTADDRESSSTEP = "${BASE}/index.php?route=checkout/payment_address&webapi=true"
-    //config
+    var PAYMENTADDRESSSTEPVALIDATE = "${BASE}/index.php?route=checkout/payment_address/validate&webapi=true"
+
+    var SHIPPINGADDRESSSTEP = "${BASE}/index.php?route=checkout/shipping_address&webapi=true"
+    var SHIPPINGADDRESSSTEPVALIDATE = "${BASE}/index.php?route=checkout/shipping_address/validate&webapi=true"
+
+    var SHIPPINGMETHODSTEP = "${BASE}/index.php?route=checkout/shipping_method&webapi=true"
+    var SHIPPINGMETHODSTEPVALIDATE = "${BASE}/index.php?route=checkout/shipping_method/validate&webapi=true"
+
+    var PAYMENTMETHODSTEP = "${BASE}/index.php?route=checkout/payment_method&webapi=true"
+    var PAYMENTMETHODSTEPVALIDATE = "${BASE}/index.php?route=checkout/payment_method/validate&webapi=true"
+
+
+    var INSTAMOJO = "${BASE}/index.php?route=payment/instamojo/start"
+    var INSTAMOJOMETHOD = "GET"
+    var FSSNET = "${BASE}/index.php?route=payment/FssNet/paymentredirect"
+    var FSSNETMETHOD = "POST"
+    var COD = "${BASE}/index.php?route=payment/cod/confirm"
+    var CODMETHOD = "${BASE}/index.php?route=payment/cod/confirm"
+
+
     var COOKIE = "login_shpt_cookie"
     var THEME = "my_theme"
-    var DEFAULT_THEME = Theme.RED
+    var DEFAULT_THEME = Theme.INDIGO
     var IMAGE_PATH = "${BASE}/image/"
+    val DEFAULT_COUNTRY: String = "99"
+    val BILLINGADDRESSID: String = "billing_address_id"
+    val PAYMENTADDRESSID: String = "payment_address_id"
+    val PAYMENTMETHOD: String = "payment_method"
+    val SHIPPINGMETHOD: String = "shipping_method"
 }

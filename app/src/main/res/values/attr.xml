@@ -13,6 +13,8 @@
 
     <item name="giftcardthemeselection" type="id"></item>
     <item name="paymentaddressselection" type="id"></item>
+    <item name="shippingmethodselection" type="id"></item>
+    <item name="paymentmethodselection" type="id"></item>
 
 
     <declare-styleable name="ProgressWheel">

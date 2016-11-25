@@ -247,5 +247,36 @@ fun Context.addGiftVoucher(
 }
 
 fun Context.paymentAddressStep(): JSONObject {
-    return JSONObject(getAdapter().getGiftVoucherPage(Config.PAYMENTADDRESSSTEP).execute().body().string())
+    return JSONObject(getAdapter().paymentAddressStep(Config.PAYMENTADDRESSSTEP).execute().body().string())
 }
+
+fun Context.paymentAddressStepValidate(payment_address: String, address_id: String): JSONArray {
+    return JSONArray(getAdapter().validatePaymentAddressStep(Config.PAYMENTADDRESSSTEPVALIDATE, payment_address, address_id).execute().body().string())
+}
+
+fun Context.shippingAddressStep(): JSONObject {
+    return JSONObject(getAdapter().shippingAddressStep(Config.SHIPPINGADDRESSSTEP).execute().body().string())
+}
+
+fun Context.shippingAddressStepValidate(shipping_address: String, address_id: String): JSONArray {
+    return JSONArray(getAdapter().validateShippingAddressStep(Config.SHIPPINGADDRESSSTEPVALIDATE, shipping_address, address_id).execute().body().string())
+}
+
+fun Context.shippingMethodStep(): JSONObject {
+    return JSONObject(getAdapter().shippingMethodStep(Config.SHIPPINGMETHODSTEP).execute().body().string())
+}
+//SHIPPINGMETHODSTEPVALIDATE
+
+fun Context.shippingMethodStepValidate(shipping_method: String, comments: String): JSONArray {
+    return JSONArray(getAdapter().shippingMethodStepValidate(Config.SHIPPINGMETHODSTEPVALIDATE, shipping_method, comments).execute().body().string())
+}
+//PAYMENTMETHODSTEP
+
+fun Context.paymentMethodStep(): JSONObject {
+    return JSONObject(getAdapter().paymentMethodStep(Config.PAYMENTMETHODSTEP).execute().body().string())
+}
+
+fun Context.paymentMethodStepValidate(payment_method: String, comments: String, agree: String): JSONArray {
+    return JSONArray(getAdapter().paymentMethodStepValidate(Config.PAYMENTMETHODSTEPVALIDATE, payment_method, comments, agree).execute().body().string())
+}
+//PAYMENTMETHODSTEPVALIDATE

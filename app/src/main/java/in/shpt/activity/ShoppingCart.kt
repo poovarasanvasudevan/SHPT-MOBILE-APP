@@ -22,7 +22,7 @@ import android.view.MenuItem
 import android.view.View
 import com.mcxiaoke.koi.ext.isConnected
 import com.mcxiaoke.koi.ext.onClick
-import com.mcxiaoke.koi.ext.startActivityForResult
+import com.mcxiaoke.koi.ext.startActivity
 import com.mcxiaoke.koi.ext.toast
 import com.mikepenz.fastadapter.adapters.FastItemAdapter
 import com.mikepenz.fastadapter.adapters.FooterAdapter
@@ -70,7 +70,7 @@ class ShoppingCart : AppCompatActivity() {
         loadCart()
 
         checkoutButton.onClick {
-            startActivityForResult<Checkout>(1234)
+            startActivity<Checkout>()
         }
     }
 
@@ -133,9 +133,11 @@ class ShoppingCart : AppCompatActivity() {
 
                 fastAdapter.clear()
                 voucherAdapter.clear()
+                totalAdapter.clear()
 
 
                 var products: JSONArray = result.optJSONArray("products")
+
                 for (i in 0..products.length() - 1) {
                     fastAdapter.add(ShoppingCartProductAdapter(
                             products.optJSONObject(i).optString("model"),

@@ -139,4 +139,32 @@ interface API {
 
     @GET
     fun paymentAddressStep(@Url url: String): Call<ResponseBody>
+
+    @POST
+    @FormUrlEncoded
+    fun validatePaymentAddressStep(@Url url: String, @Field("payment_address") payment_address: String, @Field("address_id") address_id: String): Call<ResponseBody>
+
+    @GET
+    fun shippingAddressStep(@Url url: String): Call<ResponseBody>
+
+    @POST
+    @FormUrlEncoded
+    fun validateShippingAddressStep(@Url url: String, @Field("shipping_address") payment_address: String, @Field("address_id") address_id: String): Call<ResponseBody>
+
+
+    @GET
+    fun shippingMethodStep(@Url url: String): Call<ResponseBody>
+
+    @GET
+    fun paymentMethodStep(@Url url: String): Call<ResponseBody>
+
+    @POST
+    @FormUrlEncoded
+    fun paymentMethodStepValidate(@Url url: String, @Field("payment_method") payment_method: String, @Field("comment") comment: String, @Field("agree") agree: String): Call<ResponseBody>
+
+
+    //
+    @POST
+    @FormUrlEncoded
+    fun shippingMethodStepValidate(@Url url: String, @Field("shipping_method") shipping_method: String, @Field("comment") commment: String): Call<ResponseBody>
 }
