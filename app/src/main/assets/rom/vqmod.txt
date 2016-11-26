@@ -340,4 +340,23 @@
 	</file>
 
 
+
+	<file name="catalog/controller/payment/cod.php">
+		<operation>
+			<search position="replace"><![CDATA[
+$this->model_checkout_order->confirm($this->session->data['order_id'], $this->config->get('cod_order_status_id'));]]></search>
+			<add><![CDATA[
+					if(isset($this->request->get['webapi'])) {
+
+$this->model_checkout_order->confirm($this->session->data['order_id'], $this->config->get('cod_order_status_id'));
+$this->redirect($this->url->link('checkout/success', '', 'SSL'));
+
+					} else {
+
+$this->model_checkout_order->confirm($this->session->data['order_id'], $this->config->get('cod_order_status_id'));
+					}
+				]]></add>
+		</operation>
+
+	</file>
 </modification>
