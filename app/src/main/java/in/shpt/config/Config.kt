@@ -44,7 +44,7 @@ object Config {
 
     //var SHPTIMAGE = "http://localhost:8080/image/cache/data/2397_FC-550x550.jpg"
 
-    var INSTAMOJO = "${BASE}/index.php?route=payment/instamojo/start"
+    var INSTAMOJO = "/instamojo/start"
     var INSTAMOJOMETHOD = "GET"
     var FSSNET = "${BASE}/index.php?route=payment/FssNet/paymentredirect"
     var FSSNETMETHOD = "POST"

@@ -56,18 +56,19 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.ProductDetail"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.CategoryView"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.GiftCard"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden"></activity>
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".checkout.Checkout"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.PaymentWeb"></activity>
+        <activity android:name=".activity.PaymentWeb" />
+        <activity android:name=".activity.PaymentConfirm"></activity>
     </application>
 
 </manifest>

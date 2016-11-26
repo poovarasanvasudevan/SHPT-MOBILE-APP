@@ -10,6 +10,7 @@ import android.view.View
 import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import com.mcxiaoke.koi.ext.startActivity
 import com.mcxiaoke.koi.ext.toast
 import kotlinx.android.synthetic.main.activity_payment_web.*
 
@@ -30,8 +31,10 @@ class PaymentWeb : AppCompatActivity() {
 
     inner class PaymentWebClient : WebViewClient() {
         override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
-            if (url!!.contains(Config.PAYMENT_CONFIRM)) {
+            if (url!!.contains(Config.PAYMENT_CONFIRM) || url.contains(Config.INSTAMOJO)) {
                 view!!.visibility = View.GONE
+            } else {
+                view!!.visibility = View.VISIBLE
             }
             super.onPageStarted(view, url, favicon)
         }
@@ -39,7 +42,9 @@ class PaymentWeb : AppCompatActivity() {
         override fun onPageFinished(view: WebView?, url: String?) {
             if (url!!.contains(Config.PAYMENT_CONFIRM)) {
                 view!!.visibility = View.GONE
-                toast("payment confirm")
+                toast("payment confirmed")
+                startActivity<PaymentConfirm>()
+                finish()
             }
             super.onPageFinished(view, url)
         }

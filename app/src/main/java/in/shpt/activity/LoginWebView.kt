@@ -53,6 +53,14 @@ class LoginWebView : AppCompatActivity() {
         override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
 
             progressLoader.visibility = View.VISIBLE
+
+            if (url?.contains("account/edit")!!) {
+                view!!.visibility = View.GONE
+            }
+
+            if (url?.contains("common/home")!!) {
+                view!!.visibility = View.GONE
+            }
             super.onPageStarted(view, url, favicon)
         }
 
