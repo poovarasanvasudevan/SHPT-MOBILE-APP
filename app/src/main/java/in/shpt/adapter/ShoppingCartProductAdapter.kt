@@ -41,7 +41,9 @@ class ShoppingCartProductAdapter(
         var image: String,
         var quantity: String,
         var price: String,
-        var context: Activity) : AbstractItem<ShoppingCartProductAdapter, ShoppingCartProductAdapter.ViewHolder>(), PopupMenu.OnMenuItemClickListener {
+        var context: Activity,
+        var isAlertable: Boolean = true,
+        var clickable: Boolean = true) : AbstractItem<ShoppingCartProductAdapter, ShoppingCartProductAdapter.ViewHolder>(), PopupMenu.OnMenuItemClickListener {
 
 
     override fun onMenuItemClick(item: MenuItem?): Boolean {
@@ -176,19 +178,26 @@ class ShoppingCartProductAdapter(
         holder.shoppingCartProductQuantity.text = "Qty .(${quantity})"
         holder.shoppingCartProductPrice.text = price
 
+        if (isAlertable) {
 
-        holder.overflowIcon.onClick { view ->
-            val popup = PopupMenu(view.context, view)
-            popup.inflate(R.menu.cart_item_menu)
-            popup.setOnMenuItemClickListener(this)
-            popup.show()
+            holder.overflowIcon.onClick { view ->
+                val popup = PopupMenu(view.context, view)
+                popup.inflate(R.menu.cart_item_menu)
+                popup.setOnMenuItemClickListener(this)
+                popup.show()
+            }
+        } else {
+            holder.overflowIcon.visibility = View.GONE
         }
 
-        holder.cartProductItem.onClick {
-            var bundle = Bundle {
-                putInt("PRODUCTID", productId.toInt())
+        if(clickable) {
+
+            holder.cartProductItem.onClick {
+                var bundle = Bundle {
+                    putInt("PRODUCTID", productId.toInt())
+                }
+                context.startActivity<ProductDetail>(Intent.FLAG_ACTIVITY_NEW_TASK, bundle)
             }
-            context.startActivity<ProductDetail>(Intent.FLAG_ACTIVITY_NEW_TASK, bundle)
         }
     }
 

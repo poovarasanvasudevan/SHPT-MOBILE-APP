@@ -40,6 +40,9 @@ object Config {
     var PAYMENTMETHODSTEP = "${BASE}/index.php?route=checkout/payment_method&webapi=true"
     var PAYMENTMETHODSTEPVALIDATE = "${BASE}/index.php?route=checkout/payment_method/validate&webapi=true"
 
+    var CONFIRMORDER = "${BASE}/index.php?route=checkout/confirm&webapi=true"
+
+    //var SHPTIMAGE = "http://localhost:8080/image/cache/data/2397_FC-550x550.jpg"
 
     var INSTAMOJO = "${BASE}/index.php?route=payment/instamojo/start"
     var INSTAMOJOMETHOD = "GET"
@@ -47,6 +50,9 @@ object Config {
     var FSSNETMETHOD = "POST"
     var COD = "${BASE}/index.php?route=payment/cod/confirm"
     var CODMETHOD = "${BASE}/index.php?route=payment/cod/confirm"
+
+    var PAYMENTURL = "${BASE}/index.php?route=api/mobile/paymentconfirm&webapi=true"
+    var PAYMENT_CONFIRM = "checkout/success"
 
 
     var COOKIE = "login_shpt_cookie"

@@ -276,6 +276,11 @@ fun Context.paymentMethodStep(): JSONObject {
     return JSONObject(getAdapter().paymentMethodStep(Config.PAYMENTMETHODSTEP).execute().body().string())
 }
 
+
+fun Context.confirmOrderStep(): JSONObject {
+    return JSONObject(getAdapter().confirmOrderStep(Config.CONFIRMORDER).execute().body().string())
+}
+
 fun Context.paymentMethodStepValidate(payment_method: String, comments: String, agree: String): JSONArray {
     return JSONArray(getAdapter().paymentMethodStepValidate(Config.PAYMENTMETHODSTEPVALIDATE, payment_method, comments, agree).execute().body().string())
 }

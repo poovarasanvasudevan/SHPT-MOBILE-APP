@@ -185,13 +185,15 @@ class ShoppingCart : AppCompatActivity() {
                 if (result.optString("voucher_status").toInt() == 0) {
                     voucherBlock.visibility = View.GONE
                 }
+
+
+                productPanel.visibility = View.VISIBLE
+                bottomPanel.visibility = View.VISIBLE
+                progress.visibility = View.GONE
             }
             // getIcon(FontAwesome.Icon.faw_gift)
 
 
-            productPanel.visibility = View.VISIBLE
-            bottomPanel.visibility = View.VISIBLE
-            progress.visibility = View.GONE
             super.onPostExecute(result)
         }
     }

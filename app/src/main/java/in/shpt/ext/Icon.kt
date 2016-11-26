@@ -1,6 +1,7 @@
 package `in`.shpt.ext
 
 import `in`.shpt.R
+import `in`.shpt.config.Config
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Color
@@ -31,6 +32,18 @@ fun Context.bitmap2drawable(bitmap: Bitmap): Drawable {
 fun ImageView.loadUrl(url: String) {
     Glide.with(context)
             .load(url)
+            .crossFade()
+            .fitCenter()
+            .placeholder(R.drawable.no_image)
+            .error(R.drawable.no_image)
+            .into(this)
+}
+
+fun ImageView.loadSHPTImage(product_id: String, size: String = "550") {
+
+    var imageURL = Config.BASE + "/image/cache/data/${product_id}_FC-${size}x${size}.jpg"
+    Glide.with(context)
+            .load(imageURL)
             .crossFade()
             .fitCenter()
             .placeholder(R.drawable.no_image)

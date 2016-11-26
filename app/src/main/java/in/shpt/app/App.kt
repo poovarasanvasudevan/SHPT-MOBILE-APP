@@ -1,6 +1,6 @@
 package `in`.shpt.app
 
-import `in`.shpt.R
+import `in`.shpt.ext.theme
 import android.app.Application
 import android.util.Log
 import com.mcxiaoke.koi.KoiConfig
@@ -13,9 +13,10 @@ import com.mcxiaoke.koi.KoiConfig
 class App : Application() {
 
     override fun onCreate() {
+        theme()
         super.onCreate()
 
-        setTheme(R.style.BlueTheme)
+        //setTheme(R.style.BlueTheme)
         KoiConfig.logEnabled = true //default is false
 
         KoiConfig.logLevel = Log.VERBOSE

@@ -33,7 +33,8 @@ class ShoppingCartVoucherAdapter(
         var productId: String,
         var productName: String,
         var price: String,
-        var context: Activity) : AbstractItem<ShoppingCartVoucherAdapter, ShoppingCartVoucherAdapter.ViewHolder>(), PopupMenu.OnMenuItemClickListener {
+        var context: Activity,
+        var isAlertable: Boolean = true) : AbstractItem<ShoppingCartVoucherAdapter, ShoppingCartVoucherAdapter.ViewHolder>(), PopupMenu.OnMenuItemClickListener {
 
 
     override fun onMenuItemClick(item: MenuItem?): Boolean {
@@ -61,12 +62,16 @@ class ShoppingCartVoucherAdapter(
         holder.shoppingCartProductName.text = productName
         holder.shoppingCartProductPrice.text = price
 
+        if (isAlertable) {
 
-        holder.overflowIcon.onClick { view ->
-            val popup = PopupMenu(view.context, view)
-            popup.inflate(R.menu.cart_voucher_menu)
-            popup.setOnMenuItemClickListener(this)
-            popup.show()
+            holder.overflowIcon.onClick { view ->
+                val popup = PopupMenu(view.context, view)
+                popup.inflate(R.menu.cart_voucher_menu)
+                popup.setOnMenuItemClickListener(this)
+                popup.show()
+            }
+        } else {
+            holder.overflowIcon.visibility = View.GONE
         }
 
     }
