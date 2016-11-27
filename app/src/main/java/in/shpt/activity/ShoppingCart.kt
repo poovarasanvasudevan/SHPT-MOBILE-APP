@@ -126,6 +126,7 @@ class ShoppingCart : AppCompatActivity() {
                 bottomPanel.visibility = View.GONE
                 productPanel.visibility = View.GONE
                 emptyPanel.visibility = View.VISIBLE
+                progress.visibility = View.GONE
 
                 emptyImage.setImageDrawable(getIcon(FontAwesome.Icon.faw_frown_o, Color.GRAY, 120))
                 emptyText.setText(result.optString("text_error"))
