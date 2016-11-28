@@ -17,6 +17,11 @@
     <item name="paymentmethodselection" type="id"></item>
 
 
+    <declare-styleable name="TimeAgo">
+        <attr name="relative_time_prefix" format="string" />
+        <attr name="relative_time_suffix" format="string" />
+        <attr name="reference_time" format="string" />
+    </declare-styleable>
     <declare-styleable name="ProgressWheel">
         <attr name="matProg_progressIndeterminate" format="boolean"/>
         <attr name="matProg_barColor" format="color"/>

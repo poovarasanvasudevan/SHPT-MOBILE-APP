@@ -253,7 +253,7 @@ class Home : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item!!.itemId) {
             R.id.shoppingcart -> startActivity<ShoppingCart>()
-            R.id.notification -> toast("Hello World")
+            R.id.notification -> startActivity<NotificationActivity>()
             R.id.myaccount -> startActivity<ProfileUpdate>()
             android.R.id.home -> {
                 drawer.openDrawer(GravityCompat.START);
