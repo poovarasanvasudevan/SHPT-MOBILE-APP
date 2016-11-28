@@ -28,6 +28,16 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/appbar">
 
+
+        <in.shpt.widget.ProgressWheel
+                android:layout_width="40dp"
+                app:matProg_barWidth="3dp"
+                app:matProg_progressIndeterminate="true"
+                app:matProg_barColor="?colorPrimary"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/progress"
+                android:layout_height="40dp"/>
         <WebView
             android:id="@+id/payment_web"
             android:layout_width="match_parent"

@@ -5,9 +5,11 @@ import `in`.shpt.adapter.ShoppingCartProductAdapter
 import `in`.shpt.adapter.ShoppingCartTotalAdapter
 import `in`.shpt.adapter.ShoppingCartVoucherAdapter
 import `in`.shpt.ext.confirmOrderStep
+import `in`.shpt.widget.ProgressWheel
 import android.os.AsyncTask
 import android.os.Bundle
 import android.support.v4.os.AsyncTaskCompat
+import android.support.v4.widget.NestedScrollView
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -33,12 +35,17 @@ class StepFive : AbstractStep() {
     lateinit var voucherListAdapter: FooterAdapter<ShoppingCartVoucherAdapter>
 
     lateinit var totalAdapter: FastItemAdapter<ShoppingCartTotalAdapter>
+    lateinit var fullLayout: NestedScrollView
+    lateinit var progress: ProgressWheel
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val v = inflater!!.inflate(R.layout.step5, container, false)
 
         productList = v.find(R.id.productList)
         totalList = v.find(R.id.totalList)
+        progress = v.findViewById(R.id.progress) as ProgressWheel
+        fullLayout = v.findViewById(R.id.fullLayout) as NestedScrollView
+
 
         productListAdapter = FastItemAdapter()
         voucherListAdapter = FooterAdapter()
@@ -73,6 +80,13 @@ class StepFive : AbstractStep() {
     }
 
     inner class ConfirmOrderStep : AsyncTask<Void, Void, JSONObject>() {
+
+        override fun onPreExecute() {
+            progress.visibility = View.VISIBLE
+            fullLayout.visibility = View.GONE
+            super.onPreExecute()
+        }
+
         override fun doInBackground(vararg p0: Void?): JSONObject {
             return context.confirmOrderStep()
         }
@@ -81,7 +95,7 @@ class StepFive : AbstractStep() {
 
             var products = result!!.optJSONArray("products")
 
-            if(products !=null) {
+            if (products != null) {
                 for (i in 0..products.length() - 1) {
                     productListAdapter.add(ShoppingCartProductAdapter(
                             products.optJSONObject(i).optString("product_id"),
@@ -97,7 +111,7 @@ class StepFive : AbstractStep() {
             }
 
             var vouchers = result.optJSONArray("vouchers")
-            if(vouchers !=null) {
+            if (vouchers != null) {
                 for (i in 0..vouchers.length() - 1) {
                     voucherListAdapter.add(ShoppingCartVoucherAdapter(
                             vouchers.optJSONObject(i).optString("code"),
@@ -110,7 +124,7 @@ class StepFive : AbstractStep() {
             }
 
             var totals = result.optJSONArray("totals")
-            if(totals !=null) {
+            if (totals != null) {
                 for (i in 0..totals.length() - 1) {
                     totalAdapter.add(ShoppingCartTotalAdapter(
                             totals.optJSONObject(i).optString("title"),
@@ -119,6 +133,8 @@ class StepFive : AbstractStep() {
                 }
             }
 
+            progress.visibility = View.GONE
+            fullLayout.visibility = View.VISIBLE
             super.onPostExecute(result)
         }
     }
@@ -134,6 +150,5 @@ class StepFive : AbstractStep() {
     override fun nextIf(): Boolean {
         return super.nextIf()
     }
-
 
 }

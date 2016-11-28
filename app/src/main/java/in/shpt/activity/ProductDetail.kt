@@ -2,7 +2,9 @@ package `in`.shpt.activity
 
 import `in`.shpt.R
 import `in`.shpt.adapter.ImagePagerAdapter
+import `in`.shpt.event.ConnectionEvent
 import `in`.shpt.ext.*
+import android.graphics.Color
 import android.os.AsyncTask
 import android.os.Bundle
 import android.support.v4.os.AsyncTaskCompat
@@ -17,6 +19,9 @@ import com.mcxiaoke.koi.ext.*
 import com.mikepenz.actionitembadge.library.ActionItemBadge
 import com.mikepenz.fontawesome_typeface_library.FontAwesome
 import kotlinx.android.synthetic.main.activity_product_detail.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import org.json.JSONArray
 import org.json.JSONObject
 import java.util.*
@@ -37,7 +42,8 @@ class ProductDetail : AppCompatActivity() {
         supportActionBar!!.setDisplayShowHomeEnabled(true)
 
         productId = intent.getIntExtra("PRODUCTID", 0)
-        AsyncTaskCompat.executeParallel(ProductDetailLoader(), productId)
+
+        next(isConnected())
 
         addtocart.onClick {
             addToCart()
@@ -67,6 +73,35 @@ class ProductDetail : AppCompatActivity() {
             alertDialog.show()
             true
         }
+    }
+
+    fun next(isConnected: Boolean) {
+        if (isConnected) {
+            emptyLayout.visibility = View.GONE
+            fullLayout.visibility = View.VISIBLE
+            AsyncTaskCompat.executeParallel(ProductDetailLoader(), productId)
+        } else {
+            supportActionBar!!.title = resources.getString(R.string.no_internet)
+            fullLayout.visibility = View.GONE
+            emptyLayout.visibility = View.VISIBLE
+            emptyIcon.setImageDrawable(getIcon(FontAwesome.Icon.faw_frown_o, Color.GRAY, 120))
+            emptyText.text = resources.getString(R.string.no_internet)
+        }
+    }
+
+    public override fun onStart() {
+        super.onStart()
+        EventBus.getDefault().register(this)
+    }
+
+    public override fun onStop() {
+        super.onStop()
+        EventBus.getDefault().unregister(this)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(event: ConnectionEvent) {
+        next(event.isConnected)
     }
 
     fun addToCart(quantity: String = "1") {
@@ -101,6 +136,12 @@ class ProductDetail : AppCompatActivity() {
     }
 
     inner class ProductDetailLoader : AsyncTask<Int, Void, JSONObject>() {
+        override fun onPreExecute() {
+            progress.visibility = View.VISIBLE
+            fullLayout.visibility = View.GONE
+            super.onPreExecute()
+        }
+
         override fun doInBackground(vararg p0: Int?): JSONObject? {
             return getProductDetail(p0[0] as Int)
         }
@@ -122,6 +163,10 @@ class ProductDetail : AppCompatActivity() {
 
             productDetailName.text = result.optString("heading_title")
             productDetailDescription.text = Html.fromHtml(result.optString("description"))
+
+
+            progress.visibility = View.GONE
+            fullLayout.visibility = View.VISIBLE
             super.onPostExecute(result)
         }
     }

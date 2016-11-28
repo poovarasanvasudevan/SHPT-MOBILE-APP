@@ -30,7 +30,12 @@ class PaymentWeb : AppCompatActivity() {
     }
 
     inner class PaymentWebClient : WebViewClient() {
+
         override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
+
+            progress.visibility = View.VISIBLE
+            view!!.visibility = View.GONE
+
             if (url!!.contains(Config.PAYMENT_CONFIRM) || url.contains(Config.INSTAMOJO)) {
                 view!!.visibility = View.GONE
             } else {
@@ -40,12 +45,24 @@ class PaymentWeb : AppCompatActivity() {
         }
 
         override fun onPageFinished(view: WebView?, url: String?) {
+
+            if (url!!.contains(Config.INSTAMOJO)) {
+                view!!.visibility = View.GONE
+            } else {
+                view!!.visibility = View.VISIBLE
+            }
+
             if (url!!.contains(Config.PAYMENT_CONFIRM)) {
                 view!!.visibility = View.GONE
                 toast("payment confirmed")
                 startActivity<PaymentConfirm>()
                 finish()
             }
+
+
+            progress.visibility = View.GONE
+
+
             super.onPageFinished(view, url)
         }
     }

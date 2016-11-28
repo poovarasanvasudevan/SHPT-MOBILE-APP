@@ -39,6 +39,7 @@
                 android:id="@+id/confirmImage"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
+                android:src="@drawable/success"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true" />
 
@@ -50,7 +51,7 @@
                 android:layout_below="@+id/confirmImage"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"
-                android:text="Payment Done Succesfully"
+                android:text="Order Placed Succesfully"
                 android:textColor="@color/md_black_1000" />
 
             <TextView
@@ -60,7 +61,7 @@
                 android:layout_below="@+id/confirmText"
                 android:layout_centerHorizontal="true"
                 android:layout_margin="20dp"
-                android:text="Thanks for Purchase. Your Order will be Processed once we confirmed,Stay tuned for updates" />
+                android:text="@string/purchase_success" />
         </RelativeLayout>
     </RelativeLayout>
 </RelativeLayout>

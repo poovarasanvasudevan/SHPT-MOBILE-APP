@@ -4,6 +4,7 @@ import `in`.shpt.R
 import `in`.shpt.config.Config
 import `in`.shpt.ext.shippingMethodStep
 import `in`.shpt.ext.shippingMethodStepValidate
+import `in`.shpt.widget.ProgressWheel
 import android.graphics.Typeface
 import android.os.AsyncTask
 import android.os.Bundle
@@ -28,9 +29,10 @@ class StepThree : AbstractStep() {
     lateinit var heading: TextView
     lateinit var shippingMethodRadioGroup: RadioGroup
     lateinit var shippingMethodLayout: LinearLayout
+    lateinit var fullLayout: ScrollView
     var selectedShippingMethod: Int = 0
     var CONSTANT: Int = 2500
-
+    lateinit var progress : ProgressWheel
     lateinit var shippingMessageLabel: TextView
     lateinit var shippingMessageText: EditText
 
@@ -40,6 +42,8 @@ class StepThree : AbstractStep() {
         shippingMethodLayout = v.find(R.id.shippingMethodLayout)
         shippingMessageText = v.find(R.id.shippingMessageText)
         shippingMessageLabel = v.find(R.id.shippingMessageLabel)
+        progress = v.findViewById(R.id.progress) as ProgressWheel
+        fullLayout = v.findViewById(R.id.fullLayout) as ScrollView
 
         return v
     }
@@ -80,6 +84,12 @@ class StepThree : AbstractStep() {
     }
 
     inner class ShippingMethodStep : AsyncTask<Void, Void, JSONObject>() {
+        override fun onPreExecute() {
+            progress.visibility = View.VISIBLE
+            fullLayout.visibility = View.GONE
+            super.onPreExecute()
+        }
+
         override fun doInBackground(vararg p0: Void?): JSONObject {
             return context.shippingMethodStep()
         }
@@ -129,6 +139,8 @@ class StepThree : AbstractStep() {
                 }
             }
             shippingMethodLayout.addView(shippingMethodRadioGroup)
+            progress.visibility = View.GONE
+            fullLayout.visibility = View.VISIBLE
             super.onPostExecute(result)
         }
     }

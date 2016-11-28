@@ -5,6 +5,7 @@ import `in`.shpt.activity.EditAddress
 import `in`.shpt.config.Config
 import `in`.shpt.ext.paymentAddressStep
 import `in`.shpt.ext.paymentAddressStepValidate
+import `in`.shpt.widget.ProgressWheel
 import `in`.shpt.widget.Ripple
 import android.content.Intent
 import android.graphics.Typeface
@@ -33,12 +34,14 @@ class StepOne : AbstractStep() {
     lateinit var addressLayout: LinearLayout
     lateinit var newAddress: Ripple
     lateinit var paymentAddressRadioGroup: RadioGroup
+    lateinit var progress : ProgressWheel
     var CONSTANT: Int = 1688
     var selectedBillingAddress: Int = 0
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val v = inflater!!.inflate(R.layout.step1, container, false)
         addressLayout = v.findViewById(R.id.addressLayout) as LinearLayout
         newAddress = v.findViewById(R.id.newAddress) as Ripple
+        progress = v.findViewById(R.id.progress) as ProgressWheel
 
         loadPaymentAddressSteps()
 
@@ -78,6 +81,12 @@ class StepOne : AbstractStep() {
     }
 
     inner class PaymentAddressStep : AsyncTask<Void, Void, JSONObject>() {
+
+        override fun onPreExecute() {
+            progress.visibility = View.VISIBLE
+            super.onPreExecute()
+        }
+
         override fun doInBackground(vararg p0: Void?): JSONObject? {
             return context.paymentAddressStep()
         }
@@ -130,6 +139,7 @@ class StepOne : AbstractStep() {
             }
 
             addressLayout.addView(paymentAddressRadioGroup)
+            progress.visibility = View.GONE
 
             super.onPostExecute(result)
         }

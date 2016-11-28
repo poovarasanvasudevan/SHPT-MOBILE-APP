@@ -4,6 +4,7 @@ import `in`.shpt.R
 import `in`.shpt.config.Config
 import `in`.shpt.ext.paymentMethodStep
 import `in`.shpt.ext.paymentMethodStepValidate
+import `in`.shpt.widget.ProgressWheel
 import android.graphics.Typeface
 import android.os.AsyncTask
 import android.os.Bundle
@@ -32,7 +33,8 @@ class StepFour : AbstractStep() {
     lateinit var paymentMessageText: EditText
     lateinit var cardImage: ImageView
     lateinit var agree: AppCompatCheckBox
-
+    lateinit var fullLayout: ScrollView
+    lateinit var progress : ProgressWheel
     lateinit var paymentMethodRadioGroup: RadioGroup
     lateinit var paymentMethodLayout: LinearLayout
     var selectedpaymentMethod: Int = 0
@@ -48,7 +50,8 @@ class StepFour : AbstractStep() {
         cardImage = v.find(R.id.cardImage)
         agree = v.find(R.id.agree)
 
-
+        progress = v.findViewById(R.id.progress) as ProgressWheel
+        fullLayout = v.findViewById(R.id.fullLayout) as ScrollView
         cardImage.setImageDrawable(resources.getDrawable(R.drawable.payment))
         return v
     }
@@ -76,6 +79,13 @@ class StepFour : AbstractStep() {
     }
 
     inner class PaymentMethodStep : AsyncTask<Void, Void, JSONObject>() {
+
+        override fun onPreExecute() {
+            progress.visibility = View.VISIBLE
+            fullLayout.visibility = View.GONE
+            super.onPreExecute()
+        }
+
         override fun doInBackground(vararg p0: Void?): JSONObject? {
             return context.paymentMethodStep()
         }
@@ -119,6 +129,8 @@ class StepFour : AbstractStep() {
             }
 
             paymentMethodLayout.addView(paymentMethodRadioGroup)
+            progress.visibility = View.GONE
+            fullLayout.visibility = View.VISIBLE
             super.onPostExecute(result)
         }
     }

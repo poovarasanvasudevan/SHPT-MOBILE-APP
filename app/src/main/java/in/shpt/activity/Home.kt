@@ -4,6 +4,7 @@ import `in`.shpt.R
 import `in`.shpt.adapter.BannerAdapter
 import `in`.shpt.config.Config
 import `in`.shpt.config.JSONConfig
+import `in`.shpt.event.ConnectionEvent
 import `in`.shpt.ext.*
 import `in`.shpt.models.BannerModel
 import android.content.Intent
@@ -24,6 +25,9 @@ import com.mcxiaoke.koi.ext.toast
 import com.mikepenz.actionitembadge.library.ActionItemBadge
 import com.mikepenz.fontawesome_typeface_library.FontAwesome
 import kotlinx.android.synthetic.main.activity_home.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -67,19 +71,39 @@ class Home : AppCompatActivity() {
         actionBarDrawerToggle.syncState()
 
 
-        if (isConnected()) {
+        next(isConnected())
+
+    }
+
+    public override fun onStart() {
+        super.onStart()
+        EventBus.getDefault().register(this)
+    }
+
+    public override fun onStop() {
+        super.onStop()
+        EventBus.getDefault().unregister(this)
+    }
+
+    fun next(isConnected: Boolean) {
+        if (isConnected) {
             emptyLayout.visibility = View.GONE
+            root.visibility = View.VISIBLE
             AsyncTaskCompat.executeParallel(CategoriesLoaderTask(), null)
             AsyncTaskCompat.executeParallel(BannerLoader(), null)
             AsyncTaskCompat.executeParallel(CartLoader(), null)
         } else {
-
-            contentLayout.visibility = View.GONE
+            navigation_view.menu.clear()
+            root.visibility = View.GONE
             emptyLayout.visibility = View.VISIBLE
             emptyIcon.setImageDrawable(getIcon(FontAwesome.Icon.faw_frown_o, Color.GRAY, 120))
             emptyText.text = "No Internet Connection..."
-            addSettingMenu()
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(event: ConnectionEvent) {
+        next(event.isConnected)
     }
 
     inner class CategoriesLoaderTask : AsyncTask<Void, Void, JSONObject?>() {
@@ -191,6 +215,7 @@ class Home : AppCompatActivity() {
                     startActivity<AddressBook>()
                     true
                 }
+
         settingMenu
                 .add("Order History")
                 .setIcon(getIcon(FontAwesome.Icon.faw_history))
@@ -248,7 +273,9 @@ class Home : AppCompatActivity() {
     }
 
     override fun onPostResume() {
-        AsyncTaskCompat.executeParallel(CartLoader(), null)
+        if (isConnected()) {
+            AsyncTaskCompat.executeParallel(CartLoader(), null)
+        }
         drawer.closeDrawers()
         super.onPostResume()
     }

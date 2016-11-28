@@ -57,11 +57,18 @@ object Config {
 
     var COOKIE = "login_shpt_cookie"
     var THEME = "my_theme"
-    var DEFAULT_THEME = Theme.INDIGO
+    var DEFAULT_THEME = Theme.BLUE
     var IMAGE_PATH = "${BASE}/image/"
     val DEFAULT_COUNTRY: String = "99"
     val BILLINGADDRESSID: String = "billing_address_id"
     val PAYMENTADDRESSID: String = "payment_address_id"
     val PAYMENTMETHOD: String = "payment_method"
     val SHIPPINGMETHOD: String = "shipping_method"
+
+    //parse
+    val WS_URL = "ws://10.0.2.2:4040/"
+    val MY_APP_ID = "myAppId"
+    var SERVER = "http://10.0.2.2:1337/parse/"
+    var CLIENT_KEY = "2ead5328dda34e688816040a0e78948a"
+
 }

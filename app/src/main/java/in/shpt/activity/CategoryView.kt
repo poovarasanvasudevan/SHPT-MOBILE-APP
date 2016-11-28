@@ -20,6 +20,7 @@ import android.support.v7.widget.SearchView
 import android.view.Menu
 import android.view.MenuItem
 import android.view.SubMenu
+import android.view.View
 import com.mcxiaoke.koi.log.logi
 import com.mikepenz.fastadapter.IItemAdapter
 import com.mikepenz.fastadapter.adapters.FastItemAdapter
@@ -125,6 +126,16 @@ class CategoryView : AppCompatActivity() {
     }
 
     inner class CategoryProductLoader : AsyncTask<String, Void, JSONObject>() {
+
+        override fun onPreExecute() {
+
+            if(page <2) {
+                progress.visibility = View.VISIBLE
+                productList.visibility = View.GONE
+            }
+            super.onPreExecute()
+        }
+
         override fun doInBackground(vararg p0: String?): JSONObject? {
             return getCategortProducts(p0[0] as String, page.toString())
         }
@@ -149,6 +160,12 @@ class CategoryView : AppCompatActivity() {
 
             if (drawer.isDrawerOpen(GravityCompat.END)) {
                 drawer.closeDrawer(GravityCompat.END)
+            }
+
+
+            if(page<2) {
+                progress.visibility = View.GONE
+                productList.visibility = View.VISIBLE
             }
             super.onPostExecute(result)
         }

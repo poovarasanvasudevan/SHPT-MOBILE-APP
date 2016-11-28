@@ -5,6 +5,7 @@ import `in`.shpt.adapter.ShoppingCartProductAdapter
 import `in`.shpt.adapter.ShoppingCartTotalAdapter
 import `in`.shpt.adapter.ShoppingCartVoucherAdapter
 import `in`.shpt.checkout.Checkout
+import `in`.shpt.event.ConnectionEvent
 import `in`.shpt.event.ItemRemovedFromCartEvent
 import `in`.shpt.ext.getFullCart
 import `in`.shpt.ext.getIcon
@@ -67,10 +68,26 @@ class ShoppingCart : AppCompatActivity() {
         shoppingCartProducts.itemAnimator = DefaultItemAnimator()
         shoppingCartProducts.adapter = voucherAdapter.wrap(fastAdapter)
 
-        loadCart()
+
+        next(isConnected())
 
         checkoutButton.onClick {
             startActivity<Checkout>()
+        }
+    }
+
+    fun next(isConnected: Boolean) {
+        if (isConnected) {
+            loadCart()
+        } else {
+
+            bottomPanel.visibility = View.GONE
+            productPanel.visibility = View.GONE
+            emptyPanel.visibility = View.VISIBLE
+            progress.visibility = View.GONE
+
+            emptyImage.setImageDrawable(getIcon(FontAwesome.Icon.faw_frown_o, Color.GRAY, 120))
+            emptyText.text = "No Internet Connection"
         }
     }
 
@@ -104,6 +121,11 @@ class ShoppingCart : AppCompatActivity() {
         }
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(event: ConnectionEvent) {
+        next(event.isConnected)
+    }
+
     inner class FullCartLoader : AsyncTask<Void, Void, JSONObject>() {
 
         override fun onPreExecute() {
@@ -129,7 +151,7 @@ class ShoppingCart : AppCompatActivity() {
                 progress.visibility = View.GONE
 
                 emptyImage.setImageDrawable(getIcon(FontAwesome.Icon.faw_frown_o, Color.GRAY, 120))
-                emptyText.setText(result.optString("text_error"))
+                emptyText.text = result.optString("text_error")
             } else {
 
                 fastAdapter.clear()
@@ -201,7 +223,7 @@ class ShoppingCart : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.shopping_cart_menu, menu)
-        menu!!.findItem(R.id.refresh_cart).setIcon(getIcon(FontAwesome.Icon.faw_refresh))
+        menu!!.findItem(R.id.refresh_cart).icon = getIcon(FontAwesome.Icon.faw_refresh)
         return super.onCreateOptionsMenu(menu)
     }
 

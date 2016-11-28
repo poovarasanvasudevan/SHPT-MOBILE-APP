@@ -24,7 +24,6 @@ android {
     }
 }
 repositories {
-    // ...
     maven { url "https://jitpack.io" }
 }
 dependencies {
@@ -50,6 +49,8 @@ dependencies {
     compile 'com.mikepenz:fontawesome-typeface:4.7.0.0@aar'
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.github.fcannizzaro:material-stepper:1.2.2'
+    compile 'com.parse:parse-android:1.13.1'
+    compile 'com.github.tgio:parse-livequery:1.0.3'
 }
 repositories {
     mavenCentral()

@@ -29,70 +29,121 @@
             android:layout_height="match_parent"
             android:layout_below="@+id/appbar">
 
-
-        <android.support.v4.widget.NestedScrollView
+        <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_above="@+id/productNavigation"
+                android:id="@+id/fullLayout"
                 android:layout_height="match_parent">
 
-            <RelativeLayout
+
+            <android.support.v4.widget.NestedScrollView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                <LinearLayout
+                <RelativeLayout
                         android:layout_width="match_parent"
-                        android:orientation="vertical"
-                        android:layout_margin="10dp"
                         android:layout_height="match_parent">
-
 
                     <LinearLayout
                             android:layout_width="match_parent"
                             android:orientation="vertical"
-                            android:padding="4dp"
-                            android:layout_height="160dp">
+                            android:layout_margin="10dp"
+                            android:layout_height="match_parent">
 
-                        <android.support.v4.view.ViewPager
+
+                        <LinearLayout
                                 android:layout_width="match_parent"
-                                android:id="@+id/imagePager"
-                                android:layout_height="match_parent"/>
+                                android:orientation="vertical"
+                                android:padding="4dp"
+                                android:layout_height="160dp">
+
+                            <android.support.v4.view.ViewPager
+                                    android:layout_width="match_parent"
+                                    android:id="@+id/imagePager"
+                                    android:layout_height="match_parent"/>
+                        </LinearLayout>
+
+                        <TextView
+                                android:layout_width="match_parent"
+                                android:id="@+id/productDetailName"
+                                android:text="Hii"
+                                android:gravity="center_horizontal"
+                                android:textSize="20dp"
+                                style="@style/TextAppearance.AppCompat.Headline"
+                                android:layout_height="wrap_content"/>
+
+
+                        <TextView
+                                android:layout_width="match_parent"
+                                android:layout_marginTop="5dp"
+                                android:id="@+id/productDetailDescription"
+                                android:layout_height="wrap_content"/>
                     </LinearLayout>
 
-                    <TextView
-                            android:layout_width="match_parent"
-                            android:id="@+id/productDetailName"
-                            android:text="Hii"
-                            android:gravity="center_horizontal"
-                            android:textSize="20dp"
-                            style="@style/TextAppearance.AppCompat.Headline"
-                            android:layout_height="wrap_content"/>
+                </RelativeLayout>
+            </android.support.v4.widget.NestedScrollView>
 
 
-                    <TextView
-                            android:layout_width="match_parent"
-                            android:layout_marginTop="5dp"
-                            android:id="@+id/productDetailDescription"
-                            android:layout_height="wrap_content"/>
-                </LinearLayout>
+            <android.support.design.widget.FloatingActionButton
+                    android:layout_width="wrap_content"
+                    app:fabSize="normal"
+                    app:backgroundTint="?colorPrimary"
+                    android:src="@drawable/ic_cart_plus"
+                    app:elevation="4dp"
+                    android:id="@+id/addtocart"
+                    app:pressedTranslationZ="4dp"
+                    app:rippleColor="@color/md_blue_grey_700"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_height="wrap_content"/>
+        </RelativeLayout>
 
-            </RelativeLayout>
-        </android.support.v4.widget.NestedScrollView>
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:id="@+id/progress"
+                android:visibility="gone"
+                android:layout_height="match_parent">
+
+            <in.shpt.widget.ProgressWheel
+                    android:layout_width="40dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    app:matProg_barColor="?colorPrimary"
+                    app:matProg_barWidth="3dp"
+                    app:matProg_progressIndeterminate="true"
+                    android:layout_height="40dp"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:id="@+id/emptyLayout"
+                android:layout_height="match_parent">
 
 
-        <android.support.design.widget.FloatingActionButton
-                android:layout_width="wrap_content"
-                app:fabSize="normal"
-                app:backgroundTint="?colorPrimary"
-                android:src="@drawable/ic_cart_plus"
-                app:elevation="4dp"
-                android:id="@+id/addtocart"
-                app:pressedTranslationZ="4dp"
-                app:rippleColor="@color/md_blue_grey_700"
-                android:layout_marginRight="16dp"
-                android:layout_marginBottom="16dp"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentBottom="true"
-                android:layout_height="wrap_content"/>
+            <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:orientation="vertical">
 
+                <ImageView
+                        android:layout_width="120dp"
+                        android:id="@+id/emptyIcon"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:layout_height="120dp"/>
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:id="@+id/emptyText"
+                        android:layout_below="@+id/emptyImage"
+                        android:layout_marginTop="10dp"
+                        android:layout_height="wrap_content"/>
+            </LinearLayout>
+        </RelativeLayout>
     </RelativeLayout>
 </RelativeLayout>

@@ -5,7 +5,8 @@
         android:orientation="vertical"
         android:layout_margin="6dp"
         android:layout_width="match_parent"
-        android:layout_height="100dp">
+        android:minHeight="100dp"
+        android:layout_height="120dp">
 
     <in.shpt.widget.Ripple
             android:layout_width="match_parent"
