@@ -1,6 +1,8 @@
 package `in`.shpt.ext
 
+import android.content.Context
 import android.text.Html
+import android.util.Log
 import android.widget.EditText
 import android.widget.TextView
 
@@ -23,4 +25,8 @@ fun EditText.isInvalid(): Boolean {
 
 fun EditText.isEmailValid(): Boolean {
     return android.util.Patterns.EMAIL_ADDRESS.matcher(this.text).matches();
+}
+
+fun Context.log(message: String) {
+    Log.i(this.packageName, message)
 }

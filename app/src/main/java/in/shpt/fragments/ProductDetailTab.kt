@@ -16,6 +16,9 @@ import java.util.*
 
 /**
  * Created by poovarasanv on 29/11/16.
+ * @author poovarasanv
+ * @project SHPT
+ * @on 29/11/16 at 5:39 PM
  */
 
 class ProductDetailTab(var result: JSONObject) : Fragment() {
@@ -23,19 +26,19 @@ class ProductDetailTab(var result: JSONObject) : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        var view = inflater?.inflate(R.layout.product_detail_tab_1, container, false)
-        var imagePager = view!!.find<ViewPager>(R.id.imagePager)
-        var productDetailName = view!!.find<TextView>(R.id.productDetailName)
+        val view = inflater?.inflate(R.layout.product_detail_tab_1, container, false)
+        val imagePager = view!!.find<ViewPager>(R.id.imagePager)
+        val productDetailName = view.find<TextView>(R.id.productDetailName)
 
-        var imageList = ArrayList<String>()
-        var images: JSONArray = result.optJSONArray("images")
+        val imageList = ArrayList<String>()
+        val images: JSONArray = result.optJSONArray("images")
         imageList.add(result.optString("thumb"))
         for (i in 0..images.length() - 1) {
             imageList.add(images.optJSONObject(i).optString("thumb"))
         }
 
         imageList.add(result.optString("thumb"))
-        var imageAdapter = ImagePagerAdapter(activity.supportFragmentManager, imageList)
+        val imageAdapter = ImagePagerAdapter(activity.supportFragmentManager, imageList)
         imagePager.adapter = imageAdapter
 
         productDetailName.text = result.optString("heading_title")

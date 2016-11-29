@@ -74,14 +74,17 @@ class Home : AppCompatActivity() {
         next(isConnected())
 
     }
+
     public override fun onStart() {
         super.onStart()
         EventBus.getDefault().register(this)
     }
+
     public override fun onStop() {
         super.onStop()
         EventBus.getDefault().unregister(this)
     }
+
     fun next(isConnected: Boolean) {
         if (isConnected) {
             emptyLayout.visibility = View.GONE
@@ -97,10 +100,12 @@ class Home : AppCompatActivity() {
             emptyText.text = "No Internet Connection..."
         }
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(event: ConnectionEvent) {
         next(event.isConnected)
     }
+
     inner class CategoriesLoaderTask : AsyncTask<Void, Void, JSONObject?>() {
         override fun doInBackground(vararg p0: Void?): JSONObject? {
             return getAllCategories()
@@ -132,6 +137,7 @@ class Home : AppCompatActivity() {
             super.onPostExecute(result)
         }
     }
+
     inner class CartLoader : AsyncTask<Void, Void, JSONArray>() {
         override fun doInBackground(vararg p0: Void?): JSONArray? {
             return getCart()
@@ -139,6 +145,7 @@ class Home : AppCompatActivity() {
 
         override fun onPostExecute(result: JSONArray?) {
 
+            cartCount = 0
             for (i in 0..result!!.length() - 1) {
                 cartCount += result.optJSONObject(i).optInt("quantity")
             }
@@ -148,6 +155,7 @@ class Home : AppCompatActivity() {
             super.onPostExecute(result)
         }
     }
+
     fun updateCartCount() {
         if (cartCount > 0) {
             ActionItemBadge.update(this, homeMenu.findItem(R.id.shoppingcart), getIcon(FontAwesome.Icon.faw_shopping_cart), ActionItemBadge.BadgeStyles.GREEN, cartCount);
@@ -155,6 +163,7 @@ class Home : AppCompatActivity() {
             homeMenu.findItem(R.id.shoppingcart).icon = (getIcon(FontAwesome.Icon.faw_shopping_cart));
         }
     }
+
     inner class BannerLoader : AsyncTask<Void, Void, JSONObject>() {
         override fun doInBackground(vararg p0: Void?): JSONObject? {
             return getBanner()
@@ -179,6 +188,7 @@ class Home : AppCompatActivity() {
             super.onPostExecute(result)
         }
     }
+
     fun addSettingMenu() {
         var navMenu: Menu = navigation_view.menu
         var settingMenu: SubMenu = navMenu.addSubMenu("Application")
@@ -220,6 +230,7 @@ class Home : AppCompatActivity() {
         settingMenu.add("Feedback").icon = getIcon(FontAwesome.Icon.faw_envelope_open);
         settingMenu.add("Settings").icon = getIcon(FontAwesome.Icon.faw_cogs);
     }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.home_menu, menu)
         homeMenu = menu!!;
@@ -234,6 +245,7 @@ class Home : AppCompatActivity() {
 
         return super.onCreateOptionsMenu(menu)
     }
+
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item!!.itemId) {
             R.id.shoppingcart -> startActivity<ShoppingCart>()
@@ -246,6 +258,7 @@ class Home : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
+
     override fun onBackPressed() {
         val intent = Intent(Intent.ACTION_MAIN)
         intent.addCategory(Intent.CATEGORY_HOME)
@@ -253,6 +266,7 @@ class Home : AppCompatActivity() {
         startActivity(intent)
         super.onBackPressed()
     }
+
     override fun onResume() {
 
         if (isConnected()) {
@@ -261,6 +275,7 @@ class Home : AppCompatActivity() {
         drawer.closeDrawers()
         super.onPostResume()
     }
+
     override fun onPause() {
         drawer.closeDrawers()
         super.onPause()

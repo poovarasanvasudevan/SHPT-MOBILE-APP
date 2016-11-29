@@ -21,7 +21,7 @@ class ProductDetailDescriptionTab(var result: JSONObject) : Fragment() {
         var view = inflater?.inflate(R.layout.product_detail_tab_3, container, false)
 
         var productDetailDescription = view!!.find<TextView>(R.id.productDetailDescription)
-        productDetailDescription.text = Html.fromHtml(result.optString("description"))
+        productDetailDescription.text = "\t\t\t\t" + Html.fromHtml(result.optString("description"))
 
         return view
     }

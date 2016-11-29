@@ -129,7 +129,7 @@ class CategoryView : AppCompatActivity() {
 
         override fun onPreExecute() {
 
-            if(page <2) {
+            if (page < 2) {
                 progress.visibility = View.VISIBLE
                 productList.visibility = View.GONE
             }
@@ -154,7 +154,9 @@ class CategoryView : AppCompatActivity() {
                         products.optJSONObject(i).optString("price"),
                         products.optJSONObject(i).optString("description"),
                         products.optJSONObject(i).optString("product_id").toInt(),
-                        this@CategoryView
+                        this@CategoryView,
+                        if (products.optJSONObject(i).opt("free_shipping") is Boolean) false else true,
+                        products.optJSONObject(i).optBoolean("is_corpus")
                 ))
             }
 
@@ -163,7 +165,7 @@ class CategoryView : AppCompatActivity() {
             }
 
 
-            if(page<2) {
+            if (page < 2) {
                 progress.visibility = View.GONE
                 productList.visibility = View.VISIBLE
             }

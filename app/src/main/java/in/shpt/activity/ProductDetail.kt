@@ -102,6 +102,7 @@ class ProductDetail : AppCompatActivity(), OnTabSelectedListener {
 
         override fun onPostExecute(result: JSONArray?) {
 
+            cartCount = 0
             for (i in 0..result!!.length() - 1) {
                 cartCount += result.optJSONObject(i).optInt("quantity")
             }
@@ -183,6 +184,7 @@ class ProductDetail : AppCompatActivity(), OnTabSelectedListener {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item!!.itemId) {
             android.R.id.home -> finish()
+            R.id.cart -> startActivity<ShoppingCart>()
         }
         return super.onOptionsItemSelected(item)
     }
@@ -199,6 +201,9 @@ class ProductDetail : AppCompatActivity(), OnTabSelectedListener {
         }
 
         override fun onPostExecute(result: JSONObject?) {
+
+            tabLayout.removeAllTabs()
+
             supportActionBar!!.title = result!!.optString("heading_title")
 
 

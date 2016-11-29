@@ -51,6 +51,7 @@ dependencies {
     compile 'com.github.fcannizzaro:material-stepper:1.2.2'
     compile 'com.parse:parse-android:1.13.1'
     compile 'com.github.tgio:parse-livequery:1.0.3'
+    compile 'com.veinhorn.tagview:library:1.0.4'
 }
 repositories {
     mavenCentral()
