@@ -105,7 +105,7 @@ fun Context.getBanner(): JSONObject? {
 }
 
 fun Context.getCart(): JSONArray? {
-    return JSONArray(getAdapter().getBanner(Config.CART).execute().body().string())
+    return JSONArray(getAdapter().getCart(Config.CART).execute().body().string())
 }
 
 fun Context.getMyOrders(page: Int = 1): JSONArray? {

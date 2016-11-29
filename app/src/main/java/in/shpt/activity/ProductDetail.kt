@@ -3,10 +3,7 @@ package `in`.shpt.activity
 import `in`.shpt.R
 import `in`.shpt.adapter.ProductDetailPagertAdapter
 import `in`.shpt.event.ConnectionEvent
-import `in`.shpt.ext.addToCart
-import `in`.shpt.ext.getIcon
-import `in`.shpt.ext.getProductDetail
-import `in`.shpt.ext.theme
+import `in`.shpt.ext.*
 import android.graphics.Color
 import android.os.AsyncTask
 import android.os.Bundle
@@ -20,11 +17,13 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.EditText
 import com.mcxiaoke.koi.ext.*
+import com.mikepenz.actionitembadge.library.ActionItemBadge
 import com.mikepenz.fontawesome_typeface_library.FontAwesome
 import kotlinx.android.synthetic.main.activity_product_detail.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import org.json.JSONArray
 import org.json.JSONObject
 
 
@@ -42,8 +41,9 @@ class ProductDetail : AppCompatActivity(), OnTabSelectedListener {
     }
 
     var productId: Int = 0
-    lateinit var bottomMenu: Menu
     var cartCount: Int = 0
+    lateinit var productMenu: Menu
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         theme()
@@ -84,6 +84,39 @@ class ProductDetail : AppCompatActivity(), OnTabSelectedListener {
             val alertDialog = alertDialogBuilder.create()
             alertDialog.show()
             true
+        }
+
+    }
+
+
+    fun loadCart() {
+        if (isConnected()) {
+            AsyncTaskCompat.executeParallel(CartLoader(), null)
+        }
+    }
+
+    inner class CartLoader : AsyncTask<Void, Void, JSONArray>() {
+        override fun doInBackground(vararg p0: Void?): JSONArray? {
+            return getCart()
+        }
+
+        override fun onPostExecute(result: JSONArray?) {
+
+            for (i in 0..result!!.length() - 1) {
+                cartCount += result.optJSONObject(i).optInt("quantity")
+            }
+
+            updateCartCount()
+
+            super.onPostExecute(result)
+        }
+    }
+
+    fun updateCartCount() {
+        if (cartCount > 0) {
+            ActionItemBadge.update(this, productMenu.findItem(R.id.cart), getIcon(FontAwesome.Icon.faw_shopping_cart), ActionItemBadge.BadgeStyles.GREEN, cartCount);
+        } else {
+            productMenu.findItem(R.id.cart).icon = (getIcon(FontAwesome.Icon.faw_shopping_cart));
         }
     }
 
@@ -131,12 +164,19 @@ class ProductDetail : AppCompatActivity(), OnTabSelectedListener {
             if (result!!.optString("success", "NULL") != "NULL") {
                 toast("Product added to Cart Succesfully")
                 addtocart.setImageDrawable(getIcon(FontAwesome.Icon.faw_check))
+
+                loadCart()
             }
             super.onPostExecute(result)
         }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.product_detail_menu, menu)
+        productMenu = menu!!
+        menu!!.findItem(R.id.cart).icon = getIcon(FontAwesome.Icon.faw_shopping_cart)
+
+        loadCart()
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -169,30 +209,14 @@ class ProductDetail : AppCompatActivity(), OnTabSelectedListener {
             pager.adapter = ProductDetailPagertAdapter(supportFragmentManager, result, tabLayout.tabCount)
             tabLayout.addOnTabSelectedListener(this@ProductDetail)
             tabLayout.setupWithViewPager(pager)
-            pager.offscreenPageLimit = 3
+            pager.offscreenPageLimit = tabLayout.tabCount
 
-            /*
-            var imageList = ArrayList<String>()
-            var images: JSONArray = result.optJSONArray("images")
-            imageList.add(result.optString("thumb"))
-            for (i in 0..images.length() - 1) {
-                imageList.add(images.optJSONObject(i).optString("thumb"))
-            }
-
-            imageList.add(result.optString("thumb"))
-            var imageAdapter = ImagePagerAdapter(supportFragmentManager, imageList)
-            imagePager.adapter = imageAdapter
-
-
-            productDetailName.text = result.optString("heading_title")
-            productDetailDescription.text = Html.fromHtml(result.optString("description"))
-
-
-
-            */
 
             progress.visibility = View.GONE
             fullLayout.visibility = View.VISIBLE
+
+
+            loadCart()
             super.onPostExecute(result)
         }
     }

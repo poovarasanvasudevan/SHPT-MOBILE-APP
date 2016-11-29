@@ -2,7 +2,6 @@ package `in`.shpt.activity
 
 import `in`.shpt.R
 import `in`.shpt.adapter.BannerAdapter
-import `in`.shpt.config.Config
 import `in`.shpt.config.JSONConfig
 import `in`.shpt.event.ConnectionEvent
 import `in`.shpt.ext.*
@@ -39,8 +38,6 @@ class Home : AppCompatActivity() {
 
     var cartCount: Int = 0
     lateinit var homeMenu: Menu
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         theme()
@@ -77,17 +74,14 @@ class Home : AppCompatActivity() {
         next(isConnected())
 
     }
-
     public override fun onStart() {
         super.onStart()
         EventBus.getDefault().register(this)
     }
-
     public override fun onStop() {
         super.onStop()
         EventBus.getDefault().unregister(this)
     }
-
     fun next(isConnected: Boolean) {
         if (isConnected) {
             emptyLayout.visibility = View.GONE
@@ -103,12 +97,10 @@ class Home : AppCompatActivity() {
             emptyText.text = "No Internet Connection..."
         }
     }
-
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(event: ConnectionEvent) {
         next(event.isConnected)
     }
-
     inner class CategoriesLoaderTask : AsyncTask<Void, Void, JSONObject?>() {
         override fun doInBackground(vararg p0: Void?): JSONObject? {
             return getAllCategories()
@@ -140,34 +132,22 @@ class Home : AppCompatActivity() {
             super.onPostExecute(result)
         }
     }
-
-
     inner class CartLoader : AsyncTask<Void, Void, JSONArray>() {
         override fun doInBackground(vararg p0: Void?): JSONArray? {
             return getCart()
         }
 
         override fun onPostExecute(result: JSONArray?) {
-            cartCount = result!!.length()
+
+            for (i in 0..result!!.length() - 1) {
+                cartCount += result.optJSONObject(i).optInt("quantity")
+            }
 
             updateCartCount()
 
-            var cartData: MutableList<BannerModel> = arrayListOf()
-            for (i in 0..cartCount - 1) {
-                cartData.add(BannerModel(
-                        result.optJSONObject(i).optString("product_id").toInt(),
-                        result.optJSONObject(i).optString("name"),
-                        result.optJSONObject(i).optInt("price").toString() + ".0000",
-                        "",
-                        Config.IMAGE_PATH + result.optJSONObject(i).optString("image")
-                ))
-            }
-
-            // cartPager.adapter = BannerAdapter(supportFragmentManager, cartData)
             super.onPostExecute(result)
         }
     }
-
     fun updateCartCount() {
         if (cartCount > 0) {
             ActionItemBadge.update(this, homeMenu.findItem(R.id.shoppingcart), getIcon(FontAwesome.Icon.faw_shopping_cart), ActionItemBadge.BadgeStyles.GREEN, cartCount);
@@ -175,7 +155,6 @@ class Home : AppCompatActivity() {
             homeMenu.findItem(R.id.shoppingcart).icon = (getIcon(FontAwesome.Icon.faw_shopping_cart));
         }
     }
-
     inner class BannerLoader : AsyncTask<Void, Void, JSONObject>() {
         override fun doInBackground(vararg p0: Void?): JSONObject? {
             return getBanner()
@@ -200,7 +179,6 @@ class Home : AppCompatActivity() {
             super.onPostExecute(result)
         }
     }
-
     fun addSettingMenu() {
         var navMenu: Menu = navigation_view.menu
         var settingMenu: SubMenu = navMenu.addSubMenu("Application")
@@ -242,7 +220,6 @@ class Home : AppCompatActivity() {
         settingMenu.add("Feedback").icon = getIcon(FontAwesome.Icon.faw_envelope_open);
         settingMenu.add("Settings").icon = getIcon(FontAwesome.Icon.faw_cogs);
     }
-
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.home_menu, menu)
         homeMenu = menu!!;
@@ -252,12 +229,11 @@ class Home : AppCompatActivity() {
         menu!!.findItem(R.id.notification).icon = getIcon(FontAwesome.Icon.faw_bell)
 
         var searchManager: SearchManager = getSearchManager()
-        var searchView : SearchView = menu!!.findItem(R.id.search).actionView as SearchView
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(ComponentName(this@Home,ProductSearchResult::class.java)))
+        var searchView: SearchView = menu!!.findItem(R.id.search).actionView as SearchView
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(ComponentName(this@Home, ProductSearchResult::class.java)))
 
         return super.onCreateOptionsMenu(menu)
     }
-
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item!!.itemId) {
             R.id.shoppingcart -> startActivity<ShoppingCart>()
@@ -270,7 +246,6 @@ class Home : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
-
     override fun onBackPressed() {
         val intent = Intent(Intent.ACTION_MAIN)
         intent.addCategory(Intent.CATEGORY_HOME)
@@ -278,15 +253,14 @@ class Home : AppCompatActivity() {
         startActivity(intent)
         super.onBackPressed()
     }
+    override fun onResume() {
 
-    override fun onPostResume() {
         if (isConnected()) {
             AsyncTaskCompat.executeParallel(CartLoader(), null)
         }
         drawer.closeDrawers()
         super.onPostResume()
     }
-
     override fun onPause() {
         drawer.closeDrawers()
         super.onPause()
