@@ -6,4 +6,5 @@
     <string name="address_delete_success">Address Deleted Succesfully...</string>
     <string name="no_internet">No Internet Connection...</string>
     <string name="purchase_success">Thanks for Purchase. Your Order will be Processed once we confirmed,Stay tuned for updates</string>
+    <string name="hint_search">Search For Products</string>
 </resources>

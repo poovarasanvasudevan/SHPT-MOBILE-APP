@@ -22,6 +22,16 @@
                 android:elevation="4dp"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
+        <android.support.design.widget.TabLayout
+                android:id="@+id/tabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tabIndicatorColor="?colorPrimary"
+                app:tabIndicatorHeight="2dp"
+                app:tabTextColor="?colorPrimary"
+                android:background="@color/md_white_1000"
+                android:minHeight="?attr/actionBarSize"/>
     </android.support.design.widget.AppBarLayout>
 
     <RelativeLayout
@@ -34,55 +44,60 @@
                 android:id="@+id/fullLayout"
                 android:layout_height="match_parent">
 
-
-            <android.support.v4.widget.NestedScrollView
+            <android.support.v4.view.ViewPager
+                    android:id="@+id/pager"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"/>
 
-                <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                    <LinearLayout
-                            android:layout_width="match_parent"
-                            android:orientation="vertical"
-                            android:layout_margin="10dp"
-                            android:layout_height="match_parent">
-
-
-                        <LinearLayout
+            <!--
+                        <android.support.v4.widget.NestedScrollView
                                 android:layout_width="match_parent"
-                                android:orientation="vertical"
-                                android:padding="4dp"
-                                android:layout_height="160dp">
+                                android:layout_height="match_parent">
 
-                            <android.support.v4.view.ViewPager
+                            <RelativeLayout
                                     android:layout_width="match_parent"
-                                    android:id="@+id/imagePager"
-                                    android:layout_height="match_parent"/>
-                        </LinearLayout>
+                                    android:layout_height="match_parent">
 
-                        <TextView
-                                android:layout_width="match_parent"
-                                android:id="@+id/productDetailName"
-                                android:text="Hii"
-                                android:gravity="center_horizontal"
-                                android:textSize="20dp"
-                                style="@style/TextAppearance.AppCompat.Headline"
-                                android:layout_height="wrap_content"/>
+                                <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:orientation="vertical"
+                                        android:layout_margin="10dp"
+                                        android:layout_height="match_parent">
 
 
-                        <TextView
-                                android:layout_width="match_parent"
-                                android:layout_marginTop="5dp"
-                                android:id="@+id/productDetailDescription"
-                                android:layout_height="wrap_content"/>
-                    </LinearLayout>
+                                    <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:orientation="vertical"
+                                            android:padding="4dp"
+                                            android:layout_height="160dp">
 
-                </RelativeLayout>
-            </android.support.v4.widget.NestedScrollView>
+                                        <android.support.v4.view.ViewPager
+                                                android:layout_width="match_parent"
+                                                android:id="@+id/imagePager"
+                                                android:layout_height="match_parent"/>
+                                    </LinearLayout>
+
+                                    <TextView
+                                            android:layout_width="match_parent"
+                                            android:id="@+id/productDetailName"
+                                            android:text="Hii"
+                                            android:gravity="center_horizontal"
+                                            android:textSize="20dp"
+                                            style="@style/TextAppearance.AppCompat.Headline"
+                                            android:layout_height="wrap_content"/>
 
 
+                                    <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_marginTop="5dp"
+                                            android:id="@+id/productDetailDescription"
+                                            android:layout_height="wrap_content"/>
+                                </LinearLayout>
+
+                            </RelativeLayout>
+                        </android.support.v4.widget.NestedScrollView>
+
+            -->
             <android.support.design.widget.FloatingActionButton
                     android:layout_width="wrap_content"
                     app:fabSize="normal"
@@ -98,7 +113,6 @@
                     android:layout_alignParentBottom="true"
                     android:layout_height="wrap_content"/>
         </RelativeLayout>
-
 
         <RelativeLayout
                 android:layout_width="match_parent"

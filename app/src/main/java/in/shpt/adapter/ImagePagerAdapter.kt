@@ -1,6 +1,6 @@
 package `in`.shpt.adapter
 
-import `in`.shpt.fragments.ImagerPager
+import `in`.shpt.fragments.ImagePager
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
@@ -20,7 +20,7 @@ class ImagePagerAdapter : FragmentStatePagerAdapter {
     }
 
     override fun getItem(position: Int): Fragment {
-        return ImagerPager.newInstance(bannerModels!![position])
+        return ImagePager.newInstance(bannerModels!![position])
     }
 
     override fun getCount(): Int {

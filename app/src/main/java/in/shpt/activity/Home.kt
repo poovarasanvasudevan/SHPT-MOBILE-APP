@@ -7,6 +7,8 @@ import `in`.shpt.config.JSONConfig
 import `in`.shpt.event.ConnectionEvent
 import `in`.shpt.ext.*
 import `in`.shpt.models.BannerModel
+import android.app.SearchManager
+import android.content.ComponentName
 import android.content.Intent
 import android.graphics.Color
 import android.os.AsyncTask
@@ -15,13 +17,14 @@ import android.support.v4.os.AsyncTaskCompat
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.SearchView
 import android.view.Menu
 import android.view.MenuItem
 import android.view.SubMenu
 import android.view.View
+import com.mcxiaoke.koi.ext.getSearchManager
 import com.mcxiaoke.koi.ext.isConnected
 import com.mcxiaoke.koi.ext.startActivity
-import com.mcxiaoke.koi.ext.toast
 import com.mikepenz.actionitembadge.library.ActionItemBadge
 import com.mikepenz.fontawesome_typeface_library.FontAwesome
 import kotlinx.android.synthetic.main.activity_home.*
@@ -247,6 +250,11 @@ class Home : AppCompatActivity() {
         menu!!.findItem(R.id.shoppingcart).icon = getIcon(FontAwesome.Icon.faw_shopping_cart)
         menu!!.findItem(R.id.search).icon = getIcon(FontAwesome.Icon.faw_search)
         menu!!.findItem(R.id.notification).icon = getIcon(FontAwesome.Icon.faw_bell)
+
+        var searchManager: SearchManager = getSearchManager()
+        var searchView : SearchView = menu!!.findItem(R.id.search).actionView as SearchView
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(ComponentName(this@Home,ProductSearchResult::class.java)))
+
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -259,7 +267,6 @@ class Home : AppCompatActivity() {
                 drawer.openDrawer(GravityCompat.START);
                 return true
             }
-            else -> toast("Nothing")
         }
         return super.onOptionsItemSelected(item)
     }

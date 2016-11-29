@@ -1,33 +1,45 @@
 package `in`.shpt.activity
 
 import `in`.shpt.R
-import `in`.shpt.adapter.ImagePagerAdapter
+import `in`.shpt.adapter.ProductDetailPagertAdapter
 import `in`.shpt.event.ConnectionEvent
-import `in`.shpt.ext.*
+import `in`.shpt.ext.addToCart
+import `in`.shpt.ext.getIcon
+import `in`.shpt.ext.getProductDetail
+import `in`.shpt.ext.theme
 import android.graphics.Color
 import android.os.AsyncTask
 import android.os.Bundle
+import android.support.design.widget.TabLayout
+import android.support.design.widget.TabLayout.OnTabSelectedListener
 import android.support.v4.os.AsyncTaskCompat
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
-import android.text.Html
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.EditText
 import com.mcxiaoke.koi.ext.*
-import com.mikepenz.actionitembadge.library.ActionItemBadge
 import com.mikepenz.fontawesome_typeface_library.FontAwesome
 import kotlinx.android.synthetic.main.activity_product_detail.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
-import org.json.JSONArray
 import org.json.JSONObject
-import java.util.*
 
 
-class ProductDetail : AppCompatActivity() {
+class ProductDetail : AppCompatActivity(), OnTabSelectedListener {
+    override fun onTabReselected(tab: TabLayout.Tab?) {
+
+    }
+
+    override fun onTabUnselected(tab: TabLayout.Tab?) {
+
+    }
+
+    override fun onTabSelected(tab: TabLayout.Tab?) {
+        pager.currentItem = tab?.position!!
+    }
 
     var productId: Int = 0
     lateinit var bottomMenu: Menu
@@ -149,6 +161,17 @@ class ProductDetail : AppCompatActivity() {
         override fun onPostExecute(result: JSONObject?) {
             supportActionBar!!.title = result!!.optString("heading_title")
 
+
+            tabLayout.addTab(tabLayout.newTab())
+            tabLayout.addTab(tabLayout.newTab())
+            tabLayout.addTab(tabLayout.newTab())
+            tabLayout.tabGravity = TabLayout.GRAVITY_FILL
+            pager.adapter = ProductDetailPagertAdapter(supportFragmentManager, result, tabLayout.tabCount)
+            tabLayout.addOnTabSelectedListener(this@ProductDetail)
+            tabLayout.setupWithViewPager(pager)
+            pager.offscreenPageLimit = 3
+
+            /*
             var imageList = ArrayList<String>()
             var images: JSONArray = result.optJSONArray("images")
             imageList.add(result.optString("thumb"))
@@ -165,27 +188,11 @@ class ProductDetail : AppCompatActivity() {
             productDetailDescription.text = Html.fromHtml(result.optString("description"))
 
 
+
+            */
+
             progress.visibility = View.GONE
             fullLayout.visibility = View.VISIBLE
-            super.onPostExecute(result)
-        }
-    }
-
-
-    inner class CartLoader : AsyncTask<Void, Void, JSONArray>() {
-        override fun doInBackground(vararg p0: Void?): JSONArray? {
-            return getCart()
-        }
-
-        override fun onPostExecute(result: JSONArray?) {
-            cartCount = result!!.length()
-
-            if (cartCount > 0) {
-                ActionItemBadge.update(this@ProductDetail, bottomMenu.findItem(R.id.productdetailshoppingcart), getIcon(FontAwesome.Icon.faw_shopping_cart), ActionItemBadge.BadgeStyles.GREEN, cartCount);
-            } else {
-                bottomMenu.findItem(R.id.productdetailshoppingcart).icon = (getIcon(FontAwesome.Icon.faw_shopping_cart));
-            }
-            //   bottomMenu.findItem(R.id.productdetailshoppingcart).setIcon(getIcon(FontAwesome.Icon.faw_shopping_cart))
             super.onPostExecute(result)
         }
     }

@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.image_pager.view.*
  * Created by poovarasanv on 14/11/16.
  */
 
-class ImagerPager : Fragment() {
+class ImagePager : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val message: String = arguments.getString(EXTRA_MESSAGE)
@@ -27,8 +27,8 @@ class ImagerPager : Fragment() {
 
     companion object {
         val EXTRA_MESSAGE = "EXTRA_MESSAGE"
-        fun newInstance(message: String): ImagerPager {
-            val f = ImagerPager()
+        fun newInstance(message: String): ImagePager {
+            val f = ImagePager()
             val bdl = Bundle(1)
             bdl.putString(EXTRA_MESSAGE, message)
             f.arguments = bdl
