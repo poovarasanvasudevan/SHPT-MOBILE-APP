@@ -16,10 +16,10 @@ class ConnectionReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         // if(context.isConnected())
         if (context.isConnected()) {
-            context.toast("Connected")
+            context.toast("Connected to Internet")
             EventBus.getDefault().post(ConnectionEvent(true))
         } else {
-            context.toast("Not Connected")
+            context.toast("No Internet Connection")
             EventBus.getDefault().post(ConnectionEvent(false))
         }
     }

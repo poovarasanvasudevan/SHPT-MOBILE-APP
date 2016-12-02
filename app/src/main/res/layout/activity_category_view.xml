@@ -51,6 +51,37 @@
                     app:matProg_progressIndeterminate="true"
                     android:layout_height="40dp"/>
 
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:id="@+id/emptyLayout"
+                    android:visibility="gone"
+                    android:layout_height="match_parent">
+
+
+                <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:orientation="vertical">
+
+                    <ImageView
+                            android:layout_width="120dp"
+                            android:id="@+id/emptyIcon"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:layout_height="120dp"/>
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:id="@+id/emptyText"
+                            android:layout_below="@+id/emptyImage"
+                            android:layout_marginTop="10dp"
+                            android:layout_height="wrap_content"/>
+                </LinearLayout>
+            </RelativeLayout>
+
             <android.support.design.widget.NavigationView
                     android:id="@+id/navigation_view"
                     android:layout_width="wrap_content"
@@ -59,5 +90,8 @@
                     android:layout_gravity="right"
                     app:menu="@menu/drawer"/>
         </android.support.v4.widget.DrawerLayout>
+
+
+
     </RelativeLayout>
 </RelativeLayout>

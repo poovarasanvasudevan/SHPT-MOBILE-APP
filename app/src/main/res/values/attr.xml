@@ -9,6 +9,7 @@
     <item name="shoppingcartproductadapter" type="id"></item>
     <item name="shoppingcartvoucheradapter" type="id"></item>
     <item name="shoppingcarttotaladapter" type="id"></item>
+    <item name="productdetailattributeadapter" type="id"></item>
 
 
     <item name="giftcardthemeselection" type="id"></item>

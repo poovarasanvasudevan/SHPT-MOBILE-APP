@@ -2,6 +2,7 @@ package `in`.shpt.activity
 
 import `in`.shpt.R
 import `in`.shpt.adapter.CategoryProductListAdapter
+import `in`.shpt.event.ConnectionEvent
 import `in`.shpt.ext.getCategortProducts
 import `in`.shpt.ext.getIcon
 import `in`.shpt.ext.init
@@ -29,6 +30,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.SubMenu
 import android.view.View
+import com.mcxiaoke.koi.ext.isConnected
 import com.mcxiaoke.koi.log.logi
 import com.mikepenz.fastadapter.IItemAdapter
 import com.mikepenz.fastadapter.adapters.FastItemAdapter
@@ -37,6 +39,8 @@ import com.mikepenz.fastadapter_extensions.items.ProgressItem
 import com.mikepenz.fastadapter_extensions.scroll.EndlessRecyclerOnScrollListener
 import com.mikepenz.fontawesome_typeface_library.FontAwesome
 import kotlinx.android.synthetic.main.activity_category_view.*
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -68,47 +72,66 @@ class CategoryView : AppCompatActivity() {
 
 
         tempCategoryId = categoryId
-        navigation_view.setNavigationItemSelectedListener {
-            drawer.closeDrawers()
-            true
-        }
+
+        next(isConnected())
+
+    }
+
+    fun next(isConnected: Boolean) {
+        if (isConnected) {
+
+            navigation_view.setNavigationItemSelectedListener {
+                drawer.closeDrawers()
+                true
+            }
 
 
-        val llm = LinearLayoutManager(this)
-        llm.orientation = LinearLayoutManager.VERTICAL
-        productList.layoutManager = llm
-        productList.addItemDecoration(SimpleDividerItemDecoration(applicationContext))
-        fastAdapter = FastItemAdapter()
-        fastAdapter.withFilterPredicate(IItemAdapter.Predicate<CategoryProductListAdapter> { item, constraint ->
-            run {
-                if (constraint.toString().isEmpty() || constraint.isBlank()) {
-                    true
-                } else {
-                    !item.productName.toLowerCase().contains(constraint.toString().toLowerCase())
+            val llm = LinearLayoutManager(this)
+            llm.orientation = LinearLayoutManager.VERTICAL
+            productList.layoutManager = llm
+            productList.addItemDecoration(SimpleDividerItemDecoration(applicationContext))
+            fastAdapter = FastItemAdapter()
+            fastAdapter.withFilterPredicate(IItemAdapter.Predicate<CategoryProductListAdapter> { item, constraint ->
+                run {
+                    if (constraint.toString().isEmpty() || constraint.isBlank()) {
+                        true
+                    } else {
+                        !item.productName.toLowerCase().contains(constraint.toString().toLowerCase())
+                    }
                 }
-            }
-        })
-        footerAdapter = FooterAdapter()
+            })
+            footerAdapter = FooterAdapter()
 
-        productList.itemAnimator = DefaultItemAnimator()
-        productList.adapter = footerAdapter.wrap(fastAdapter);
+            productList.itemAnimator = DefaultItemAnimator()
+            productList.adapter = footerAdapter.wrap(fastAdapter);
 
-        AsyncTaskCompat.executeParallel(CategoryProductLoader(), categoryId)
-        productList.addOnScrollListener(object : EndlessRecyclerOnScrollListener(footerAdapter) {
-            override fun onLoadMore(currentPage: Int) {
-                page += 1
-                AsyncTaskCompat.executeParallel(CategoryProductLoader(), tempCategoryId)
-            }
-        })
+            AsyncTaskCompat.executeParallel(CategoryProductLoader(), categoryId)
+            productList.addOnScrollListener(object : EndlessRecyclerOnScrollListener(footerAdapter) {
+                override fun onLoadMore(currentPage: Int) {
+                    page += 1
+                    AsyncTaskCompat.executeParallel(CategoryProductLoader(), tempCategoryId)
+                }
+            })
 
-        setupMenu()
+            setupMenu()
+
+            emptyLayout.visibility = View.GONE
+            productList.visibility = View.VISIBLE
+
+        } else {
+
+            productList.visibility = View.GONE
+            emptyLayout.visibility = View.VISIBLE
+            emptyIcon.setImageDrawable(getIcon(FontAwesome.Icon.faw_frown_o, Color.GRAY, 120))
+            emptyText.text = "No Internet Connection..."
+
+        }
     }
 
     @UiThread
     fun setupMenu() {
 
         var subCategory: JSONArray = JSONArray(children)
-
         var navMenu: Menu = navigation_view.menu
 
         if (subCategory.length() > 0) {
@@ -254,5 +277,10 @@ class CategoryView : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(event: ConnectionEvent) {
+        next(event.isConnected)
     }
 }
