@@ -28,17 +28,12 @@
                 android:name=".activity.LoginWebView"
                 android:label="Login"
                 android:screenOrientation="portrait"/>
-
-
         <activity android:name=".activity.Home">
-
             <meta-data
                     android:name="android.app.default_searchable"
                     android:value=".activity.ProductSearchResult">
             </meta-data>
         </activity>
-
-
         <activity
                 android:name=".activity.ProfileUpdate"
                 android:screenOrientation="portrait"
@@ -113,12 +108,14 @@
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH"/>
 
-                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
+
             <meta-data
                     android:name="android.app.searchable"
                     android:resource="@xml/product_search"/>
-
+        </activity>
+        <activity android:name=".activity.ProductOptionSelector">
         </activity>
     </application>
 

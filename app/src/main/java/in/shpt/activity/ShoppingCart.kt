@@ -118,8 +118,13 @@ class ShoppingCart : AppCompatActivity() {
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(event: ItemRemovedFromCartEvent) {
         if (event.isSuccess) {
-            loadCart()
+            next(isConnected())
         }
+    }
+
+    override fun onPostResume() {
+        next(isConnected())
+        super.onPostResume()
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

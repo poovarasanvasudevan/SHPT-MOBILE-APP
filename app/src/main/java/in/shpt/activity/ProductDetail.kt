@@ -4,6 +4,7 @@ import `in`.shpt.R
 import `in`.shpt.adapter.ProductDetailPagertAdapter
 import `in`.shpt.event.ConnectionEvent
 import `in`.shpt.ext.*
+import android.content.Intent
 import android.graphics.Color
 import android.os.AsyncTask
 import android.os.Bundle
@@ -28,6 +29,9 @@ import org.json.JSONObject
 
 
 class ProductDetail : AppCompatActivity(), OnTabSelectedListener {
+
+    lateinit var fetchedResult: JSONObject
+
     override fun onTabReselected(tab: TabLayout.Tab?) {
 
     }
@@ -59,7 +63,13 @@ class ProductDetail : AppCompatActivity(), OnTabSelectedListener {
         next(isConnected())
 
         addtocart.onClick {
-            addToCart()
+            if (fetchedResult.optJSONArray("options").length() > 0) {
+                var optionIntent = Intent(this@ProductDetail, ProductOptionSelector::class.java)
+                optionIntent.putExtra("FULLPRODUCT", fetchedResult.toString())
+                startActivity(optionIntent)
+            } else {
+                addToCart()
+            }
         }
 
         addtocart.onLongClick {
@@ -216,6 +226,9 @@ class ProductDetail : AppCompatActivity(), OnTabSelectedListener {
             tabLayout.addOnTabSelectedListener(this@ProductDetail)
             tabLayout.setupWithViewPager(pager)
             pager.offscreenPageLimit = tabLayout.tabCount
+
+
+            fetchedResult = result
 
 
             progress.visibility = View.GONE
