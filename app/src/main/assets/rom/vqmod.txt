@@ -8,7 +8,7 @@
 		<operation>
 			<search position="replace"><![CDATA[$this->response->setOutput($this->render());]]></search>
 			<add><![CDATA[
-					if(isset($this->request->get['webapi'])) {
+					if(isset($this->request->get['webapi']) && $this->request->get['webapi'] == md5(MOBILE_KEY) && $this->request->get['webapi'] == md5(MOBILE_KEY)) {
 					    header('Content-type: application/json');
 						echo json_encode($this->data);
 					} else {
@@ -20,7 +20,7 @@
 		<operation>
 			<search position="replace"><![CDATA[$this->redirect($this->url->link('account/login', '', 'SSL'));]]></search>
 			<add><![CDATA[
-					if(isset($this->request->get['webapi'])) {
+					if(isset($this->request->get['webapi']) && $this->request->get['webapi'] == md5(MOBILE_KEY)) {
 					    header('Content-type: application/json');
 						echo json_encode(array('code'=>201,"message"=>"Please Login to Continue"));
 						return;
@@ -33,7 +33,7 @@
 		<operation>
 			<search position="replace"><![CDATA[$this->redirect($this->url->link('account/account', '', 'SSL'));]]></search>
 			<add><![CDATA[
-					if(isset($this->request->get['webapi'])) {
+					if(isset($this->request->get['webapi']) && $this->request->get['webapi'] == md5(MOBILE_KEY)) {
 					    header('Content-type: application/json');
 						echo json_encode(array('code'=>200,"message"=>"User Updated Succesfully"));
 						return;
@@ -49,7 +49,7 @@
 		<operation>
 			<search position="replace"><![CDATA[$this->response->setOutput($this->render());]]></search>
 			<add><![CDATA[
-					if(isset($this->request->get['webapi'])) {
+					if(isset($this->request->get['webapi']) && $this->request->get['webapi'] == md5(MOBILE_KEY)) {
 						if(isset($this->request->get['order_id'])) {
 						    header('Content-type: application/json');
 							echo json_encode($this->data);
@@ -66,7 +66,7 @@
 		<operation>
 			<search position="replace"><![CDATA[$this->redirect($this->url->link('account/login', '', 'SSL'));]]></search>
 			<add><![CDATA[
-					if(isset($this->request->get['webapi'])) {
+					if(isset($this->request->get['webapi']) && $this->request->get['webapi'] == md5(MOBILE_KEY)) {
 					    header('Content-type: application/json');
 						echo json_encode(array('code'=>201,"message"=>"Please Login to Continue"));
 						return;
@@ -81,7 +81,7 @@
 		<operation>
 			<search position="replace"><![CDATA[$this->response->setOutput($this->render());]]></search>
 			<add><![CDATA[
-					if(isset($this->request->get['webapi'])) {
+					if(isset($this->request->get['webapi']) && $this->request->get['webapi'] == md5(MOBILE_KEY)) {
 						    header('Content-type: application/json');
 							echo json_encode($this->data);
 					} else {
@@ -93,7 +93,7 @@
 		<operation>
 			<search position="replace"><![CDATA[$this->redirect($this->url->link('account/login', '', 'SSL'));]]></search>
 			<add><![CDATA[
-					if(isset($this->request->get['webapi'])) {
+					if(isset($this->request->get['webapi']) && $this->request->get['webapi'] == md5(MOBILE_KEY)) {
 						    header('Content-type: application/json');
 							echo json_encode(array("code"=>201,"message"=>"Please Login to Continue"));
 					} else {
@@ -105,7 +105,7 @@
 		<operation>
 			<search position="replace"><![CDATA[$this->redirect($this->url->link('account/address', '', 'SSL'));]]></search>
 			<add><![CDATA[
-					if(isset($this->request->get['webapi'])) {
+					if(isset($this->request->get['webapi']) && $this->request->get['webapi'] == md5(MOBILE_KEY)) {
 						    header('Content-type: application/json');
 							echo json_encode(array("code"=>200,"message"=>$this->session->data['success']));
 					} else {
@@ -126,7 +126,7 @@
 		<operation>
 			<search position="replace"><![CDATA[$this->response->setOutput($this->render());]]></search>
 			<add><![CDATA[
-					if(isset($this->request->get['webapi'])) {
+					if(isset($this->request->get['webapi']) && $this->request->get['webapi'] == md5(MOBILE_KEY)) {
 						    header('Content-type: application/json');
 							echo json_encode($this->data);
 					} else {
@@ -138,7 +138,7 @@
 		<operation>
 			<search position="replace"><![CDATA[$this->redirect($this->url->link('account/login', '', 'SSL'));]]></search>
 			<add><![CDATA[
-					if(isset($this->request->get['webapi'])) {
+					if(isset($this->request->get['webapi']) && $this->request->get['webapi'] == md5(MOBILE_KEY)) {
 						    header('Content-type: application/json');
 							echo json_encode(array("code"=>201,"message"=>"Please Login to Continue"));
 					} else {
@@ -152,7 +152,7 @@
 		<operation>
 			<search position="replace"><![CDATA[$this->response->setOutput($this->render());]]></search>
 			<add><![CDATA[
-					if(isset($this->request->get['webapi'])) {
+					if(isset($this->request->get['webapi']) && $this->request->get['webapi'] == md5(MOBILE_KEY)) {
 						    header('Content-type: application/json');
 							echo json_encode($this->data);
 					} else {
@@ -167,7 +167,7 @@
 		<operation>
 			<search position="replace"><![CDATA[$this->response->setOutput($this->render());]]></search>
 			<add><![CDATA[
-					if(isset($this->request->get['webapi'])) {
+					if(isset($this->request->get['webapi']) && $this->request->get['webapi'] == md5(MOBILE_KEY)) {
 						    header('Content-type: application/json');
 							echo json_encode($this->data);
 					} else {
@@ -182,7 +182,7 @@
 		<operation>
 			<search position="replace"><![CDATA[$this->response->setOutput($this->render());]]></search>
 			<add><![CDATA[
-					if(isset($this->request->get['webapi'])) {
+					if(isset($this->request->get['webapi']) && $this->request->get['webapi'] == md5(MOBILE_KEY)) {
 						    header('Content-type: application/json');
 						    //unset($this->data['text_shipping_charges']);
 						    unset($this->data['breadcrumbs']);
@@ -197,7 +197,7 @@
 		<operation>
 			<search position="replace"><![CDATA[$this->redirect($this->url->link('checkout/cart'));]]></search>
 			<add><![CDATA[
-					if(isset($this->request->get['webapi'])) {
+					if(isset($this->request->get['webapi']) && $this->request->get['webapi'] == md5(MOBILE_KEY)) {
 						    header('Content-type: application/json');
 
 							echo json_encode(array("code"=>200,"message"=>"Success"));
@@ -213,7 +213,7 @@
 		<operation>
 			<search position="replace"><![CDATA[$this->response->setOutput($this->render());]]></search>
 			<add><![CDATA[
-					if(isset($this->request->get['webapi'])) {
+					if(isset($this->request->get['webapi']) && $this->request->get['webapi'] == md5(MOBILE_KEY)) {
 						    header('Content-type: application/json');
 							echo json_encode($this->data);
 					} else {
@@ -225,7 +225,7 @@
 
 			<search position="replace"><![CDATA[$this->redirect($this->url->link('account/voucher/success'));]]></search>
 			<add><![CDATA[
-					if(isset($this->request->get['webapi'])) {
+					if(isset($this->request->get['webapi']) && $this->request->get['webapi'] == md5(MOBILE_KEY)) {
 						    header('Content-type: application/json');
 							echo json_encode(array("code"=>200,"message"=>"Voucher Created Succesfully"));
 							return;
@@ -240,7 +240,7 @@
 		<operation>
 			<search position="replace"><![CDATA[$this->response->setOutput($this->render());]]></search>
 			<add><![CDATA[
-					if(isset($this->request->get['webapi'])) {
+					if(isset($this->request->get['webapi']) && $this->request->get['webapi'] == md5(MOBILE_KEY)) {
 						    header('Content-type: application/json');
 							echo json_encode($this->data);
 					} else {
@@ -252,7 +252,7 @@
 
 			<search position="replace"><![CDATA[$this->redirect($this->url->link('account/edit', '', 'SSL'));]]></search>
 			<add><![CDATA[
-					if(isset($this->request->get['webapi'])) {
+					if(isset($this->request->get['webapi']) && $this->request->get['webapi'] == md5(MOBILE_KEY)) {
 						    header('Content-type: application/json');
 							echo json_encode(array("code"=>201,"message"=> $this->session->data['error_warning']));
 							return;
@@ -267,7 +267,7 @@
 		<operation>
 			<search position="replace"><![CDATA[$this->response->setOutput($this->render());]]></search>
 			<add><![CDATA[
-					if(isset($this->request->get['webapi'])) {
+					if(isset($this->request->get['webapi']) && $this->request->get['webapi'] == md5(MOBILE_KEY)) {
 						    header('Content-type: application/json');
 							echo json_encode($this->data);
 					} else {
@@ -282,7 +282,7 @@
 		<operation>
 			<search position="replace"><![CDATA[$this->response->setOutput($this->render());]]></search>
 			<add><![CDATA[
-					if(isset($this->request->get['webapi'])) {
+					if(isset($this->request->get['webapi']) && $this->request->get['webapi'] == md5(MOBILE_KEY)) {
 						    header('Content-type: application/json');
 							echo json_encode($this->data);
 					} else {
@@ -298,7 +298,7 @@
 		<operation>
 			<search position="replace"><![CDATA[$this->response->setOutput($this->render());]]></search>
 			<add><![CDATA[
-					if(isset($this->request->get['webapi'])) {
+					if(isset($this->request->get['webapi']) && $this->request->get['webapi'] == md5(MOBILE_KEY)) {
 						    header('Content-type: application/json');
 							echo json_encode($this->data);
 					} else {
@@ -313,7 +313,7 @@
 		<operation>
 			<search position="replace"><![CDATA[$this->response->setOutput($this->render());]]></search>
 			<add><![CDATA[
-					if(isset($this->request->get['webapi'])) {
+					if(isset($this->request->get['webapi']) && $this->request->get['webapi'] == md5(MOBILE_KEY)) {
 						    header('Content-type: application/json');
 							echo json_encode($this->data);
 					} else {
@@ -328,7 +328,7 @@
 		<operation>
 			<search position="replace"><![CDATA[$this->response->setOutput($this->render());]]></search>
 			<add><![CDATA[
-					if(isset($this->request->get['webapi'])) {
+					if(isset($this->request->get['webapi']) && $this->request->get['webapi'] == md5(MOBILE_KEY)) {
 						    header('Content-type: application/json');
 							echo json_encode($this->data);
 					} else {
@@ -346,7 +346,7 @@
 			<search position="replace"><![CDATA[
 $this->model_checkout_order->confirm($this->session->data['order_id'], $this->config->get('cod_order_status_id'));]]></search>
 			<add><![CDATA[
-					if(isset($this->request->get['webapi'])) {
+					if(isset($this->request->get['webapi']) && $this->request->get['webapi'] == md5(MOBILE_KEY)) {
 
 $this->model_checkout_order->confirm($this->session->data['order_id'], $this->config->get('cod_order_status_id'));
 $this->redirect($this->url->link('checkout/success', '', 'SSL'));

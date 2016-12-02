@@ -4,9 +4,6 @@ class ControllerApiMobile extends Controller
 {
     public function setup()
     {
-        # code...
-        //http://localhost:8080/index.php?route=payment/FssNet/paymentredirect
-        //$this->load->model('setting/setting');
         $this->editSetting('shpt_mobile',
             array(
                 'FssNet_mobile_url' => $this->url->link('payment/FssNet/paymentredirect'),
@@ -189,7 +186,7 @@ class ControllerApiMobile extends Controller
 
     function completeorder()
     {
-        if (isset($this->request->get['webapi'])) {
+        if (isset($this->request->get['webapi']) && $this->request->get['webapi'] == md5(MOBILE_KEY)) {
             $order_id = $this->request->get['order_id'];
             $result = $this->db->query("select * from `order` where order_id=" . $order_id);
             header('Content-type: application/json');
