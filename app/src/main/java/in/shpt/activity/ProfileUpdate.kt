@@ -3,6 +3,7 @@ package `in`.shpt.activity
 import `in`.shpt.R
 import `in`.shpt.config.JSONConfig
 import `in`.shpt.ext.getuserprofile
+import `in`.shpt.ext.init
 import `in`.shpt.ext.saveUserDetails
 import `in`.shpt.ext.theme
 import android.os.AsyncTask
@@ -27,7 +28,7 @@ class ProfileUpdate : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         theme()
         setContentView(R.layout.activity_profile_update)
-
+        init(this)
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setDisplayShowHomeEnabled(true)

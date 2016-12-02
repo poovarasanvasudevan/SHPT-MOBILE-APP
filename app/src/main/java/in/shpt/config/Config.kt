@@ -1,6 +1,7 @@
 package `in`.shpt.config
 
 import `in`.shpt.ext.Theme
+import com.mcxiaoke.koi.HASH
 
 /**
  * Created by poovarasanv on 14/11/16.
@@ -9,38 +10,39 @@ import `in`.shpt.ext.Theme
 object Config {
 
     var BASE = "http://localhost:8080/"
+    val WEBAPI = "&webapi=" + HASH.md5("password")
     var LOGIN_PAGE = "$BASE?route=account/login"
-    var USERDETAILS = "${BASE}index.php?route=account/edit&webapi=true";
-    var CATEGORIES = "${BASE}index.php?route=api/mobile/categories&webapi=true"
-    var BANNER = "${BASE}/index.php?route=api/mobile/banner&webapi=true"
-    var CART = "${BASE}/index.php?route=api/mobile/mycart&webapi=true"
-    var MYORDERS = "${BASE}/index.php?route=account/order&webapi=true"
-    var ORDERDETAIL = "${BASE}/index.php?route=account/order/info&webapi=true"
-    var ADDRESSDETAIL = "${BASE}/index.php?route=account/address&webapi=true"
-    var EDITADDRESSDETAIL = "${BASE}/index.php?route=account/address/update&webapi=true"
+    var USERDETAILS = "${BASE}index.php?route=account/edit" + WEBAPI;
+    var CATEGORIES = "${BASE}index.php?route=api/mobile/categories" + WEBAPI
+    var BANNER = "${BASE}/index.php?route=api/mobile/banner" + WEBAPI
+    var CART = "${BASE}/index.php?route=api/mobile/mycart" + WEBAPI
+    var MYORDERS = "${BASE}/index.php?route=account/order" + WEBAPI
+    var ORDERDETAIL = "${BASE}/index.php?route=account/order/info" + WEBAPI
+    var ADDRESSDETAIL = "${BASE}/index.php?route=account/address" + WEBAPI
+    var EDITADDRESSDETAIL = "${BASE}/index.php?route=account/address/update" + WEBAPI
     var STATEURL = "${BASE}/index.php?route=account/address/country"
-    var UPDATEADDRESS = "${BASE}/index.php?route=account/address/update&webapi=true"
-    var DELETEADDRESS = "${BASE}/index.php?route=account/address/delete&webapi=true"
-    var ADDADDRESS = "${BASE}/index.php?route=account/address/insert&webapi=true"
-    var WISLIST = "${BASE}/index.php?route=account/wishlist&webapi=true"
-    var PRODUCTDETAIL = "${BASE}/index.php?route=product/product&webapi=true"
-    var CATEGORYPRODUCTDETAIL = "${BASE}/index.php?route=product/category&webapi=true"
-    var CHECKOUTCART = "${BASE}/index.php?route=checkout/cart&webapi=true"
-    var VOUCHERPURCHASE = "${BASE}/index.php?route=account/voucher&webapi=true"
+    var UPDATEADDRESS = "${BASE}/index.php?route=account/address/update" + WEBAPI
+    var DELETEADDRESS = "${BASE}/index.php?route=account/address/delete" + WEBAPI
+    var ADDADDRESS = "${BASE}/index.php?route=account/address/insert" + WEBAPI
+    var WISLIST = "${BASE}/index.php?route=account/wishlist" + WEBAPI
+    var PRODUCTDETAIL = "${BASE}/index.php?route=product/product" + WEBAPI
+    var CATEGORYPRODUCTDETAIL = "${BASE}/index.php?route=product/category" + WEBAPI
+    var CHECKOUTCART = "${BASE}/index.php?route=checkout/cart" + WEBAPI
+    var VOUCHERPURCHASE = "${BASE}/index.php?route=account/voucher" + WEBAPI
     var ADDTOCART = "${BASE}/index.php?route=checkout/cart/add"
-    var PAYMENTADDRESSSTEP = "${BASE}/index.php?route=checkout/payment_address&webapi=true"
-    var PAYMENTADDRESSSTEPVALIDATE = "${BASE}/index.php?route=checkout/payment_address/validate&webapi=true"
+    var PAYMENTADDRESSSTEP = "${BASE}/index.php?route=checkout/payment_address" + WEBAPI
+    var PAYMENTADDRESSSTEPVALIDATE = "${BASE}/index.php?route=checkout/payment_address/validate" + WEBAPI
 
-    var SHIPPINGADDRESSSTEP = "${BASE}/index.php?route=checkout/shipping_address&webapi=true"
-    var SHIPPINGADDRESSSTEPVALIDATE = "${BASE}/index.php?route=checkout/shipping_address/validate&webapi=true"
+    var SHIPPINGADDRESSSTEP = "${BASE}/index.php?route=checkout/shipping_address" + WEBAPI
+    var SHIPPINGADDRESSSTEPVALIDATE = "${BASE}/index.php?route=checkout/shipping_address/validate" + WEBAPI
 
-    var SHIPPINGMETHODSTEP = "${BASE}/index.php?route=checkout/shipping_method&webapi=true"
-    var SHIPPINGMETHODSTEPVALIDATE = "${BASE}/index.php?route=checkout/shipping_method/validate&webapi=true"
+    var SHIPPINGMETHODSTEP = "${BASE}/index.php?route=checkout/shipping_method" + WEBAPI
+    var SHIPPINGMETHODSTEPVALIDATE = "${BASE}/index.php?route=checkout/shipping_method/validate" + WEBAPI
 
-    var PAYMENTMETHODSTEP = "${BASE}/index.php?route=checkout/payment_method&webapi=true"
-    var PAYMENTMETHODSTEPVALIDATE = "${BASE}/index.php?route=checkout/payment_method/validate&webapi=true"
+    var PAYMENTMETHODSTEP = "${BASE}/index.php?route=checkout/payment_method" + WEBAPI
+    var PAYMENTMETHODSTEPVALIDATE = "${BASE}/index.php?route=checkout/payment_method/validate" + WEBAPI
 
-    var CONFIRMORDER = "${BASE}/index.php?route=checkout/confirm&webapi=true"
+    var CONFIRMORDER = "${BASE}/index.php?route=checkout/confirm" + WEBAPI
 
     //var SHPTIMAGE = "http://localhost:8080/image/cache/data/2397_FC-550x550.jpg"
 
@@ -51,7 +53,7 @@ object Config {
     var COD = "${BASE}/index.php?route=payment/cod/confirm"
     var CODMETHOD = "${BASE}/index.php?route=payment/cod/confirm"
 
-    var PAYMENTURL = "${BASE}/index.php?route=api/mobile/paymentconfirm&webapi=true"
+    var PAYMENTURL = "${BASE}/index.php?route=api/mobile/paymentconfirm" + WEBAPI
     var PAYMENT_CONFIRM = "checkout/success"
 
 
@@ -70,5 +72,10 @@ object Config {
     val MY_APP_ID = "myAppId"
     var SERVER = "http://10.0.2.2:1337/parse/"
     var CLIENT_KEY = "2ead5328dda34e688816040a0e78948a"
+
+
+    //parseconfig
+    val HOME_PRODUCT_BANNER = "HOME_PRODUCT_BANNER"
+    val SLIDESHOW_INTERVAL: Int = 5500
 
 }

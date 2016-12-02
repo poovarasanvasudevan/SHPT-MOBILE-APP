@@ -29,14 +29,18 @@ fun Context.bitmap2drawable(bitmap: Bitmap): Drawable {
     return BitmapDrawable(this.resources, bitmap)
 }
 
-fun ImageView.loadUrl(url: String) {
-    Glide.with(context)
+fun ImageView.loadUrl(url: String, type: Int = 0) {
+    var builder = Glide.with(context)
             .load(url)
-            .crossFade()
             .fitCenter()
+            .animate(R.anim.image_zoom)
             .placeholder(R.drawable.no_image)
             .error(R.drawable.no_image)
-            .into(this)
+    when (type) {
+        1 -> builder.override(1000, 120)
+    }
+
+    builder.into(this)
 }
 
 fun ImageView.loadSHPTImage(product_id: String, size: String = "550") {

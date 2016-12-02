@@ -2,6 +2,8 @@ package `in`.shpt.activity
 
 import `in`.shpt.R
 import `in`.shpt.adapter.BannerAdapter
+import `in`.shpt.adapter.DiscountBannerImagePagerAdapter
+import `in`.shpt.config.Config
 import `in`.shpt.config.JSONConfig
 import `in`.shpt.event.ConnectionEvent
 import `in`.shpt.ext.*
@@ -26,6 +28,7 @@ import com.mcxiaoke.koi.ext.isConnected
 import com.mcxiaoke.koi.ext.startActivity
 import com.mikepenz.actionitembadge.library.ActionItemBadge
 import com.mikepenz.fontawesome_typeface_library.FontAwesome
+import com.parse.ParseConfig
 import kotlinx.android.synthetic.main.activity_home.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -43,7 +46,7 @@ class Home : AppCompatActivity() {
         theme()
         setContentView(R.layout.activity_home)
 
-
+        init(this)
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setHomeAsUpIndicator(getIcon(FontAwesome.Icon.faw_bars))
@@ -72,6 +75,8 @@ class Home : AppCompatActivity() {
 
 
         next(isConnected())
+
+        parseHomeBannerLoader()
 
     }
 
@@ -158,9 +163,9 @@ class Home : AppCompatActivity() {
 
     fun updateCartCount() {
         if (cartCount > 0) {
-            ActionItemBadge.update(this, homeMenu.findItem(R.id.shoppingcart), getIcon(FontAwesome.Icon.faw_shopping_cart), ActionItemBadge.BadgeStyles.GREEN, cartCount);
+            ActionItemBadge.update(this, homeMenu.findItem(R.id.shoppingcart), getIcon(FontAwesome.Icon.faw_shopping_cart), ActionItemBadge.BadgeStyles.GREEN, cartCount)
         } else {
-            homeMenu.findItem(R.id.shoppingcart).icon = (getIcon(FontAwesome.Icon.faw_shopping_cart));
+            homeMenu.findItem(R.id.shoppingcart).icon = (getIcon(FontAwesome.Icon.faw_shopping_cart))
         }
     }
 
@@ -174,11 +179,11 @@ class Home : AppCompatActivity() {
 
             for (i in 0..(result!!.optJSONArray("banners")).length() - 1) {
                 banners.add(BannerModel(
-                        result!!.optJSONArray("banners").optJSONObject(i).optString("product_id").toInt(),
-                        result!!.optJSONArray("banners").optJSONObject(i).optString("title"),
-                        result!!.optJSONArray("banners").optJSONObject(i).optJSONObject("full_detail").optString("price"),
-                        result!!.optJSONArray("banners").optJSONObject(i).optJSONObject("full_detail").optString("meta_description"),
-                        result!!.optJSONArray("banners").optJSONObject(i).optString("image")
+                        result.optJSONArray("banners").optJSONObject(i).optString("product_id").toInt(),
+                        result.optJSONArray("banners").optJSONObject(i).optString("title"),
+                        result.optJSONArray("banners").optJSONObject(i).optJSONObject("full_detail").optString("price"),
+                        result.optJSONArray("banners").optJSONObject(i).optJSONObject("full_detail").optString("meta_description"),
+                        result.optJSONArray("banners").optJSONObject(i).optString("image")
                 ))
             }
 
@@ -215,7 +220,7 @@ class Home : AppCompatActivity() {
                     true
                 }
 
-        settingMenu.add("Track Order").icon = getIcon(FontAwesome.Icon.faw_location_arrow);
+        settingMenu.add("Track Order").icon = getIcon(FontAwesome.Icon.faw_location_arrow)
         settingMenu
                 .add("Gift Certificate")
                 .setIcon(getIcon(FontAwesome.Icon.faw_gift))
@@ -227,20 +232,20 @@ class Home : AppCompatActivity() {
             startActivity<WishList>()
             true
         }
-        settingMenu.add("Feedback").icon = getIcon(FontAwesome.Icon.faw_envelope_open);
-        settingMenu.add("Settings").icon = getIcon(FontAwesome.Icon.faw_cogs);
+        settingMenu.add("Feedback").icon = getIcon(FontAwesome.Icon.faw_envelope_open)
+        settingMenu.add("Settings").icon = getIcon(FontAwesome.Icon.faw_cogs)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.home_menu, menu)
-        homeMenu = menu!!;
+        homeMenu = menu!!
         updateCartCount()
-        menu!!.findItem(R.id.shoppingcart).icon = getIcon(FontAwesome.Icon.faw_shopping_cart)
-        menu!!.findItem(R.id.search).icon = getIcon(FontAwesome.Icon.faw_search)
-        menu!!.findItem(R.id.notification).icon = getIcon(FontAwesome.Icon.faw_bell)
+        menu.findItem(R.id.shoppingcart).icon = getIcon(FontAwesome.Icon.faw_shopping_cart)
+        menu.findItem(R.id.search).icon = getIcon(FontAwesome.Icon.faw_search)
+        menu.findItem(R.id.notification).icon = getIcon(FontAwesome.Icon.faw_bell)
 
         var searchManager: SearchManager = getSearchManager()
-        var searchView: SearchView = menu!!.findItem(R.id.search).actionView as SearchView
+        var searchView: SearchView = menu.findItem(R.id.search).actionView as SearchView
         searchView.setSearchableInfo(searchManager.getSearchableInfo(ComponentName(this@Home, ProductSearchResult::class.java)))
 
         return super.onCreateOptionsMenu(menu)
@@ -252,7 +257,7 @@ class Home : AppCompatActivity() {
             R.id.notification -> startActivity<NotificationActivity>()
             R.id.myaccount -> startActivity<ProfileUpdate>()
             android.R.id.home -> {
-                drawer.openDrawer(GravityCompat.START);
+                drawer.openDrawer(GravityCompat.START)
                 return true
             }
         }
@@ -279,5 +284,32 @@ class Home : AppCompatActivity() {
     override fun onPause() {
         drawer.closeDrawers()
         super.onPause()
+    }
+
+    fun parseHomeBannerLoader() {
+        if (isConnected()) {
+            ParseConfig.getInBackground { config, e ->
+                if (e == null) {
+                    val HOMEBANNER: JSONArray? = config.getJSONArray(Config.HOME_PRODUCT_BANNER)
+                    if (HOMEBANNER == null) {
+                        discountBannerCard.visibility = View.GONE
+                    } else {
+                        var banners: MutableList<String> = arrayListOf()
+
+                        for (i in 0..HOMEBANNER!!.length() - 1) {
+                            banners.add(HOMEBANNER!!.optJSONObject(i).toString())
+                        }
+                        discountBanner.adapter = DiscountBannerImagePagerAdapter(supportFragmentManager, banners)
+                        discountBannerCard.visibility = View.VISIBLE
+                        discountBanner.offscreenPageLimit = banners.size
+                        discountBanner.startAutoScroll()
+
+                    }
+                } else {
+                    discountBannerCard.visibility = View.GONE
+                }
+            }
+        }
+
     }
 }

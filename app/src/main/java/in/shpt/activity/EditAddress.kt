@@ -29,7 +29,7 @@ class EditAddress : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         theme()
         setContentView(R.layout.activity_edit_address)
-
+        init(this)
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setDisplayShowHomeEnabled(true)

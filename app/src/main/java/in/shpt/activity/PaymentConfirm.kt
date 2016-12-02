@@ -1,6 +1,7 @@
 package `in`.shpt.activity
 
 import `in`.shpt.R
+import `in`.shpt.ext.init
 import `in`.shpt.ext.theme
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -13,7 +14,7 @@ class PaymentConfirm : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         theme()
         setContentView(R.layout.activity_payment_confirm)
-
+        init(this)
         setSupportActionBar(toolbar)
     }
 

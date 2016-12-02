@@ -9,6 +9,7 @@ import `in`.shpt.widget.Ripple
 import android.app.Activity
 import android.content.Intent
 import android.support.v7.widget.RecyclerView
+import android.text.Spannable
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -25,7 +26,7 @@ import com.veinhorn.tagview.TagView
 class CategoryProductListAdapter(
         var productImage: String,
         var productName: String,
-        var productPrice: String,
+        var productPrice: Spannable,
         var productDesc: String,
         var product_id: Int,
         var context: Activity,

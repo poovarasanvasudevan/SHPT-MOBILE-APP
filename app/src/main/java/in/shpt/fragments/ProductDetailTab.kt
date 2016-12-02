@@ -37,7 +37,7 @@ class ProductDetailTab(var result: JSONObject) : Fragment() {
             imageList.add(images.optJSONObject(i).optString("thumb"))
         }
 
-        imageList.add(result.optString("thumb"))
+    //    imageList.add(result.optString("thumb"))
         val imageAdapter = ImagePagerAdapter(activity.supportFragmentManager, imageList)
         imagePager.adapter = imageAdapter
 

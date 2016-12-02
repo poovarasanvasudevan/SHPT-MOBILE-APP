@@ -9,6 +9,7 @@ import `in`.shpt.event.ConnectionEvent
 import `in`.shpt.event.ItemRemovedFromCartEvent
 import `in`.shpt.ext.getFullCart
 import `in`.shpt.ext.getIcon
+import `in`.shpt.ext.init
 import `in`.shpt.ext.theme
 import android.content.Intent
 import android.graphics.Color
@@ -45,7 +46,7 @@ class ShoppingCart : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         theme()
         setContentView(R.layout.activity_shopping_cart)
-
+        init(this)
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setDisplayShowHomeEnabled(true)

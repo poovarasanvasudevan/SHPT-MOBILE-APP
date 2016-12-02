@@ -29,7 +29,7 @@ class GiftCard : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         theme()
         setContentView(R.layout.activity_gift_card)
-
+        init(this)
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setDisplayShowHomeEnabled(true)

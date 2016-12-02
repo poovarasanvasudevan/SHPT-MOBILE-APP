@@ -4,10 +4,12 @@ import `in`.shpt.config.Config
 import `in`.shpt.ext.theme
 import `in`.shpt.service.ParseService
 import android.app.Application
+import android.content.Intent.getIntent
 import android.util.Log
 import com.mcxiaoke.koi.KoiConfig
 import com.mcxiaoke.koi.ext.startService
 import com.parse.Parse
+import com.parse.ParseAnalytics
 import tgio.parselivequery.LiveQueryClient
 
 
@@ -29,6 +31,8 @@ class App : Application() {
                 .enableLocalDataStore()
                 .build()
         )
+
+        
 
         LiveQueryClient.init(Config.WS_URL, Config.MY_APP_ID, true)
 

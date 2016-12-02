@@ -5,6 +5,7 @@ import `in`.shpt.adapter.OrderDetailHistoryAdapter
 import `in`.shpt.adapter.OrderDetailPaymentAdapter
 import `in`.shpt.adapter.OrderDetailProductAdapter
 import `in`.shpt.ext.getOrderDetail
+import `in`.shpt.ext.init
 import `in`.shpt.ext.theme
 import android.os.AsyncTask
 import android.os.Bundle
@@ -32,7 +33,7 @@ class OrderDetails : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         theme()
         setContentView(R.layout.activity_order_details)
-
+        init(this)
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setDisplayShowHomeEnabled(true)

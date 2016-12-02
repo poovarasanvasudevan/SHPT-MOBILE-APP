@@ -2,6 +2,7 @@ package `in`.shpt.activity
 
 import `in`.shpt.R
 import `in`.shpt.config.Config
+import `in`.shpt.ext.init
 import `in`.shpt.ext.theme
 import android.graphics.Bitmap
 import android.os.Bundle
@@ -20,7 +21,7 @@ class PaymentWeb : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         theme()
         setContentView(R.layout.activity_payment_web)
-
+        init(this)
         setSupportActionBar(toolbar)
         // payment_web
         payment_web.settings.javaScriptEnabled = true

@@ -4,8 +4,10 @@ import `in`.shpt.R
 import `in`.shpt.adapter.CategoryProductListAdapter
 import `in`.shpt.ext.getCategortProducts
 import `in`.shpt.ext.getIcon
+import `in`.shpt.ext.init
 import `in`.shpt.ext.theme
 import `in`.shpt.widget.SimpleDividerItemDecoration
+import android.graphics.Color
 import android.os.AsyncTask
 import android.os.Bundle
 import android.support.annotation.UiThread
@@ -17,6 +19,12 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.SearchView
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.TextUtils
+import android.text.style.ForegroundColorSpan
+import android.text.style.StrikethroughSpan
 import android.view.Menu
 import android.view.MenuItem
 import android.view.SubMenu
@@ -49,6 +57,7 @@ class CategoryView : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         theme()
         setContentView(R.layout.activity_category_view)
+        init(this)
 
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
@@ -106,13 +115,25 @@ class CategoryView : AppCompatActivity() {
             for (i in 0..subCategory.length() - 1) {
                 var mainMenu: SubMenu = navMenu.addSubMenu(subCategory.optJSONObject(i).optString("name"))
                 var smallMenuItems = subCategory.optJSONObject(i).optJSONArray("children")
-                for (j in 0..smallMenuItems.length() - 1) {
-                    mainMenu
-                            .add(smallMenuItems.optJSONObject(j).optString("name"))
-                            //  .setIcon(applicationContext.getIcon(FontAwesome.Icon.faw_angle_right, Color.WHITE, 6))
+
+                if (smallMenuItems.length() > 0) {
+                    for (j in 0..smallMenuItems.length() - 1) {
+                        mainMenu
+                                .add(smallMenuItems.optJSONObject(j).optString("name"))
+                                .setOnMenuItemClickListener {
+                                    page = 1
+                                    tempCategoryId = tempCategoryId + "_" + smallMenuItems.optJSONObject(j).optString("category_id")
+                                    fastAdapter.clear()
+                                    AsyncTaskCompat.executeParallel(CategoryProductLoader(), tempCategoryId)
+
+                                    true
+                                }
+                    }
+                } else {
+                    mainMenu.add(subCategory.optJSONObject(i).optString("name"))
                             .setOnMenuItemClickListener {
                                 page = 1
-                                tempCategoryId = tempCategoryId + "_" + smallMenuItems.optJSONObject(j).optString("category_id")
+                                tempCategoryId = tempCategoryId + "_" + subCategory.optJSONObject(i).optString("category_id")
                                 fastAdapter.clear()
                                 AsyncTaskCompat.executeParallel(CategoryProductLoader(), tempCategoryId)
 
@@ -148,10 +169,23 @@ class CategoryView : AppCompatActivity() {
             var products = result.optJSONArray("products")
 
             for (i in 0..products.length() - 1) {
+
+                var price: Spannable = SpannableString(products.optJSONObject(i).optString("price"))
+                price.setSpan(ForegroundColorSpan(Color.BLUE), 0, products.optJSONObject(i).optString("price").length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                if (products.optJSONObject(i).opt("special") is Boolean) {
+                    // price = products.optJSONObject(i).optString("price") as Spannable
+                } else {
+                    price.setSpan(StrikethroughSpan(), 0, products.optJSONObject(i).optString("price").length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    var discount = SpannableString(products.optJSONObject(i).optString("special"))
+                    discount.setSpan(ForegroundColorSpan(Color.RED), 0, products.optJSONObject(i).optString("special").length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    price = SpannableString(TextUtils.concat(price, SpannableString("  "), discount))
+                }
+
+
                 fastAdapter.add(CategoryProductListAdapter(
                         products.optJSONObject(i).optString("thumb"),
                         products.optJSONObject(i).optString("name"),
-                        products.optJSONObject(i).optString("price"),
+                        price,
                         products.optJSONObject(i).optString("description"),
                         products.optJSONObject(i).optString("product_id").toInt(),
                         this@CategoryView,

@@ -3,6 +3,7 @@ package `in`.shpt.activity
 import `in`.shpt.R
 import `in`.shpt.adapter.OrderHistoryAdapter
 import `in`.shpt.ext.getMyOrders
+import `in`.shpt.ext.init
 import `in`.shpt.ext.theme
 import android.os.AsyncTask
 import android.os.Bundle
@@ -29,7 +30,7 @@ class MyOrders : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         theme()
         setContentView(R.layout.activity_my_orders)
-
+        init(this)
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setDisplayShowHomeEnabled(true)

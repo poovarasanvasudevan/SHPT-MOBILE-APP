@@ -48,6 +48,7 @@ class ProductDetail : AppCompatActivity(), OnTabSelectedListener {
         super.onCreate(savedInstanceState)
         theme()
         setContentView(R.layout.activity_product_detail)
+        init(this)
 
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)

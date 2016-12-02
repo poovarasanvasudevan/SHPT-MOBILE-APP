@@ -1,6 +1,7 @@
 package `in`.shpt.activity
 
 import `in`.shpt.R
+import `in`.shpt.ext.init
 import android.app.SearchManager
 import android.content.Intent
 import android.os.Bundle
@@ -13,7 +14,7 @@ class ProductSearchResult : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product_search_result)
-
+        init(this)
         handleIntent(intent);
 
     }

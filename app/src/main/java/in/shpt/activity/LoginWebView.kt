@@ -3,6 +3,7 @@ package `in`.shpt.activity
 import `in`.shpt.R
 import `in`.shpt.config.Config
 import `in`.shpt.ext.getIcon
+import `in`.shpt.ext.init
 import `in`.shpt.ext.theme
 import `in`.shpt.pref.Prefs
 import android.graphics.Bitmap
@@ -29,7 +30,7 @@ class LoginWebView : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         theme()
         setContentView(R.layout.activity_login_web_view)
-
+        init(this)
         setSupportActionBar(toolbar)
 
         if (isConnected()) {

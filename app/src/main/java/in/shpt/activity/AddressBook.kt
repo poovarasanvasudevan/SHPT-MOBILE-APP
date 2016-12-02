@@ -4,6 +4,7 @@ import `in`.shpt.R
 import `in`.shpt.adapter.AddressListAdapter
 import `in`.shpt.ext.getAddress
 import `in`.shpt.ext.getIcon
+import `in`.shpt.ext.init
 import `in`.shpt.ext.theme
 import android.os.AsyncTask
 import android.os.Bundle
@@ -29,6 +30,8 @@ class AddressBook : AppCompatActivity() {
 
         theme()
         setContentView(R.layout.activity_address_book)
+        init(this)
+
 
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)

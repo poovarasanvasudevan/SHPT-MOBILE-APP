@@ -46,7 +46,6 @@
                     android:layout_marginLeft="5dp"
                     android:gravity="center_vertical"
                     android:text="This is Product Price"
-                    android:textColor="@color/md_green_500"
                     android:textStyle="bold"/>
 
             <TextView

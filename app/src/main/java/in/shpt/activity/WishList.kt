@@ -3,6 +3,7 @@ package `in`.shpt.activity
 import `in`.shpt.R
 import `in`.shpt.ext.getIcon
 import `in`.shpt.ext.getWishList
+import `in`.shpt.ext.init
 import `in`.shpt.ext.theme
 import android.graphics.Color
 import android.os.AsyncTask
@@ -22,7 +23,7 @@ class WishList : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         theme()
         setContentView(R.layout.activity_wish_list)
-
+        init(this)
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setDisplayShowHomeEnabled(true)
