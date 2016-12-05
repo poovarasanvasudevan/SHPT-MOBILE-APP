@@ -43,6 +43,7 @@ object Config {
     var PAYMENTMETHODSTEPVALIDATE = "${BASE}/index.php?route=checkout/payment_method/validate" + WEBAPI
 
     var CONFIRMORDER = "${BASE}/index.php?route=checkout/confirm" + WEBAPI
+    var SEARCH = "${BASE}/index.php??route=product/search/ajax"
 
     //var SHPTIMAGE = "http://localhost:8080/image/cache/data/2397_FC-550x550.jpg"
 

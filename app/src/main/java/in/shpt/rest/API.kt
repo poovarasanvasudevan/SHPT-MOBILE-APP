@@ -48,7 +48,7 @@ interface API {
 
     @POST
     @FormUrlEncoded
-    fun addToCartWithOptions(@Url url: String, @FieldMap params: HashMap<String, String>) : Call<ResponseBody>
+    fun addToCartWithOptions(@Url url: String, @FieldMap params: HashMap<String, String>): Call<ResponseBody>
 
 
     @GET
@@ -173,4 +173,8 @@ interface API {
     @POST
     @FormUrlEncoded
     fun shippingMethodStepValidate(@Url url: String, @Field("shipping_method") shipping_method: String, @Field("comment") commment: String): Call<ResponseBody>
+
+
+    @GET
+    fun searchProducts(@Url url: String, @Query("keyword") keyword: String): Call<ResponseBody>
 }

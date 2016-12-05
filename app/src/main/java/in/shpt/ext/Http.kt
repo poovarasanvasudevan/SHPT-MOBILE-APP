@@ -90,6 +90,10 @@ fun Context.addToCartWithOptions(params: HashMap<String, String>): JSONObject {
     return JSONObject(getAdapter().addToCartWithOptions(Config.ADDTOCART, params).execute().body().string())
 }
 
+fun Context.searchProducts(keyword: String): JSONArray {
+    return JSONArray(getAdapter().searchProducts(Config.SEARCH, keyword).execute().body().string())
+}
+
 
 fun Context.saveUserDetails(
         firstname: String,
