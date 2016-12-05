@@ -31,10 +31,10 @@ class ProductDetailTab(var result: JSONObject) : Fragment() {
         val productDetailName = view.find<TextView>(R.id.productDetailName)
 
         val imageList = ArrayList<String>()
-        val images: JSONArray = result.optJSONArray("images")
+        val images: JSONArray? = result.optJSONArray("images")
         imageList.add(result.optString("popup"))
-        for (i in 0..images.length() - 1) {
-            imageList.add(images.optJSONObject(i).optString("popup"))
+        if(images !=null) {
+            (0..images.length() - 1).mapTo(imageList) { images.optJSONObject(it).optString("popup") }
         }
 
         val imageAdapter = ImagePagerAdapter(activity.supportFragmentManager, imageList)

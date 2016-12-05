@@ -20,6 +20,7 @@ import com.mcxiaoke.koi.ext.find
 import com.mcxiaoke.koi.ext.isConnected
 import com.mikepenz.fastadapter.adapters.FastItemAdapter
 import com.mikepenz.fastadapter.adapters.FooterAdapter
+import org.json.JSONArray
 import org.json.JSONObject
 
 /**
@@ -76,6 +77,10 @@ class StepFive : AbstractStep() {
 
     override fun onStepVisible() {
         loadConfirm()
+
+        if(context.isConnected()) {
+            loadConfirm()
+        }
         super.onStepVisible()
     }
 
@@ -93,6 +98,10 @@ class StepFive : AbstractStep() {
 
         override fun onPostExecute(result: JSONObject?) {
 
+            productListAdapter.clear()
+            voucherListAdapter.clear()
+            totalAdapter.clear()
+
             var products = result!!.optJSONArray("products")
 
             if (products != null) {
@@ -103,6 +112,7 @@ class StepFive : AbstractStep() {
                             products.optJSONObject(i).optString("image"),
                             products.optJSONObject(i).optString("quantity"),
                             products.optJSONObject(i).optString("total"),
+                            JSONArray("[]"),
                             activity,
                             false,
                             false

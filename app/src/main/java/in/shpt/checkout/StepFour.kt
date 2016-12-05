@@ -168,11 +168,12 @@ class StepFour : AbstractStep() {
             selectedpaymentMethod = paymentMethodRadioGroup.checkedRadioButtonId.minus(CONSTANT)
 
             if (selectedpaymentMethod > 0 && agree.isChecked) {
+                loadPaymentStepsValidate(paymentMethodRadioGroup.find<RadioButton>(paymentMethodRadioGroup.checkedRadioButtonId).tag.toString(), paymentMessageText.text.toString(), if (agree.isChecked) "1" else "0")
+
                 var bundle = mStepper.extras
                 bundle.putSerializable(Config.PAYMENTMETHOD, paymentMethodRadioGroup.find<RadioButton>(paymentMethodRadioGroup.checkedRadioButtonId).tag.toString())
 
-                loadPaymentStepsValidate(paymentMethodRadioGroup.find<RadioButton>(paymentMethodRadioGroup.checkedRadioButtonId).tag.toString(), paymentMessageText.text.toString(), if (agree.isChecked) "1" else "0")
-                return true
+                 return true
             } else {
                 return false
             }

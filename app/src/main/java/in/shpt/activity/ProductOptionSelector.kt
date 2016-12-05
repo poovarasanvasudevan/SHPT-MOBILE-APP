@@ -2,13 +2,12 @@ package `in`.shpt.activity
 
 import `in`.shpt.R
 import `in`.shpt.event.OptionKeyModel
-import `in`.shpt.ext.init
-import `in`.shpt.ext.loadMandatory
-import `in`.shpt.ext.loadUrl
-import `in`.shpt.ext.theme
+import `in`.shpt.ext.*
 import `in`.shpt.widget.StyledSpinner
+import android.os.AsyncTask
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
+import android.support.v4.os.AsyncTaskCompat
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.Menu
@@ -20,6 +19,7 @@ import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
 import android.widget.LinearLayout
 import android.widget.TextView
+import com.mcxiaoke.koi.ext.isConnected
 import com.mcxiaoke.koi.ext.onClick
 import com.mcxiaoke.koi.ext.toast
 import kotlinx.android.synthetic.main.activity_product_option_selector.*
@@ -36,6 +36,25 @@ class ProductOptionSelector : AppCompatActivity() {
     var error: Boolean = false
 
     lateinit var validateModels: ArrayList<OptionKeyModel>
+
+    inner class AddToCartWithOption : AsyncTask<HashMap<String, String>, Void, JSONObject>() {
+        override fun doInBackground(vararg p0: HashMap<String, String>?): JSONObject {
+            return addToCartWithOptions(p0[0] as HashMap<String, String>)
+        }
+
+        override fun onPostExecute(result: JSONObject?) {
+
+            toast("Product Succesfully Added")
+            super.onPostExecute(result)
+        }
+    }
+
+    fun addToCartWithOption(params: HashMap<String, String>) {
+        if (isConnected()) {
+            AsyncTaskCompat.executeParallel(AddToCartWithOption(), params)
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -72,9 +91,21 @@ class ProductOptionSelector : AppCompatActivity() {
             }
 
             if (error == false) {
-                toast("Form success")
+
+                var cartHash: HashMap<String, String> = HashMap()
+
+                for (i in 0..validateModels.size - 1) {
+                    cartHash.put("option[${validateModels[i].optionId}]", validateModels[i].selectedValue)
+                }
+                cartHash.put("product_id", fullProductJSON.optString("product_id"));
+                cartHash.put("quantity", "1");
+
+
+                addToCartWithOption(cartHash)
             }
         }
+
+
 
         for (i in 0..options.length() - 1) {
 

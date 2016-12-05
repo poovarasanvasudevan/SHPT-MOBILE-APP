@@ -86,6 +86,11 @@ fun Context.getuserprofile(): JSONObject? {
 }
 
 
+fun Context.addToCartWithOptions(params: HashMap<String, String>): JSONObject {
+    return JSONObject(getAdapter().addToCartWithOptions(Config.ADDTOCART, params).execute().body().string())
+}
+
+
 fun Context.saveUserDetails(
         firstname: String,
         lastname: String,

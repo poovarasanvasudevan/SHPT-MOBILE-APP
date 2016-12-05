@@ -27,6 +27,7 @@ import com.mcxiaoke.koi.ext.*
 import com.mikepenz.fastadapter.items.AbstractItem
 import com.mikepenz.fontawesome_typeface_library.FontAwesome
 import org.greenrobot.eventbus.EventBus
+import org.json.JSONArray
 import org.json.JSONObject
 import java.util.*
 
@@ -41,6 +42,7 @@ class ShoppingCartProductAdapter(
         var image: String,
         var quantity: String,
         var price: String,
+        var options: JSONArray,
         var context: Activity,
         var isAlertable: Boolean = true,
         var clickable: Boolean = true) : AbstractItem<ShoppingCartProductAdapter, ShoppingCartProductAdapter.ViewHolder>(), PopupMenu.OnMenuItemClickListener {
@@ -102,7 +104,7 @@ class ShoppingCartProductAdapter(
 
     fun modifyCart(quantity: String) {
         var map: HashMap<String, String> = HashMap()
-        var qu: String = "quantity[$productId::]"
+        var qu: String = "quantity[$productId]"
         map.put(qu, quantity)
 
         AsyncTaskCompat.executeParallel(ModifyCart(), map)
@@ -147,7 +149,7 @@ class ShoppingCartProductAdapter(
 
     inner class DeleteFromCart : AsyncTask<Void, Void, JSONObject>() {
         override fun doInBackground(vararg p0: Void?): JSONObject? {
-            return context.removeFromCart(productId + "::")
+            return context.removeFromCart(productId)
         }
 
         override fun onPostExecute(result: JSONObject?) {
@@ -178,6 +180,17 @@ class ShoppingCartProductAdapter(
         holder.shoppingCartProductQuantity.text = "Qty .(${quantity})"
         holder.shoppingCartProductPrice.text = price
 
+        if (options.length() > 0) {
+            var optionString: String = ""
+            for (i in 0..options.length() - 1) {
+                optionString += options.optJSONObject(i).optString("name") + " : " + options.optJSONObject(i).optString("value") + "\n"
+            }
+
+            holder.shoppingCartProductOptions.text = optionString
+        } else {
+            holder.shoppingCartProductOptions.visibility = View.GONE
+        }
+
         if (isAlertable) {
 
             holder.overflowIcon.onClick { view ->
@@ -190,11 +203,11 @@ class ShoppingCartProductAdapter(
             holder.overflowIcon.visibility = View.GONE
         }
 
-        if(clickable) {
+        if (clickable) {
 
             holder.cartProductItem.onClick {
                 var bundle = Bundle {
-                    putInt("PRODUCTID", productId.toInt())
+                    putInt("PRODUCTID", productId.split(":")[0].toInt())
                 }
                 context.startActivity<ProductDetail>(Intent.FLAG_ACTIVITY_NEW_TASK, bundle)
             }
@@ -207,6 +220,7 @@ class ShoppingCartProductAdapter(
         internal var shoppingCartProductName: TextView
         internal var shoppingCartProductQuantity: TextView
         internal var shoppingCartProductPrice: TextView
+        internal var shoppingCartProductOptions: TextView
         internal var overflowIcon: ImageButton
         internal var cartProductItem: Ripple
 
@@ -216,6 +230,7 @@ class ShoppingCartProductAdapter(
             shoppingCartProductName = view.findViewById(R.id.shoppingCartProductName) as TextView
             shoppingCartProductQuantity = view.findViewById(R.id.shoppingCartProductQuantity) as TextView
             shoppingCartProductPrice = view.findViewById(R.id.shoppingCartProductPrice) as TextView
+            shoppingCartProductOptions = view.findViewById(R.id.shoppingCartProductOptions) as TextView
             overflowIcon = view.findViewById(R.id.overflowIcon) as ImageButton
             cartProductItem = view.findViewById(R.id.cartProductItem) as Ripple
         }

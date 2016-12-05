@@ -32,7 +32,7 @@ class StepThree : AbstractStep() {
     lateinit var fullLayout: ScrollView
     var selectedShippingMethod: Int = 0
     var CONSTANT: Int = 2500
-    lateinit var progress : ProgressWheel
+    lateinit var progress: ProgressWheel
     lateinit var shippingMessageLabel: TextView
     lateinit var shippingMessageText: EditText
 
@@ -156,11 +156,11 @@ class StepThree : AbstractStep() {
 
             if (selectedShippingMethod > 0) {
 
+                loadShippingMethodStepValidate(shippingMethodRadioGroup.find<RadioButton>(shippingMethodRadioGroup.checkedRadioButtonId).getTag().toString(), shippingMessageText.text.toString())
+
                 var bundle = mStepper.extras
                 bundle.putString(Config.SHIPPINGMETHOD, shippingMethodRadioGroup.find<RadioButton>(shippingMethodRadioGroup.checkedRadioButtonId).getTag().toString())
 
-
-                loadShippingMethodStepValidate(shippingMethodRadioGroup.find<RadioButton>(shippingMethodRadioGroup.checkedRadioButtonId).getTag().toString(), shippingMessageText.text.toString())
                 return true
             } else {
                 return false

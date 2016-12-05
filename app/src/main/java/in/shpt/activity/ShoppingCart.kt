@@ -169,11 +169,12 @@ class ShoppingCart : AppCompatActivity() {
 
                 for (i in 0..products.length() - 1) {
                     fastAdapter.add(ShoppingCartProductAdapter(
-                            products.optJSONObject(i).optString("model"),
+                            products.optJSONObject(i).optString("key"),
                             products.optJSONObject(i).optString("name"),
                             products.optJSONObject(i).optString("thumb").replace("47x47", "550x550"),
                             products.optJSONObject(i).optInt("quantity").toString(),
                             products.optJSONObject(i).optString("total"),
+                            products.optJSONObject(i).optJSONArray("option"),
                             this@ShoppingCart
                     ))
                 }

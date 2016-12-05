@@ -46,6 +46,10 @@ interface API {
     @GET
     fun getAddress(@Url url: String): Call<ResponseBody>
 
+    @POST
+    @FormUrlEncoded
+    fun addToCartWithOptions(@Url url: String, @FieldMap params: HashMap<String, String>) : Call<ResponseBody>
+
 
     @GET
     fun addAddress(@Url url: String): Call<ResponseBody>
@@ -163,7 +167,7 @@ interface API {
     fun paymentMethodStepValidate(@Url url: String, @Field("payment_method") payment_method: String, @Field("comment") comment: String, @Field("agree") agree: String): Call<ResponseBody>
 
     @GET
-    fun confirmOrderStep(@Url url: String) : Call<ResponseBody>
+    fun confirmOrderStep(@Url url: String): Call<ResponseBody>
 
     //
     @POST

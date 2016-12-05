@@ -7,6 +7,7 @@ import `in`.shpt.ext.theme
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.View
 import android.webkit.WebChromeClient
 import android.webkit.WebView
@@ -37,24 +38,22 @@ class PaymentWeb : AppCompatActivity() {
             progress.visibility = View.VISIBLE
             view!!.visibility = View.GONE
 
-            if (url!!.contains(Config.PAYMENT_CONFIRM) || url.contains(Config.INSTAMOJO)) {
-                view!!.visibility = View.GONE
+            Log.i("Payment : ", url)
+
+            if (url!!.contains(Config.PAYMENT_CONFIRM) || url.contains(Config.INSTAMOJO) || url.contains(Config.BASE)) {
+                payment_web.visibility = View.GONE
             } else {
-                view!!.visibility = View.VISIBLE
+                payment_web.visibility = View.VISIBLE
             }
             super.onPageStarted(view, url, favicon)
         }
 
         override fun onPageFinished(view: WebView?, url: String?) {
+            Log.i("Payment : ", url)
 
-            if (url!!.contains(Config.INSTAMOJO)) {
-                view!!.visibility = View.GONE
-            } else {
-                view!!.visibility = View.VISIBLE
-            }
 
             if (url!!.contains(Config.PAYMENT_CONFIRM)) {
-                view!!.visibility = View.GONE
+                payment_web.visibility = View.GONE
                 toast("payment confirmed")
                 startActivity<PaymentConfirm>()
                 finish()

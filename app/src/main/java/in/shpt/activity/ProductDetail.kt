@@ -60,6 +60,7 @@ class ProductDetail : AppCompatActivity(), OnTabSelectedListener {
 
         productId = intent.getIntExtra("PRODUCTID", 0)
 
+       // toast("Product : ${productId}")
         next(isConnected())
 
         addtocart.onClick {
@@ -97,6 +98,11 @@ class ProductDetail : AppCompatActivity(), OnTabSelectedListener {
             true
         }
 
+    }
+
+    override fun onPostResume() {
+        loadCart()
+        super.onPostResume()
     }
 
 
