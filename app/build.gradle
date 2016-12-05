@@ -52,6 +52,7 @@ dependencies {
     compile 'com.parse:parse-android:1.13.1'
     compile 'com.github.tgio:parse-livequery:1.0.3'
     compile 'com.veinhorn.tagview:library:1.0.4'
+    compile 'com.github.claudiodegio:MsvSearch:1.0.0'
 }
 repositories {
     mavenCentral()
