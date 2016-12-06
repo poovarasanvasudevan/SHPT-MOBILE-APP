@@ -56,11 +56,11 @@ class LoginWebView : AppCompatActivity() {
             progressLoader.visibility = View.VISIBLE
 
             if (url?.contains("account/edit")!!) {
-                view!!.visibility = View.GONE
+                loginWebView.visibility = View.GONE
             }
 
             if (url?.contains("common/home")!!) {
-                view!!.visibility = View.GONE
+                loginWebView.visibility = View.GONE
             }
             super.onPageStarted(view, url, favicon)
         }
@@ -70,6 +70,7 @@ class LoginWebView : AppCompatActivity() {
             Log.d("LoginWebView", url)
             // logi() { url }
             if (url?.contains("account/edit")!!) {
+                loginWebView.visibility = View.GONE
                 //No Phone Number go to edit page
                 saveCookie(url)
                 startActivity<ProfileUpdate>()
@@ -77,6 +78,7 @@ class LoginWebView : AppCompatActivity() {
             }
 
             if (url?.contains("common/home")!!) {
+                loginWebView.visibility = View.GONE
                 //go to home page
                 saveCookie(url)
                 startActivity<Home>()
