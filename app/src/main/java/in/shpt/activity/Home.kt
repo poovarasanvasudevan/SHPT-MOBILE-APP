@@ -57,6 +57,8 @@ class Home : AppCompatActivity() {
             true
         }
 
+
+
         //navMenu = navigation_view.menu
         val actionBarDrawerToggle = object : ActionBarDrawerToggle(this, drawer, toolbar, R.string.open, R.string.close) {
 
@@ -83,6 +85,9 @@ class Home : AppCompatActivity() {
         popularProducts.adapter = popularProductAdapter
 
 
+//        val query = ParseQuery.getQuery<ParseObject>(Config.RECENTPRODUCT_CLASS)
+//        query.fromLocalDatastore()
+//        query.findInBackground { mutableList, parseException -> ParseObject.unpinAll(mutableList)}
 
         next(isConnected())
 

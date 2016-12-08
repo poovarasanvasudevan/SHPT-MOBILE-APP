@@ -231,6 +231,7 @@ class ProductDetail : AppCompatActivity(), OnTabSelectedListener {
                 var obj: ParseObject = ParseObject(Config.RECENTPRODUCT_CLASS)
                 obj.put("product_id", productId)
                 obj.put("product_name", result.optString("heading_title"))
+                obj.put("created", System.currentTimeMillis())
                 obj.pinInBackground()
             }
 
