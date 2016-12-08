@@ -86,6 +86,7 @@ class ProductSearchResult : AppCompatActivity() {
 
         val query = ParseQuery.getQuery<ParseObject>(Config.RECENTPRODUCT_CLASS)
         query.fromLocalDatastore()
+        query.addDescendingOrder("created")
         query.findInBackground { mutableList, parseException ->
             run {
                 if (parseException == null && mutableList.size > 0) {
