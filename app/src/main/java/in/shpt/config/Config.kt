@@ -43,9 +43,9 @@ object Config {
     var PAYMENTMETHODSTEPVALIDATE = "${BASE}/index.php?route=checkout/payment_method/validate" + WEBAPI
 
     var CONFIRMORDER = "${BASE}/index.php?route=checkout/confirm" + WEBAPI
-    var SEARCH = "${BASE}/index.php??route=product/search/ajax"
-
-    //var SHPTIMAGE = "http://localhost:8080/image/cache/data/2397_FC-550x550.jpg"
+    var SEARCH = "${BASE}/index.php?route=product/search/ajax" + WEBAPI
+    val POPULAR_PRODUCT: String = "${BASE}/index.php?route=api/mobile/popular" + WEBAPI
+    var SHPTIMAGE = "http://localhost:8080/image/cache/"
 
     var INSTAMOJO = "/instamojo/start"
     var INSTAMOJOMETHOD = "GET"
@@ -73,10 +73,12 @@ object Config {
     val MY_APP_ID = "myAppId"
     var SERVER = "http://10.0.2.2:1337/parse/"
     var CLIENT_KEY = "2ead5328dda34e688816040a0e78948a"
+    var LIMIT = 5
 
 
     //parseconfig
     val HOME_PRODUCT_BANNER = "HOME_PRODUCT_BANNER"
     val SLIDESHOW_INTERVAL: Int = 5500
+    val RECENTPRODUCT_CLASS = "recent_searched"
 
 }

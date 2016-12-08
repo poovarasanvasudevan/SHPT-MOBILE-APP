@@ -3,6 +3,7 @@ package `in`.shpt.activity
 import `in`.shpt.R
 import `in`.shpt.adapter.BannerAdapter
 import `in`.shpt.adapter.DiscountBannerImagePagerAdapter
+import `in`.shpt.adapter.ImageProductItemAdapter
 import `in`.shpt.config.Config
 import `in`.shpt.config.JSONConfig
 import `in`.shpt.event.ConnectionEvent
@@ -16,6 +17,8 @@ import android.support.v4.os.AsyncTaskCompat
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.DefaultItemAnimator
+import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
 import android.view.SubMenu
@@ -23,6 +26,7 @@ import android.view.View
 import com.mcxiaoke.koi.ext.isConnected
 import com.mcxiaoke.koi.ext.startActivity
 import com.mikepenz.actionitembadge.library.ActionItemBadge
+import com.mikepenz.fastadapter.adapters.FastItemAdapter
 import com.mikepenz.fontawesome_typeface_library.FontAwesome
 import com.parse.ParseConfig
 import kotlinx.android.synthetic.main.activity_home.*
@@ -37,6 +41,7 @@ class Home : AppCompatActivity() {
 
     var cartCount: Int = 0
     lateinit var homeMenu: Menu
+    lateinit var popularProductAdapter: FastItemAdapter<ImageProductItemAdapter>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         theme()
@@ -69,6 +74,15 @@ class Home : AppCompatActivity() {
         drawer.setDrawerListener(actionBarDrawerToggle)
         actionBarDrawerToggle.syncState()
 
+        popularProductAdapter = FastItemAdapter()
+        val llm = LinearLayoutManager(this)
+        llm.orientation = LinearLayoutManager.HORIZONTAL
+        popularProducts.layoutManager = llm
+        popularProducts.itemAnimator = DefaultItemAnimator()
+        popularProducts.adapter
+        popularProducts.adapter = popularProductAdapter
+
+
 
         next(isConnected())
 
@@ -93,6 +107,7 @@ class Home : AppCompatActivity() {
             AsyncTaskCompat.executeParallel(CategoriesLoaderTask(), null)
             AsyncTaskCompat.executeParallel(BannerLoader(), null)
             AsyncTaskCompat.executeParallel(CartLoader(), null)
+            AsyncTaskCompat.executeParallel(PopularProductLoader(), null)
         } else {
             navigation_view.menu.clear()
             root.visibility = View.GONE
@@ -238,7 +253,7 @@ class Home : AppCompatActivity() {
         updateCartCount()
         menu.findItem(R.id.shoppingcart).icon = getIcon(FontAwesome.Icon.faw_shopping_cart)
         menu.findItem(R.id.notification).icon = getIcon(FontAwesome.Icon.faw_bell)
-       // menu.findItem(R.id.search).icon = getIcon(FontAwesome.Icon.faw_search)
+        // menu.findItem(R.id.search).icon = getIcon(FontAwesome.Icon.faw_search)
 
 
         return super.onCreateOptionsMenu(menu)
@@ -305,5 +320,27 @@ class Home : AppCompatActivity() {
             }
         }
 
+    }
+
+
+    inner class PopularProductLoader : AsyncTask<Void, Void, JSONArray>() {
+        override fun doInBackground(vararg p0: Void?): JSONArray {
+            return popularProducts()
+        }
+
+        override fun onPostExecute(result: JSONArray?) {
+
+            (0..result!!.length() - 1).forEach {
+                popularProductAdapter.add(ImageProductItemAdapter(
+                        result.optJSONObject(it).optString("product_id"),
+                        Config.SHPTIMAGE + result.optJSONObject(it).optString("image"),
+                        result.optJSONObject(it).optString("name"),
+                        this@Home
+                ))
+            }
+
+
+            super.onPostExecute(result)
+        }
     }
 }

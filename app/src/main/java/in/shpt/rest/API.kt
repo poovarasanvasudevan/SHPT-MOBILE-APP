@@ -177,4 +177,7 @@ interface API {
 
     @GET
     fun searchProducts(@Url url: String, @Query("keyword") keyword: String): Call<ResponseBody>
+
+    @GET
+    fun popularProducts(@Url url: String, @Query("limit") limit: Int): Call<ResponseBody>
 }

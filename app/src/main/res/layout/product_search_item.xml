@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<in.shpt.widget.Ripple
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_height="wrap_content"
+        app:mrl_rippleOverlay="true"
+        android:id="@+id/productSearchItem"
+        app:mrl_rippleColor="@color/md_grey_500"
+        android:background="@color/md_white_1000"
+        android:layout_width="match_parent">
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_height="wrap_content">
+
+        <TextView
+                android:layout_width="match_parent"
+                android:id="@+id/productName"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="8dp"
+                android:textSize="15dp"
+                android:text="Heloo World"
+                android:layout_height="wrap_content"/>
+    </LinearLayout>
+</in.shpt.widget.Ripple>

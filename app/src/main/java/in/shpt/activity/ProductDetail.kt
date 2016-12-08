@@ -2,6 +2,7 @@ package `in`.shpt.activity
 
 import `in`.shpt.R
 import `in`.shpt.adapter.ProductDetailPagertAdapter
+import `in`.shpt.config.Config
 import `in`.shpt.event.ConnectionEvent
 import `in`.shpt.ext.*
 import android.content.Intent
@@ -20,6 +21,7 @@ import android.widget.EditText
 import com.mcxiaoke.koi.ext.*
 import com.mikepenz.actionitembadge.library.ActionItemBadge
 import com.mikepenz.fontawesome_typeface_library.FontAwesome
+import com.parse.ParseObject
 import kotlinx.android.synthetic.main.activity_product_detail.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -60,7 +62,8 @@ class ProductDetail : AppCompatActivity(), OnTabSelectedListener {
 
         productId = intent.getIntExtra("PRODUCTID", 0)
 
-       // toast("Product : ${productId}")
+
+        // toast("Product : ${productId}")
         next(isConnected())
 
         addtocart.onClick {
@@ -223,6 +226,13 @@ class ProductDetail : AppCompatActivity(), OnTabSelectedListener {
 
             supportActionBar!!.title = result!!.optString("heading_title")
 
+            if (intent.getBooleanExtra("SEARCH", false)) {
+
+                var obj: ParseObject = ParseObject(Config.RECENTPRODUCT_CLASS)
+                obj.put("product_id", productId)
+                obj.put("product_name", result.optString("heading_title"))
+                obj.pinInBackground()
+            }
 
             tabLayout.addTab(tabLayout.newTab())
             tabLayout.addTab(tabLayout.newTab())

@@ -293,4 +293,9 @@ fun Context.confirmOrderStep(): JSONObject {
 fun Context.paymentMethodStepValidate(payment_method: String, comments: String, agree: String): JSONArray {
     return JSONArray(getAdapter().paymentMethodStepValidate(Config.PAYMENTMETHODSTEPVALIDATE, payment_method, comments, agree).execute().body().string())
 }
+
+
+fun Context.popularProducts(): JSONArray {
+    return JSONArray(getAdapter().popularProducts(Config.POPULAR_PRODUCT, Config.LIMIT).execute().body().string())
+}
 //PAYMENTMETHODSTEPVALIDATE

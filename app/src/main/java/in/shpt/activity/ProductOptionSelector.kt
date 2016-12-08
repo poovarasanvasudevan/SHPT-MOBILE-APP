@@ -161,7 +161,7 @@ class ProductOptionSelector : AppCompatActivity() {
                                 if (selectOptions.optJSONObject(ItemPosition).opt("price") is Boolean) {
 
                                 } else {
-                                    productPrice.text = selectOptions.optJSONObject(ItemPosition).optString("price")
+                                   // productPrice.text = selectOptions.optJSONObject(ItemPosition).optString("price")
                                 }
 
                                 validateModels[i].isEntered = true
