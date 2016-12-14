@@ -103,7 +103,7 @@ class CategoryView : AppCompatActivity() {
             footerAdapter = FooterAdapter()
 
             productList.itemAnimator = DefaultItemAnimator()
-            productList.adapter = footerAdapter.wrap(fastAdapter);
+            productList.adapter = footerAdapter.wrap(fastAdapter)
 
             AsyncTaskCompat.executeParallel(CategoryProductLoader(), categoryId)
             productList.addOnScrollListener(object : EndlessRecyclerOnScrollListener(footerAdapter) {
@@ -194,13 +194,13 @@ class CategoryView : AppCompatActivity() {
             for (i in 0..products.length() - 1) {
 
                 var price: Spannable = SpannableString(products.optJSONObject(i).optString("price"))
-                price.setSpan(ForegroundColorSpan(Color.BLUE), 0, products.optJSONObject(i).optString("price").length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                price.setSpan(ForegroundColorSpan(Color.BLUE), 0, products.optJSONObject(i).optString("price").length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
                 if (products.optJSONObject(i).opt("special") is Boolean) {
                     // price = products.optJSONObject(i).optString("price") as Spannable
                 } else {
-                    price.setSpan(StrikethroughSpan(), 0, products.optJSONObject(i).optString("price").length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    price.setSpan(StrikethroughSpan(), 0, products.optJSONObject(i).optString("price").length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
                     var discount = SpannableString(products.optJSONObject(i).optString("special"))
-                    discount.setSpan(ForegroundColorSpan(Color.RED), 0, products.optJSONObject(i).optString("special").length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    discount.setSpan(ForegroundColorSpan(Color.RED), 0, products.optJSONObject(i).optString("special").length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
                     price = SpannableString(TextUtils.concat(price, SpannableString("  "), discount))
                 }
 
@@ -233,9 +233,9 @@ class CategoryView : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.product_category_menu, menu)
         menu!!.findItem(R.id.search).icon = getIcon(FontAwesome.Icon.faw_search)
-        drawerMenu = menu!!.findItem(R.id.subCategory)
+        drawerMenu = menu.findItem(R.id.subCategory)
         drawerMenu.icon = getIcon(FontAwesome.Icon.faw_th_large)
-        menu!!.findItem(R.id.sortOrder).icon = getIcon(FontAwesome.Icon.faw_sort_alpha_desc)
+        menu.findItem(R.id.sortOrder).icon = getIcon(FontAwesome.Icon.faw_sort_alpha_desc)
         search = MenuItemCompat.getActionView(menu.findItem(R.id.search)) as SearchView
 
         search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -258,8 +258,8 @@ class CategoryView : AppCompatActivity() {
         })
 
         if (isSubCategoryAvailable == false) {
-            drawerMenu.setVisible(false)
-            drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+            drawerMenu.isVisible = false
+            drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
         }
         return super.onCreateOptionsMenu(menu)
     }
@@ -271,7 +271,7 @@ class CategoryView : AppCompatActivity() {
                 if (drawer.isDrawerOpen(GravityCompat.END)) {
                     drawer.closeDrawer(GravityCompat.END)
                 } else {
-                    drawer.openDrawer(GravityCompat.END);
+                    drawer.openDrawer(GravityCompat.END)
                 }
                 return true
             }
