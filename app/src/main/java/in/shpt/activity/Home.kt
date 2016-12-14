@@ -58,7 +58,6 @@ class Home : AppCompatActivity() {
         }
 
 
-
         //navMenu = navigation_view.menu
         val actionBarDrawerToggle = object : ActionBarDrawerToggle(this, drawer, toolbar, R.string.open, R.string.close) {
 
@@ -112,7 +111,7 @@ class Home : AppCompatActivity() {
             AsyncTaskCompat.executeParallel(CategoriesLoaderTask(), null)
             AsyncTaskCompat.executeParallel(BannerLoader(), null)
             AsyncTaskCompat.executeParallel(CartLoader(), null)
-            AsyncTaskCompat.executeParallel(PopularProductLoader(), null)
+          //  AsyncTaskCompat.executeParallel(PopularProductLoader(), null)
         } else {
             navigation_view.menu.clear()
             root.visibility = View.GONE
@@ -270,6 +269,7 @@ class Home : AppCompatActivity() {
             R.id.notification -> startActivity<NotificationActivity>()
             R.id.myaccount -> startActivity<ProfileUpdate>()
             R.id.search -> startActivity<ProductSearchResult>()
+            R.id.giftcard -> startActivity<GiftCard>()
             android.R.id.home -> {
                 drawer.openDrawer(GravityCompat.START)
                 return true

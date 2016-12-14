@@ -81,6 +81,14 @@
                 android:label="Order Success"/>
 
         <service android:name=".service.ParseService"/>
+        <service
+                android:name=".service.SchedulerServices"
+                android:exported="true"
+                android:permission="com.google.android.gms.permission.BIND_NETWORK_TASK_SERVICE">
+            <intent-filter>
+                <action android:name="com.google.android.gms.gcm.ACTION_TASK_READY"/>
+            </intent-filter>
+        </service>
 
         <receiver android:name=".receivers.ParseReceivers">
             <intent-filter>
@@ -116,6 +124,8 @@
                     android:resource="@xml/product_search"/>
         </activity>
         <activity android:name=".activity.ProductOptionSelector">
+        </activity>
+        <activity android:name=".activity.MaintenenceMode">
         </activity>
     </application>
 

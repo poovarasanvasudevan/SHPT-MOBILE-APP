@@ -51,6 +51,7 @@ dependencies {
     compile 'com.github.fcannizzaro:material-stepper:1.2.2'
     compile 'com.parse:parse-android:1.13.1'
     compile 'com.veinhorn.tagview:library:1.0.4'
+    compile 'com.google.android.gms:play-services-gcm:10.0.1'
 }
 repositories {
     mavenCentral()

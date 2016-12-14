@@ -51,6 +51,10 @@ fun Context.getAdapter(): API {
     }
 }
 
+fun Context.baseAdapter() {
+
+}
+
 class CookieInterceptor(cookie: String) : Interceptor {
 
     var cookies: String = cookie

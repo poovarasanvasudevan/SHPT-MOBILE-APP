@@ -147,7 +147,7 @@ class ProductOptionSelector : AppCompatActivity() {
                     spinner.adapter = spinnerArrayAdapter
                     spinner.background = ContextCompat.getDrawable(applicationContext, R.drawable.spinner)
                     spinner.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 120)
-                    spinner.id = Constant + i;
+                    spinner.id = Constant + i
                     spinner.onItemSelectedListener = object : OnItemSelectedListener {
                         override fun onItemSelected(parentView: AdapterView<*>, selectedItemView: View, position: Int, id: Long) {
                             if (position > 0) {

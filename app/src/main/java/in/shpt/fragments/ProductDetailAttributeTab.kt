@@ -67,7 +67,7 @@ class ProductDetailAttributeTab(var result: JSONObject) : Fragment() {
                 result.optString("model")
         ))
 
-        if (result.optString("reward", "NULL") != "NULL" && !result.optString("reward").isBlank() && result.optString("reward", "NULL") != "0") {
+        if (result.optString("reward", "NULL") != "NULL" && !result.optString("reward").isBlank() && result.optString("reward", "NULL") != "0" && result.optString("reward", "NULL") != "null") {
             productAttributeListAdapter.add(ProductDetailAttributeAdapter(
                     result.optString("text_reward"),
                     result.optString("reward")

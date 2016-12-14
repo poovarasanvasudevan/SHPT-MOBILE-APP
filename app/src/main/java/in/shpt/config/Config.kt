@@ -60,7 +60,7 @@ object Config {
 
     var COOKIE = "login_shpt_cookie"
     var THEME = "my_theme"
-    var DEFAULT_THEME = Theme.INDIGO
+    var DEFAULT_THEME = Theme.GREEN
     var IMAGE_PATH = "${BASE}/image/"
     val DEFAULT_COUNTRY: String = "99"
     val BILLINGADDRESSID: String = "billing_address_id"
@@ -80,5 +80,9 @@ object Config {
     val HOME_PRODUCT_BANNER = "HOME_PRODUCT_BANNER"
     val SLIDESHOW_INTERVAL: Int = 5500
     val RECENTPRODUCT_CLASS = "recent_searched"
+
+
+    val SINGLE_JOB = "single_job"
+    val LOCATION_PEROIDIC_JOB = "location_peroidic_job"
 
 }

@@ -30,6 +30,8 @@ import org.json.JSONArray
 import org.json.JSONObject
 
 
+
+
 class ProductDetail : AppCompatActivity(), OnTabSelectedListener {
 
     lateinit var fetchedResult: JSONObject
@@ -48,6 +50,7 @@ class ProductDetail : AppCompatActivity(), OnTabSelectedListener {
 
     var productId: Int = 0
     var cartCount: Int = 0
+    var isCorpus = false;
     lateinit var productMenu: Menu
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,6 +64,7 @@ class ProductDetail : AppCompatActivity(), OnTabSelectedListener {
         supportActionBar!!.setDisplayShowHomeEnabled(true)
 
         productId = intent.getIntExtra("PRODUCTID", 0)
+        isCorpus = intent.getBooleanExtra("CORPUS", false)
 
 
         // toast("Product : ${productId}")
@@ -239,10 +243,11 @@ class ProductDetail : AppCompatActivity(), OnTabSelectedListener {
             tabLayout.addTab(tabLayout.newTab())
             tabLayout.addTab(tabLayout.newTab())
             tabLayout.tabGravity = TabLayout.GRAVITY_FILL
-            pager.adapter = ProductDetailPagertAdapter(supportFragmentManager, result, tabLayout.tabCount)
+            pager.adapter = ProductDetailPagertAdapter(supportFragmentManager, isCorpus, result, tabLayout.tabCount)
             tabLayout.addOnTabSelectedListener(this@ProductDetail)
             tabLayout.setupWithViewPager(pager)
             pager.offscreenPageLimit = tabLayout.tabCount
+
 
 
             fetchedResult = result

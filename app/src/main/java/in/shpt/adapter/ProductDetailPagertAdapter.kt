@@ -10,16 +10,15 @@ import android.support.v4.view.PagerAdapter
 import org.json.JSONObject
 
 
-
 /**
  * Created by poovarasanv on 29/11/16.
  */
 
-class ProductDetailPagertAdapter(fm: FragmentManager, internal var result: JSONObject, internal var tabCount: Int) : FragmentStatePagerAdapter(fm) {
+class ProductDetailPagertAdapter(fm: FragmentManager, internal var isCorpus: Boolean, internal var result: JSONObject, internal var tabCount: Int) : FragmentStatePagerAdapter(fm) {
 
     override fun getItem(position: Int): Fragment? {
         when (position) {
-            0 -> return ProductDetailTab(result)
+            0 -> return ProductDetailTab(result, isCorpus)
             1 -> return ProductDetailAttributeTab(result)
             2 -> return ProductDetailDescriptionTab(result)
             else -> return null

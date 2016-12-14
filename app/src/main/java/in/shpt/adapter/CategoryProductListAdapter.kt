@@ -52,6 +52,7 @@ class CategoryProductListAdapter(
         holder.productBannerLayout.onClick {
             var productDetailIntent: Intent = Intent(context, ProductDetail::class.java)
             productDetailIntent.putExtra("PRODUCTID", product_id)
+            productDetailIntent.putExtra("CORPUS", isCorpus)
             context.startActivity(productDetailIntent)
 
         }

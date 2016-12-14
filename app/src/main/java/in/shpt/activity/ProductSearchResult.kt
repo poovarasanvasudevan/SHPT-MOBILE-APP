@@ -83,10 +83,10 @@ class ProductSearchResult : AppCompatActivity() {
 
     fun loadRecent() {
 
-
         val query = ParseQuery.getQuery<ParseObject>(Config.RECENTPRODUCT_CLASS)
         query.fromLocalDatastore()
         query.addDescendingOrder("created")
+        query.limit = 7
         query.findInBackground { mutableList, parseException ->
             run {
                 if (parseException == null && mutableList.size > 0) {
@@ -108,6 +108,10 @@ class ProductSearchResult : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    fun loadSuggession() {
+        
     }
 
     fun searchProductsFun(term: String) {
