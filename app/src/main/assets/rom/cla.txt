@@ -9,24 +9,68 @@ class ControllerApiMobile extends Controller
                 'FssNet_mobile_url' => $this->url->link('payment/FssNet/paymentredirect'),
                 'cod_mobile_url' =>$this->url->link('payment/cod/confirm&webapi=true'),
                 'instamojo_mobile_url'=> $this->url->link('payment/instamojo/start')
-            )
-        );
+                )
+            );
+    }
+
+
+    public function mode() {
+        $modeData = array();
+        if ($this->config->get('config_maintenance')) {
+            $modeData['mode'] = true;
+            $modeData['display'] = "Server is Under Maintenence Mode";
+        } else {
+            $modeData['mode'] = false;
+            $modeData['display'] = "Server is Running";
+        }
+
+        if (isset($this->request->get['webapi']) && $this->request->get['webapi'] == md5(MOBILE_KEY)) {
+            header('Content-type: application/json');
+            echo json_encode(array("code" => 201, "message" => "Web API Not Found"));
+        } else {
+           header('Content-type: application/json');
+           echo json_encode(array("code" => 201, "message" => "Web API Not Found"));
+           return;
+       }
+   }
+
+   public function popular() {
+         $this->load->model('catalog/product');
+
+        if (isset($this->request->get['webapi']) && $this->request->get['webapi'] == md5(MOBILE_KEY)) {
+
+            $limit = isset($this->request->get['limit']) ? $this->request->get['limit'] : 5;
+            $result = $this->model_catalog_product->getPopularProducts(5);
+            $ds = array();
+            foreach ($result as $key => $value) {
+
+                array_push($ds, $value);
+            }
+
+            header('Content-type: application/json');
+            echo json_encode($ds);
+            return;
+        } else {
+            header('Content-type: application/json');
+            echo json_encode(array("code" => 201, "message" => "Web API Not Found"));
+            return;
+        }
     }
 
     public function paymentconfirm()
     {
         $payment_code = "";
         if (isset($this->session->data['payment_method']['code'])) {
-                $payment_code = $this->session->data['payment_method']['code'];
+            $payment_code = $this->session->data['payment_method']['code'];
         } else {
-                $payment_code = '';
+            $payment_code = '';
         }
 
         if($payment_code !=""){
 
             if(isset($this->request->get['webapi'])) {
-            $this->redirect($this->config->get($payment_code ."_mobile_url"));
-        }
+                $this->redirect($this->config->get($payment_code ."_mobile_url"));
+            }
         }
 
     }
@@ -68,21 +112,21 @@ class ControllerApiMobile extends Controller
                         $level_3_data[] = array(
                             'category_id' => $category_3['category_id'],
                             'name' => $category_3['name'],
-                        );
+                            );
                     }
 
                     $level_2_data[] = array(
                         'category_id' => $category_2['category_id'],
                         'name' => $category_2['name'],
                         'children' => $level_3_data
-                    );
+                        );
                 }
 
                 $this->data['categories'][] = array(
                     'category_id' => $category_1['category_id'],
                     'name' => $category_1['name'],
                     'children' => $level_2_data
-                );
+                    );
             }
 
             header('Content-type: application/json');
@@ -146,7 +190,7 @@ class ControllerApiMobile extends Controller
                 'image' => $this->model_tool_image->resize($result['image'], $height, $width),
                 'product_id' => $id,
                 'full_detail' => $this->model_catalog_product->getProduct($id)
-            );
+                );
 
         }
 

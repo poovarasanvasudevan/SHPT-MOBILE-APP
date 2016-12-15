@@ -62,7 +62,7 @@ class ProductDetailTab(var result: JSONObject, var corpus: Boolean, var isPrerel
             // price = products.optJSONObject(i).optString("price") as Spannable
         } else {
             price.setSpan(StrikethroughSpan(), 0, result.optString("price").length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-            var discount = SpannableString(result.optString("special"))
+            val discount = SpannableString(result.optString("special"))
             discount.setSpan(ForegroundColorSpan(Color.RED), 0, result.optString("special").length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
             price = SpannableString(TextUtils.concat(price, SpannableString("  "), discount))
 
@@ -73,12 +73,11 @@ class ProductDetailTab(var result: JSONObject, var corpus: Boolean, var isPrerel
         productDetailCost.text = SpannableString(TextUtils.concat("Price : ", price))
 
 
-        // badges.removeAllViews()
         if (corpus) {
 
             val corpusTag: TagView = TagView(context, null)
 
-            var param: ViewGroup.MarginLayoutParams = ViewGroup.MarginLayoutParams(
+            val param: ViewGroup.MarginLayoutParams = ViewGroup.MarginLayoutParams(
                     ViewGroup.LayoutParams.WRAP_CONTENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT)
             param.setMargins(2, 2, 2, 2)
@@ -93,7 +92,7 @@ class ProductDetailTab(var result: JSONObject, var corpus: Boolean, var isPrerel
 
             val corpusTag: TagView = TagView(context, null)
 
-            var param: ViewGroup.MarginLayoutParams = ViewGroup.MarginLayoutParams(
+            val param: ViewGroup.MarginLayoutParams = ViewGroup.MarginLayoutParams(
                     ViewGroup.LayoutParams.WRAP_CONTENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT)
             param.setMargins(2, 2, 2, 2)
@@ -105,7 +104,6 @@ class ProductDetailTab(var result: JSONObject, var corpus: Boolean, var isPrerel
 
             prebooking.text = "(Pre-Booking Opens)"
             prebooking.visibility = View.VISIBLE
-
         }
 
         if (result.opt("free_shipping") is String) {
@@ -115,4 +113,4 @@ class ProductDetailTab(var result: JSONObject, var corpus: Boolean, var isPrerel
         return view
     }
 }
-//5f4dcc3b5aa765d61d8327deb882cf99
+//
