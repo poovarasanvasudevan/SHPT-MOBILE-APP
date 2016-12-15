@@ -60,7 +60,7 @@ object Config {
 
     var COOKIE = "login_shpt_cookie"
     var THEME = "my_theme"
-    var DEFAULT_THEME = Theme.RED
+    var DEFAULT_THEME = Theme.BLUE
     var IMAGE_PATH = "${BASE}/image/"
     val DEFAULT_COUNTRY: String = "99"
     val BILLINGADDRESSID: String = "billing_address_id"

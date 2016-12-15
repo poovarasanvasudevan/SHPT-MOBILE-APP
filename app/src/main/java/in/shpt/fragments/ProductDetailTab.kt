@@ -41,6 +41,7 @@ class ProductDetailTab(var result: JSONObject, var corpus: Boolean, var isPrerel
         val productDetailName = view.find<TextView>(R.id.productDetailName)
         val productDetailCost = view.find<TextView>(R.id.productDetailCost)
         val free_shipping = view.find<TextView>(R.id.free_shipping)
+        val prebooking = view.find<TextView>(R.id.prebooking)
         val badges = view.find<LinearLayout>(R.id.badges)
         //val label_layout = view.find<LabelLayout>(R.id.label_layout)
 
@@ -86,8 +87,6 @@ class ProductDetailTab(var result: JSONObject, var corpus: Boolean, var isPrerel
             corpusTag.tagType = TagView.MODERN
             corpusTag.tagColor = context.resources.getColor(R.color.md_red_400)
             badges.addView(corpusTag)
-
-
         }
 
         if (isPrerelease) {
@@ -99,11 +98,13 @@ class ProductDetailTab(var result: JSONObject, var corpus: Boolean, var isPrerel
                     ViewGroup.LayoutParams.WRAP_CONTENT)
             param.setMargins(2, 2, 2, 2)
             corpusTag.layoutParams = param
-            corpusTag.text = "Pre-Release"
+            corpusTag.text = "Pre-Booking"
             corpusTag.tagType = TagView.MODERN
             corpusTag.tagColor = context.resources.getColor(R.color.md_teal_400)
             badges.addView(corpusTag)
 
+            prebooking.text = "(Pre-Booking Opens)"
+            prebooking.visibility = View.VISIBLE
 
         }
 
