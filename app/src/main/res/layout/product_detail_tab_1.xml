@@ -23,10 +23,10 @@
                     android:layout_margin="15dp"
                     android:layout_height="240dp">
 
-                    <android.support.v4.view.ViewPager
-                            android:layout_width="match_parent"
-                            android:id="@+id/imagePager"
-                            android:layout_height="match_parent"/>
+                <android.support.v4.view.ViewPager
+                        android:layout_width="match_parent"
+                        android:id="@+id/imagePager"
+                        android:layout_height="match_parent"/>
 
             </LinearLayout>
 
@@ -34,7 +34,10 @@
             <TextView
                     android:layout_width="match_parent"
                     android:id="@+id/productDetailName"
-                    android:layout_margin="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
                     android:gravity="center_horizontal"
                     android:textSize="20dp"
                     style="@style/TextAppearance.AppCompat.Headline"
@@ -43,13 +46,26 @@
 
             <TextView
                     android:layout_width="match_parent"
-                    android:layout_margin="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
                     android:textSize="17dp"
                     android:gravity="center_horizontal"
                     android:id="@+id/productDetailCost"
                     style="@style/TextAppearance.AppCompat.Headline"
                     android:layout_height="wrap_content"/>
 
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:textColor="@color/md_red_500"
+                    style="@style/TextAppearance.AppCompat.Body2"
+                    android:gravity="center_horizontal"
+                    android:visibility="gone"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/free_shipping"
+                    android:layout_height="wrap_content"/>
             <LinearLayout
                     android:layout_width="match_parent"
                     android:padding="15dp"

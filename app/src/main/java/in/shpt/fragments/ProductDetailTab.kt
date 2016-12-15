@@ -30,16 +30,17 @@ import java.util.*
  * @on 29/11/16 at 5:39 PM
  */
 
-class ProductDetailTab(var result: JSONObject, var corpus: Boolean) : Fragment() {
+class ProductDetailTab(var result: JSONObject, var corpus: Boolean, var isPrerelease: Boolean) : Fragment() {
 
 
-    var tagsetFlag = false;
+    var tagsetFlag = false
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         val view = inflater?.inflate(R.layout.product_detail_tab_1, container, false)
         val imagePager = view!!.find<ViewPager>(R.id.imagePager)
         val productDetailName = view.find<TextView>(R.id.productDetailName)
         val productDetailCost = view.find<TextView>(R.id.productDetailCost)
+        val free_shipping = view.find<TextView>(R.id.free_shipping)
         val badges = view.find<LinearLayout>(R.id.badges)
         //val label_layout = view.find<LabelLayout>(R.id.label_layout)
 
@@ -55,20 +56,20 @@ class ProductDetailTab(var result: JSONObject, var corpus: Boolean) : Fragment()
 
 
         var price: Spannable = SpannableString(result.optString("price"))
-        price.setSpan(ForegroundColorSpan(Color.BLUE), 0, result.optString("price").length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        price.setSpan(ForegroundColorSpan(Color.BLUE), 0, result.optString("price").length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         if (result.opt("special") is Boolean) {
             // price = products.optJSONObject(i).optString("price") as Spannable
         } else {
-            price.setSpan(StrikethroughSpan(), 0, result.optString("price").length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            price.setSpan(StrikethroughSpan(), 0, result.optString("price").length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
             var discount = SpannableString(result.optString("special"))
-            discount.setSpan(ForegroundColorSpan(Color.RED), 0, result.optString("special").length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            discount.setSpan(ForegroundColorSpan(Color.RED), 0, result.optString("special").length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
             price = SpannableString(TextUtils.concat(price, SpannableString("  "), discount))
 
 
             tagsetFlag = true
         }
         productDetailName.text = result.optString("heading_title")
-        productDetailCost.text = SpannableString(TextUtils.concat("Price : ", price));
+        productDetailCost.text = SpannableString(TextUtils.concat("Price : ", price))
 
 
         // badges.removeAllViews()
@@ -89,20 +90,26 @@ class ProductDetailTab(var result: JSONObject, var corpus: Boolean) : Fragment()
 
         }
 
-        if (result.optBoolean("free_shipping")) {
+        if (isPrerelease) {
 
             val corpusTag: TagView = TagView(context, null)
+
             var param: ViewGroup.MarginLayoutParams = ViewGroup.MarginLayoutParams(
                     ViewGroup.LayoutParams.WRAP_CONTENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT)
             param.setMargins(2, 2, 2, 2)
             corpusTag.layoutParams = param
-            corpusTag.text = "Free Shipping"
+            corpusTag.text = "Pre-Release"
             corpusTag.tagType = TagView.MODERN
-            corpusTag.tagColor = context.resources.getColor(R.color.md_green_400)
+            corpusTag.tagColor = context.resources.getColor(R.color.md_teal_400)
             badges.addView(corpusTag)
 
 
+        }
+
+        if (result.opt("free_shipping") is String) {
+            free_shipping.text = "${result.optString("text_free_shipping")} ${result.optString("free_shipping_date")}"
+            free_shipping.visibility = View.VISIBLE
         }
         return view
     }

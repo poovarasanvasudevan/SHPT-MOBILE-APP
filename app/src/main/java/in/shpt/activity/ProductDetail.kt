@@ -53,7 +53,8 @@ class ProductDetail : AppCompatActivity(), OnTabSelectedListener {
 
     var productId: Int = 0
     var cartCount: Int = 0
-    var isCorpus = false;
+    var isCorpus = false
+    var isPrerelease = false
     lateinit var productMenu: Menu
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,6 +69,7 @@ class ProductDetail : AppCompatActivity(), OnTabSelectedListener {
 
         productId = intent.getIntExtra("PRODUCTID", 0)
         isCorpus = intent.getBooleanExtra("CORPUS", false)
+        isPrerelease = intent.getBooleanExtra("PRERELEASE", false)
 
         imageZoom = ImageZoom(this)
 
@@ -250,7 +252,7 @@ class ProductDetail : AppCompatActivity(), OnTabSelectedListener {
             tabLayout.addTab(tabLayout.newTab())
             tabLayout.addTab(tabLayout.newTab())
             tabLayout.tabGravity = TabLayout.GRAVITY_FILL
-            pager.adapter = ProductDetailPagertAdapter(supportFragmentManager, isCorpus, result, tabLayout.tabCount)
+            pager.adapter = ProductDetailPagertAdapter(supportFragmentManager, isCorpus, isPrerelease,result, tabLayout.tabCount)
             tabLayout.addOnTabSelectedListener(this@ProductDetail)
             tabLayout.setupWithViewPager(pager)
             pager.offscreenPageLimit = tabLayout.tabCount

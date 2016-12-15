@@ -213,7 +213,8 @@ class CategoryView : AppCompatActivity() {
                         products.optJSONObject(i).optString("product_id").toInt(),
                         this@CategoryView,
                         if (products.optJSONObject(i).opt("free_shipping") is Boolean) false else true,
-                        products.optJSONObject(i).optBoolean("is_corpus")
+                        products.optJSONObject(i).optBoolean("is_corpus"),
+                        products.optJSONObject(i).optBoolean("is_prerelease")
                 ))
             }
 

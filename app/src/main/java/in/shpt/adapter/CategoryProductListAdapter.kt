@@ -31,7 +31,8 @@ class CategoryProductListAdapter(
         var product_id: Int,
         var context: Activity,
         var isFreeShipping: Boolean = false,
-        var isCorpus: Boolean = false) : AbstractItem<CategoryProductListAdapter, CategoryProductListAdapter.ViewHolder>() {
+        var isCorpus: Boolean = false,
+        var isPrerelease: Boolean = false) : AbstractItem<CategoryProductListAdapter, CategoryProductListAdapter.ViewHolder>() {
 
     override fun getType(): Int {
         return R.id.categoryadapter
@@ -53,6 +54,7 @@ class CategoryProductListAdapter(
             var productDetailIntent: Intent = Intent(context, ProductDetail::class.java)
             productDetailIntent.putExtra("PRODUCTID", product_id)
             productDetailIntent.putExtra("CORPUS", isCorpus)
+            productDetailIntent.putExtra("PRERELEASE", isPrerelease)
             context.startActivity(productDetailIntent)
 
         }
@@ -89,6 +91,24 @@ class CategoryProductListAdapter(
             corpusTag.tagColor = context.resources.getColor(R.color.md_green_400)
             holder.tagLayout.addView(corpusTag)
         }
+
+        if (isPrerelease) {
+            context.log(productName)
+
+            val corpusTag: TagView = TagView(context, null)
+            var param: ViewGroup.MarginLayoutParams = ViewGroup.MarginLayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT)
+            param.setMargins(2,2,2,2)
+            corpusTag.layoutParams = param
+            corpusTag.text = "Pre-Release"
+            corpusTag.tagType = TagView.MODERN
+            corpusTag.tagColor = context.resources.getColor(R.color.md_teal_400)
+            holder.tagLayout.addView(corpusTag)
+        }
+
+
+
     }
 
 
