@@ -22,6 +22,8 @@
     <item name="shippingmethodselection" type="id"></item>
     <item name="paymentmethodselection" type="id"></item>
 
+    <item name="zoomable" type="id" />
+    <item name="unzoomable" type="id" />
 
     <declare-styleable name="LabelLayout">
         <attr name="labelHeight" format="dimension" />

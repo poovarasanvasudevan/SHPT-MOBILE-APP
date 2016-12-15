@@ -2,6 +2,7 @@ package `in`.shpt.fragments
 
 import `in`.shpt.R
 import `in`.shpt.ext.loadUrl
+import `in`.shpt.widget.ImageZoom
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -16,13 +17,17 @@ import kotlinx.android.synthetic.main.image_pager.view.*
 
 class ImagePager : Fragment() {
 
+
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+
+
         val message: String = arguments.getString(EXTRA_MESSAGE)
         val v = inflater!!.inflate(R.layout.image_pager, container, false)
         v.pager_image.loadUrl(message)
+
+        ImageZoom.setViewZoomable(v.pager_image)
         return v;
     }
-
 
 
     companion object {

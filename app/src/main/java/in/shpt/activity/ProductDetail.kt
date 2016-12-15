@@ -5,6 +5,7 @@ import `in`.shpt.adapter.ProductDetailPagertAdapter
 import `in`.shpt.config.Config
 import `in`.shpt.event.ConnectionEvent
 import `in`.shpt.ext.*
+import `in`.shpt.widget.ImageZoom
 import android.content.Intent
 import android.graphics.Color
 import android.os.AsyncTask
@@ -16,6 +17,7 @@ import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import android.view.MotionEvent
 import android.view.View
 import android.widget.EditText
 import com.mcxiaoke.koi.ext.*
@@ -35,6 +37,7 @@ import org.json.JSONObject
 class ProductDetail : AppCompatActivity(), OnTabSelectedListener {
 
     lateinit var fetchedResult: JSONObject
+    lateinit var imageZoom : ImageZoom
 
     override fun onTabReselected(tab: TabLayout.Tab?) {
 
@@ -66,6 +69,7 @@ class ProductDetail : AppCompatActivity(), OnTabSelectedListener {
         productId = intent.getIntExtra("PRODUCTID", 0)
         isCorpus = intent.getBooleanExtra("CORPUS", false)
 
+        imageZoom = ImageZoom(this)
 
         // toast("Product : ${productId}")
         next(isConnected())
@@ -107,6 +111,9 @@ class ProductDetail : AppCompatActivity(), OnTabSelectedListener {
 
     }
 
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        return imageZoom.onDispatchTouchEvent(ev!!) || super.dispatchTouchEvent(ev);
+    }
     override fun onPostResume() {
         loadCart()
         super.onPostResume()
