@@ -7,10 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebChromeClient
+import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import com.mcxiaoke.koi.ext.find
+import com.mcxiaoke.koi.ext.onLongClick
 import org.json.JSONObject
+
+
 
 /**
  * Created by poovarasanv on 20/12/16.
@@ -30,8 +34,16 @@ class ProductDetailTableOfIndex(var result: JSONObject) : Fragment() {
         web.setWebChromeClient(WebChromeClient())
         web.setWebViewClient(WebViewClient())
         web.settings.javaScriptEnabled = true
-        var webViewContents ="<html><body style='text-align:justify;'>${result.optString("table_of_index")}</body></html>"
+        web.settings.setRenderPriority(WebSettings.RenderPriority.HIGH)
+        web.onLongClick {
+            true
+        }
+        web.isLongClickable = false
+        web.isHapticFeedbackEnabled = false
+        val webViewContents ="<html><body style='text-align:justify;'>${result.optString("table_of_index").replace("href=","_href=")}</body></html>"
         web.loadData(webViewContents, "text/html; charset=utf-8", "UTF-8")
         return view
     }
+
+
 }

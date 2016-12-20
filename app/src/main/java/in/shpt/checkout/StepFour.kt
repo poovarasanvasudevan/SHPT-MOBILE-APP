@@ -145,7 +145,7 @@ class StepFour : AbstractStep() {
     }
 
     override fun error(): String {
-        var message: String = ""
+        var message: String = "Please Select the Payment Method"
         if (agree.isChecked == false) {
             agree.error = "Please Accept the terms and condition"
             message = "Please Accept the terms and condition"

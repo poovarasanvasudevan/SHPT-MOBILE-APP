@@ -69,6 +69,7 @@
                 android:screenOrientation="portrait"/>
         <activity
                 android:name=".activity.ProductDetail"
+                android:hardwareAccelerated="true"
                 android:configChanges="orientation|keyboardHidden|screenLayout|screenSize"/>
         <activity
                 android:name=".activity.CategoryView"

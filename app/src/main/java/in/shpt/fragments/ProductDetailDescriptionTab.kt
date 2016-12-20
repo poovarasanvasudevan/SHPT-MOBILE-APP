@@ -4,7 +4,6 @@ import `in`.shpt.R
 import `in`.shpt.ext.extractLinks
 import `in`.shpt.ext.getIcon
 import `in`.shpt.ext.log
-import `in`.shpt.widget.JustifiedTextView
 import `in`.shpt.widget.Ripple
 import android.app.ProgressDialog
 import android.net.Uri
@@ -12,17 +11,21 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.AppCompatSeekBar
 import android.support.v7.widget.CardView
-import android.text.Html
 import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebChromeClient
+import android.webkit.WebSettings
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.afollestad.easyvideoplayer.EasyVideoCallback
 import com.afollestad.easyvideoplayer.EasyVideoPlayer
 import com.mcxiaoke.koi.ext.find
 import com.mcxiaoke.koi.ext.onClick
+import com.mcxiaoke.koi.ext.onLongClick
 import com.mcxiaoke.koi.ext.onProgressChanged
 import com.mikepenz.fontawesome_typeface_library.FontAwesome
 import com.mikepenz.iconics.IconicsDrawable
@@ -81,6 +84,7 @@ class ProductDetailDescriptionTab(var result: JSONObject) : Fragment(), EasyVide
     lateinit var fullScreenButtonIcon: IconicsImageView
     lateinit var seekbarvideo: AppCompatSeekBar
     lateinit var durationOfTime: TextView
+    lateinit var descWeb: WebView
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         val view = inflater?.inflate(R.layout.product_detail_tab_3, container, false)
@@ -94,16 +98,29 @@ class ProductDetailDescriptionTab(var result: JSONObject) : Fragment(), EasyVide
         video = view.find<EasyVideoPlayer>(R.id.teaserVideo)
         seekbarvideo = view.find<AppCompatSeekBar>(R.id.seekbarvideo)
         durationOfTime = view.find<TextView>(R.id.durationOfTime)
+        descWeb = view.find<WebView>(R.id.descWeb)
 
 
         playpauseButtonIcon.icon = context.getIcon(FontAwesome.Icon.faw_play) as IconicsDrawable
         fullScreenButtonIcon.icon = context.getIcon(FontAwesome.Icon.faw_arrows_alt) as IconicsDrawable
 
-        var txt = Html.fromHtml(result.optString("description")).toString()
+        var txt = result.optString("description")
         if (txt.indexOf("Teaser") > 0) {
             txt = txt.substring(0, txt.indexOf("Teaser")).replace("Teaser", "")
         }
 
+        descWeb.setWebChromeClient(WebChromeClient())
+        descWeb.setWebViewClient(WebViewClient())
+        descWeb.settings.javaScriptEnabled = true
+        descWeb.settings.setRenderPriority(WebSettings.RenderPriority.HIGH)
+        val webViewContents = "<html><body style='text-align:justify;font-family: 'Times New Roman';font-style: normal !important; -webkit-user-select: none;>${txt.replace("href=", "_href=")}</body></html>"
+        descWeb.loadData(webViewContents, "text/html; charset=utf-8", "UTF-8")
+
+        descWeb.onLongClick {
+            true
+        }
+        descWeb.isLongClickable = false
+        descWeb.isHapticFeedbackEnabled = false
         context.getIcon(FontAwesome.Icon.faw_arrows_alt)
 
         val links = result.optString("description").extractLinks()
@@ -112,8 +129,8 @@ class ProductDetailDescriptionTab(var result: JSONObject) : Fragment(), EasyVide
         for (i in 0..links.size - 1) {
 
             videoLayout.visibility = View.VISIBLE
-            video.setCallback(this);
-            video.setSource(Uri.parse(links[i]));
+            video.setCallback(this)
+            video.setSource(Uri.parse(links[i]))
             seekbarvideo.max = video.duration
             video.setProgressCallback({ pos, tot ->
                 run {
@@ -125,7 +142,7 @@ class ProductDetailDescriptionTab(var result: JSONObject) : Fragment(), EasyVide
             context.log(links[i])
         }
 
-       // video.setAutoFullscreen(true)
+        // video.setAutoFullscreen(true)
         playpause.onClick {
             if (video.isPlaying) {
                 video.pause()
@@ -147,8 +164,6 @@ class ProductDetailDescriptionTab(var result: JSONObject) : Fragment(), EasyVide
         }
 
 
-        val jtv = JustifiedTextView(context, txt)
-        descLayout.addView(jtv)
 
         return view
     }

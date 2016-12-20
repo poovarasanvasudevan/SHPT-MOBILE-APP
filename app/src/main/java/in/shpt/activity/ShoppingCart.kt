@@ -22,10 +22,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import com.mcxiaoke.koi.ext.isConnected
-import com.mcxiaoke.koi.ext.onClick
-import com.mcxiaoke.koi.ext.startActivity
-import com.mcxiaoke.koi.ext.toast
+import com.mcxiaoke.koi.ext.*
 import com.mikepenz.fastadapter.adapters.FastItemAdapter
 import com.mikepenz.fastadapter.adapters.FooterAdapter
 import com.mikepenz.fontawesome_typeface_library.FontAwesome
@@ -42,6 +39,7 @@ class ShoppingCart : AppCompatActivity() {
     lateinit var voucherAdapter: FooterAdapter<ShoppingCartVoucherAdapter>
     lateinit var totalAdapter: FastItemAdapter<ShoppingCartTotalAdapter>
 
+    var isFullStock = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         theme()
@@ -73,7 +71,13 @@ class ShoppingCart : AppCompatActivity() {
         next(isConnected())
 
         checkoutButton.onClick {
-            startActivity<Checkout>()
+            if (isFullStock.isEmpty()) {
+
+                startActivity<Checkout>()
+            } else {
+                longToast(isFullStock + " are not available in the desired quantity or not in stock!")
+            }
+
         }
     }
 
@@ -170,13 +174,17 @@ class ShoppingCart : AppCompatActivity() {
                 for (i in 0..products.length() - 1) {
                     fastAdapter.add(ShoppingCartProductAdapter(
                             products.optJSONObject(i).optString("key"),
-                            products.optJSONObject(i).optString("name"),
+                            products.optJSONObject(i).optString("name") + if (products.optJSONObject(i).optBoolean("stock")) "" else "**",
                             products.optJSONObject(i).optString("thumb").replace("47x47", "550x550"),
                             products.optJSONObject(i).optInt("quantity").toString(),
                             products.optJSONObject(i).optString("total"),
                             products.optJSONObject(i).optJSONArray("option"),
                             this@ShoppingCart
                     ))
+
+                    if (products.optJSONObject(i).optBoolean("stock") == false) {
+                        isFullStock = products.optJSONObject(i).optString("name")
+                    }
                 }
 
                 var voucher: JSONArray = result.optJSONArray("vouchers")

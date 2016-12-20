@@ -71,12 +71,12 @@ class EditAddress : AppCompatActivity() {
                 aPostCode.error = "Postal Code is Required"
             }
 
-            if (aCountry.text.toString().addressValidate() && selectedCountryId > 0) {
+            if (aCountry.text.toString().addressValidate() || selectedCountryId == 0) {
                 errorList.add("Country is Required")
                 aCountry.error = "Country is Required"
             }
 
-            if (aState.text.toString().addressValidate() && selectedStateId > 0) {
+            if (aState.text.toString().addressValidate() || selectedStateId == 0) {
                 errorList.add("State/religion is Required")
                 aState.error = "State/religion is Required"
             }
@@ -84,6 +84,7 @@ class EditAddress : AppCompatActivity() {
             if (errorList.size == 0) {
                 //submit
                 if (address_id > 0) {
+                   // toast(" " + selectedCountryId)
                     AsyncTaskCompat.executeParallel(UpdateAddress(), null)
                 } else {
                     //addAddress
@@ -104,7 +105,7 @@ class EditAddress : AppCompatActivity() {
                     aAddress2.text.toString(),
                     aCity.text.toString(),
                     aPostCode.text.toString(),
-                    selectedCountryId - 1,
+                    selectedCountryId,
                     selectedStateId,
                     if (yes.isChecked) 1 else 0
             )
@@ -112,7 +113,7 @@ class EditAddress : AppCompatActivity() {
 
         override fun onPostExecute(result: JSONObject?) {
 
-            var code: Int = result!!.optInt("code")
+            val code: Int = result!!.optInt("code")
             if (code == 200) {
                 toast(result.optString("message"))
                 finish()
@@ -141,7 +142,7 @@ class EditAddress : AppCompatActivity() {
         override fun onPostExecute(result: JSONObject?) {
             supportActionBar!!.title = result!!.optString("text_edit_address")
             aFnameLabel.text = getHTMLLabel(result.optString("entry_firstname"), "*")
-            aLnameLabel.text = getHTMLLabel(result!!.optString("entry_lastname"), "*")
+            aLnameLabel.text = getHTMLLabel(result.optString("entry_lastname"), "*")
             aCompanyLabel.text = getHTMLLabel(result!!.optString("entry_company"), "")
             aAddress1Label.text = getHTMLLabel(result!!.optString("entry_address_1"), "*")
             aAddress2Label.text = getHTMLLabel(result!!.optString("entry_address_2"), "")
