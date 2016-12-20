@@ -111,7 +111,7 @@ class Home : AppCompatActivity() {
             AsyncTaskCompat.executeParallel(CategoriesLoaderTask(), null)
             AsyncTaskCompat.executeParallel(BannerLoader(), null)
             AsyncTaskCompat.executeParallel(CartLoader(), null)
-          //  AsyncTaskCompat.executeParallel(PopularProductLoader(), null)
+            //  AsyncTaskCompat.executeParallel(PopularProductLoader(), null)
         } else {
             navigation_view.menu.clear()
             root.visibility = View.GONE
@@ -243,11 +243,20 @@ class Home : AppCompatActivity() {
                     startActivity<GiftCard>()
                     true
                 }
-        settingMenu.add("Wishlist").setIcon(getIcon(FontAwesome.Icon.faw_shopping_bag)).setOnMenuItemClickListener {
-            startActivity<WishList>()
-            true
-        }
-        settingMenu.add("Feedback").icon = getIcon(FontAwesome.Icon.faw_envelope_open)
+        settingMenu
+                .add("Wishlist")
+                .setIcon(getIcon(FontAwesome.Icon.faw_shopping_bag))
+                .setOnMenuItemClickListener {
+                    startActivity<WishList>()
+                    true
+                }
+        settingMenu
+                .add("Enquiry")
+                .setIcon(getIcon(FontAwesome.Icon.faw_envelope_open))
+                .setOnMenuItemClickListener {
+                    startActivity<Enquiry>()
+                    true
+                }
         settingMenu.add("Settings").icon = getIcon(FontAwesome.Icon.faw_cogs)
     }
 

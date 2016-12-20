@@ -25,6 +25,16 @@
     <item name="zoomable" type="id" />
     <item name="unzoomable" type="id" />
 
+    <dimen name="flowlayout_horizontal_padding">10dp</dimen>
+    <dimen name="flowlayout_vertical_padding">10dp</dimen>
+    <dimen name="one_dp">1dp</dimen>
+    <declare-styleable name="SeekBarCompat">
+        <attr name="thumbColor" format="color" />
+        <attr name="progressColor" format="color"/>
+        <attr name="progressBackgroundColor" format="color"/>
+        <attr name="thumbAlpha" format="float"/>
+    </declare-styleable>
+
     <declare-styleable name="LabelLayout">
         <attr name="labelHeight" format="dimension" />
         <attr name="labelDistance" format="dimension" />

@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">SHPT</string>
+    <string name="parse_app_id">myAppId</string>
+    <string name="parse_client_key">clientkey123</string>
     <string name="open">Open</string>
     <string name="just_now">Just Now</string>
     <string name="close">Close</string>
@@ -9,4 +11,5 @@
         confirmed,Stay tuned for updates
     </string>
     <string name="hint_search">Search For Products</string>
+    <string name="title_activity_enquiry">Enquiry</string>
 </resources>

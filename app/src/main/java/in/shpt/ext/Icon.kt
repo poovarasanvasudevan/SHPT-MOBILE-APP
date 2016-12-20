@@ -29,6 +29,15 @@ fun Context.bitmap2drawable(bitmap: Bitmap): Drawable {
     return BitmapDrawable(this.resources, bitmap)
 }
 
+fun Context.loadBitmap(url:String) : Bitmap {
+    return Glide.with(this)
+            .load(url)
+            .asBitmap()
+            .error(R.drawable.ic_search)
+            .into(475, 267)
+            .get();
+}
+
 fun ImageView.loadUrl(url: String, type: Int = 0) {
     var builder = Glide.with(context)
             .load(url)

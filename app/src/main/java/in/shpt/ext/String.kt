@@ -2,7 +2,11 @@ package `in`.shpt.ext
 
 import android.text.Html
 import android.text.Spanned
+import android.util.Log
+import android.util.Patterns
 import com.mcxiaoke.koi.utils.currentVersion
+import java.util.*
+
 
 /**
  * Created by poovarasanv on 15/11/16.
@@ -26,6 +30,29 @@ fun String.toCamelCase(): String? {
     return ret.toString()
 }
 
+fun String.extractLinks(): Array<String> {
+    val links = ArrayList<String>()
+    val m = Patterns.WEB_URL.matcher(this)
+    while (m.find()) {
+        val url = m.group()
+
+        Log.i("Videop URL",url)
+        if (url.startsWith("https") && url.endsWith(".webm"))
+            links.add(url)
+    }
+
+    return links.toTypedArray()
+}
+
+private fun String.removeHtml(): String {
+    var html = this
+    html = html.replace("<(.*?)\\>".toRegex(), " ")
+    html = html.replace("<(.*?)\\\n".toRegex(), " ")
+    html = html.replaceFirst("(.*?)\\>".toRegex(), " ")
+    html = html.replace("&nbsp;".toRegex(), " ")
+    html = html.replace("&amp;".toRegex(), " ")
+    return html
+}
 
 fun String.limitsTo(characters: Int): String? {
     if (this.isBlank() || this.isEmpty()) {

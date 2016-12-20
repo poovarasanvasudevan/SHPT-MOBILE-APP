@@ -59,67 +59,49 @@
                         <LinearLayout
                                 android:layout_width="match_parent"
                                 android:orientation="vertical"
+                                android:layout_margin="8dp"
                                 android:layout_height="wrap_content">
 
                             <TextView
                                     android:layout_width="match_parent"
                                     android:id="@+id/couponLabelText"
                                     android:text="Use Coupon Code : "
-                                    android:layout_margin="4dp"
                                     android:textStyle="bold"
                                     style="@style/TextAppearance.AppCompat.Medium"
                                     android:layout_height="wrap_content"/>
 
-                            <View
-                                    android:layout_width="match_parent"
-                                    android:background="@color/md_grey_800"
-                                    android:layout_marginBottom="5dp"
-                                    android:layout_height="0.3dp"/>
 
-                            <RelativeLayout
+                            <LinearLayout
                                     android:layout_width="match_parent"
-                                    android:padding="4dp"
+                                    android:orientation="vertical"
                                     android:layout_height="wrap_content">
-
-                                <com.mikepenz.iconics.view.IconicsImageView
-                                        android:layout_width="35dp"
-                                        app:iiv_color="?colorPrimary"
-                                        app:iiv_icon="faw-tag"
-                                        android:layout_centerVertical="true"
-                                        android:padding="7dp"
-                                        android:layout_alignParentLeft="true"
-                                        android:id="@+id/giftIcon"
-                                        android:layout_height="35dp"/>
 
                                 <EditText
                                         android:layout_width="match_parent"
-                                        android:background="@null"
+                                        android:background="@drawable/et"
                                         android:paddingLeft="6dp"
                                         android:inputType="number"
                                         android:id="@+id/couponCode"
                                         android:hint="Coupon Code"
-                                        android:layout_toLeftOf="@+id/editCoupon"
-                                        android:layout_toRightOf="@+id/giftIcon"
-                                        android:layout_height="40dp"/>
+                                        android:layout_height="45dp"/>
 
                                 <in.shpt.widget.Ripple
-                                        android:layout_width="35dp"
-                                        android:layout_weight="7"
+                                        android:layout_width="match_parent"
                                         android:layout_marginTop="5dp"
                                         app:mrl_rippleColor="@color/md_grey_500"
                                         app:mrl_rippleOverlay="true"
-                                        android:layout_alignParentRight="true"
+                                        android:layout_alignBottom="@+id/couponCode"
                                         android:id="@+id/editCoupon"
-                                        android:layout_height="35dp">
+                                        android:layout_height="wrap_content">
 
                                     <com.mikepenz.iconics.view.IconicsButton
                                             android:layout_width="match_parent"
-                                            android:background="@color/md_white_1000"
-                                            android:textColor="?colorPrimary"
-                                            android:text="{faw-check}"
+                                            android:background="@color/md_green_500"
+                                            android:textColor="#fff"
+                                            android:text="{faw-check} Apply Coupon"
                                             android:layout_height="match_parent"/>
                                 </in.shpt.widget.Ripple>
-                            </RelativeLayout>
+                            </LinearLayout>
                         </LinearLayout>
                     </android.support.v7.widget.CardView>
                 </LinearLayout>
@@ -139,13 +121,13 @@
                         <LinearLayout
                                 android:layout_width="match_parent"
                                 android:orientation="vertical"
+                                android:layout_margin="8dp"
                                 android:layout_height="wrap_content">
 
                             <TextView
                                     android:layout_width="match_parent"
                                     android:id="@+id/voucherLabelText"
-                                    android:text="Use Coupon Code : "
-                                    android:layout_margin="4dp"
+                                    android:text="Use Voucher Code : "
                                     android:textStyle="bold"
                                     style="@style/TextAppearance.AppCompat.Medium"
                                     android:layout_height="wrap_content"/>
@@ -156,50 +138,37 @@
                                     android:layout_marginBottom="5dp"
                                     android:layout_height="0.3dp"/>
 
-                            <RelativeLayout
+                            <LinearLayout
                                     android:layout_width="match_parent"
-                                    android:padding="4dp"
+                                    android:orientation="vertical"
                                     android:layout_height="wrap_content">
 
-                                <com.mikepenz.iconics.view.IconicsImageView
-                                        android:layout_width="35dp"
-                                        app:iiv_color="?colorPrimary"
-                                        app:iiv_icon="faw-gift"
-                                        android:padding="7dp"
-                                        android:layout_centerVertical="true"
-                                        android:layout_alignParentLeft="true"
-                                        android:id="@+id/vouchergiftIcon"
-                                        android:layout_height="35dp"/>
 
                                 <EditText
                                         android:layout_width="match_parent"
-                                        android:background="@null"
+                                        android:background="@drawable/et"
                                         android:paddingLeft="6dp"
                                         android:inputType="number"
                                         android:id="@+id/vouchercouponCode"
                                         android:hint="Gift Voucher Code"
-                                        android:layout_toLeftOf="@+id/vouchereditIcon"
-                                        android:layout_toRightOf="@+id/vouchergiftIcon"
-                                        android:layout_height="40dp"/>
+                                        android:layout_height="45dp"/>
 
                                 <in.shpt.widget.Ripple
-                                        android:layout_width="35dp"
-                                        android:layout_weight="7"
+                                        android:layout_width="match_parent"
                                         android:layout_marginTop="5dp"
                                         app:mrl_rippleColor="@color/md_grey_500"
                                         app:mrl_rippleOverlay="true"
-                                        android:layout_alignParentRight="true"
                                         android:id="@+id/vouchereditIcon"
-                                        android:layout_height="35dp">
+                                        android:layout_height="wrap_content">
 
                                     <com.mikepenz.iconics.view.IconicsButton
                                             android:layout_width="match_parent"
-                                            android:background="@color/md_white_1000"
-                                            android:textColor="?colorPrimary"
-                                            android:text="{faw-check}"
+                                            android:background="@color/md_green_500"
+                                            android:textColor="#fff"
+                                            android:text="{faw-check} Apply Gift Voucher"
                                             android:layout_height="match_parent"/>
                                 </in.shpt.widget.Ripple>
-                            </RelativeLayout>
+                            </LinearLayout>
                         </LinearLayout>
                     </android.support.v7.widget.CardView>
                 </LinearLayout>

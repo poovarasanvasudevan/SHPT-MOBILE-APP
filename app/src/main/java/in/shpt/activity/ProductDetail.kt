@@ -51,6 +51,10 @@ class ProductDetail : AppCompatActivity(), OnTabSelectedListener {
         pager.currentItem = tab?.position!!
     }
 
+    override fun onBackPressed() {
+        finish()
+        super.onBackPressed()
+    }
     var productId: Int = 0
     var cartCount: Int = 0
     var isCorpus = false

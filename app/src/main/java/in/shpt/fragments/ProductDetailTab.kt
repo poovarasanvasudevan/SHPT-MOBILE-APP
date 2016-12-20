@@ -15,7 +15,6 @@ import android.text.style.StrikethroughSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.TextView
 import com.mcxiaoke.koi.ext.find
 import com.veinhorn.tagview.TagView
@@ -23,8 +22,18 @@ import org.json.JSONArray
 import org.json.JSONObject
 import java.util.*
 
+
 /**
  * Created by poovarasanv on 29/11/16.
+ * This Fragment Shows Details of Products such as
+ * <ul>
+ *  <li> Images </li>
+ *  <li> ProductName </li>
+ *  <li> Is Free Shipping </li>
+ *  <li> Is Corpus Label </li>
+ *  <li> Price </li>
+ *  <li> Extra Parse Data </li>
+ * </ul>
  * @author poovarasanv
  * @project SHPT
  * @on 29/11/16 at 5:39 PM
@@ -42,7 +51,7 @@ class ProductDetailTab(var result: JSONObject, var corpus: Boolean, var isPrerel
         val productDetailCost = view.find<TextView>(R.id.productDetailCost)
         val free_shipping = view.find<TextView>(R.id.free_shipping)
         val prebooking = view.find<TextView>(R.id.prebooking)
-        val badges = view.find<LinearLayout>(R.id.badges)
+        val badges = view.find<ViewGroup>(R.id.badges)
         //val label_layout = view.find<LabelLayout>(R.id.label_layout)
 
         val imageList = ArrayList<String>()
@@ -110,6 +119,48 @@ class ProductDetailTab(var result: JSONObject, var corpus: Boolean, var isPrerel
             free_shipping.text = "${result.optString("text_free_shipping")} ${result.optString("free_shipping_date")}"
             free_shipping.visibility = View.VISIBLE
         }
+
+        if (result.optJSONArray("categories").length() > 0) {
+
+
+            var s: ArrayList<String> = arrayListOf()
+            for (i in 0..result.optJSONArray("categories").length() - 1) {
+
+                s.add(result.optJSONArray("categories").optJSONObject(i).optString("name"))
+
+            }
+
+            val x = Comparator<String> { o1, o2 ->
+                if (o1.length > o2.length)
+                    return@Comparator 1
+
+                if (o2.length > o1.length)
+                    return@Comparator -1
+
+                0
+            }
+            Collections.sort(s, x)
+
+            for (i in 0..s.size - 1) {
+                val rnd = Random()
+                val color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256))
+
+                val corpusTag: TagView = TagView(context, null)
+                val param: ViewGroup.MarginLayoutParams = ViewGroup.MarginLayoutParams(
+                        ViewGroup.LayoutParams.WRAP_CONTENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT)
+                param.setMargins(2, 2, 2, 2)
+
+                corpusTag.layoutParams = param
+                corpusTag.text = s[i]
+                corpusTag.tagType = TagView.MODERN_TRAPEZIUM
+                corpusTag.tagColor = color
+                badges.addView(corpusTag)
+            }
+
+
+        }
+
         return view
     }
 }

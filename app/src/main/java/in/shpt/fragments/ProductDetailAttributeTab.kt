@@ -44,7 +44,7 @@ class ProductDetailAttributeTab(var result: JSONObject) : Fragment() {
 
             productAttributeListAdapter.add(ProductDetailAttributeAdapter(
                     result.optString("text_category"),
-                    category
+                    category.trim()
             ))
         }
 

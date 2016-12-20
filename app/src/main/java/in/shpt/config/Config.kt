@@ -69,9 +69,9 @@ object Config {
     val SHIPPINGMETHOD: String = "shipping_method"
 
     //parse
-    val WS_URL = "ws://10.0.2.2:4040/"
+    val WS_URL = "ws://localhost:4040/"
     val MY_APP_ID = "myAppId"
-    var SERVER = "http://10.0.2.2:1337/parse/"
+    var SERVER = "http://localhost:1337/parse"
     var CLIENT_KEY = "2ead5328dda34e688816040a0e78948a"
     var LIMIT = 5
 
@@ -84,5 +84,11 @@ object Config {
 
     val SINGLE_JOB = "single_job"
     val LOCATION_PEROIDIC_JOB = "location_peroidic_job"
+    val DEFAULT_PASSWORD: String = "passworddefault"
 
+
+    var USER_FNAME = "first_name"
+    var USER_LNAME = "last_name"
+    var USER_EMAIL = "email"
+    var USER_PHONE = "phone"
 }
