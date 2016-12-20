@@ -125,6 +125,7 @@ class ProductDetailDescriptionTab(var result: JSONObject) : Fragment(), EasyVide
             context.log(links[i])
         }
 
+       // video.setAutoFullscreen(true)
         playpause.onClick {
             if (video.isPlaying) {
                 video.pause()

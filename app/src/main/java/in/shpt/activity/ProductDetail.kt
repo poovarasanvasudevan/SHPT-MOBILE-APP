@@ -32,12 +32,10 @@ import org.json.JSONArray
 import org.json.JSONObject
 
 
-
-
 class ProductDetail : AppCompatActivity(), OnTabSelectedListener {
 
     lateinit var fetchedResult: JSONObject
-    lateinit var imageZoom : ImageZoom
+    lateinit var imageZoom: ImageZoom
 
     override fun onTabReselected(tab: TabLayout.Tab?) {
 
@@ -55,6 +53,7 @@ class ProductDetail : AppCompatActivity(), OnTabSelectedListener {
         finish()
         super.onBackPressed()
     }
+
     var productId: Int = 0
     var cartCount: Int = 0
     var isCorpus = false
@@ -120,6 +119,7 @@ class ProductDetail : AppCompatActivity(), OnTabSelectedListener {
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
         return imageZoom.onDispatchTouchEvent(ev!!) || super.dispatchTouchEvent(ev);
     }
+
     override fun onPostResume() {
         loadCart()
         super.onPostResume()
@@ -255,8 +255,14 @@ class ProductDetail : AppCompatActivity(), OnTabSelectedListener {
             tabLayout.addTab(tabLayout.newTab())
             tabLayout.addTab(tabLayout.newTab())
             tabLayout.addTab(tabLayout.newTab())
+
+            if (result.optString("table_of_index").trim().isEmpty() == false) {
+                tabLayout.addTab(tabLayout.newTab())
+                tabLayout.tabMode = TabLayout.MODE_SCROLLABLE
+            }
+
             tabLayout.tabGravity = TabLayout.GRAVITY_FILL
-            pager.adapter = ProductDetailPagertAdapter(supportFragmentManager, isCorpus, isPrerelease,result, tabLayout.tabCount)
+            pager.adapter = ProductDetailPagertAdapter(supportFragmentManager, isCorpus, isPrerelease, result, tabLayout.tabCount)
             tabLayout.addOnTabSelectedListener(this@ProductDetail)
             tabLayout.setupWithViewPager(pager)
             pager.offscreenPageLimit = tabLayout.tabCount

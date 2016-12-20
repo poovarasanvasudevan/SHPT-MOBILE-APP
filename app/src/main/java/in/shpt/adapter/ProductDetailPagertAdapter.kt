@@ -3,6 +3,7 @@ package `in`.shpt.adapter
 import `in`.shpt.fragments.ProductDetailAttributeTab
 import `in`.shpt.fragments.ProductDetailDescriptionTab
 import `in`.shpt.fragments.ProductDetailTab
+import `in`.shpt.fragments.ProductDetailTableOfIndex
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
@@ -17,11 +18,22 @@ import org.json.JSONObject
 class ProductDetailPagertAdapter(fm: FragmentManager, internal var isCorpus: Boolean, internal var isPrerelease: Boolean, internal var result: JSONObject, internal var tabCount: Int) : FragmentStatePagerAdapter(fm) {
 
     override fun getItem(position: Int): Fragment? {
-        when (position) {
-            0 -> return ProductDetailTab(result, isCorpus, isPrerelease)
-            1 -> return ProductDetailAttributeTab(result)
-            2 -> return ProductDetailDescriptionTab(result)
-            else -> return null
+
+        if (result.optString("table_of_index").trim().isBlank()) {
+            when (position) {
+                0 -> return ProductDetailTab(result, isCorpus, isPrerelease)
+                1 -> return ProductDetailAttributeTab(result)
+                2 -> return ProductDetailDescriptionTab(result)
+                else -> return null
+            }
+        } else {
+            when (position) {
+                0 -> return ProductDetailTab(result, isCorpus, isPrerelease)
+                1 -> return ProductDetailAttributeTab(result)
+                2 -> return ProductDetailDescriptionTab(result)
+                3 -> return ProductDetailTableOfIndex(result)
+                else -> return null
+            }
         }
     }
 
@@ -30,12 +42,24 @@ class ProductDetailPagertAdapter(fm: FragmentManager, internal var isCorpus: Boo
     }
 
     override fun getPageTitle(position: Int): CharSequence {
-        when (position) {
-            0 -> return "Detail"
-            1 -> return "Specs"
-            2 -> return "Description"
-            else -> return ""
+
+        if (result.optString("table_of_index").trim().isBlank()) {
+            when (position) {
+                0 -> return "Detail"
+                1 -> return "Specs"
+                2 -> return "Description"
+                else -> return ""
+            }
+        } else {
+            when (position) {
+                0 -> return "Detail"
+                1 -> return "Specs"
+                2 -> return "Description"
+                3 -> return "Table Of Contents"
+                else -> return ""
+            }
         }
+
     }
 
     override fun getCount(): Int {
