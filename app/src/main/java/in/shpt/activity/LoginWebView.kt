@@ -188,11 +188,11 @@ class LoginWebView : AppCompatActivity() {
         val cookies = CookieManager.getInstance().getCookie(url)
 
         Log.i("Cookies", cookies)
-        val temp = cookies.split(";".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()
+        val temp = cookies.split(";".toRegex()).dropLastWhile(String::isEmpty).toTypedArray()
 
         for (ar1 in temp) {
             if (ar1.contains("PHPSESSID")) {
-                val temp1 = ar1.split("=".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()
+                val temp1 = ar1.split("=".toRegex()).dropLastWhile(String::isEmpty).toTypedArray()
                 val cookieValue = temp1[1]
 
                 Prefs.with(this).write(Config.COOKIE, cookieValue.trim({ it <= ' ' }))
