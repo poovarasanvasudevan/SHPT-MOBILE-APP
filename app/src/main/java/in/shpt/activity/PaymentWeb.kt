@@ -34,13 +34,14 @@ class PaymentWeb : AppCompatActivity() {
     inner class PaymentWebClient : WebViewClient() {
 
         override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
-
+            Log.i("LOAD : ", url)
             progress.visibility = View.VISIBLE
             view!!.visibility = View.GONE
 
-            Log.i("Payment : ", url)
+            if(Config.ENV =="test")
+                url!!.replace("localhost","10.0.2.2")
 
-            if (url!!.contains(Config.PAYMENT_CONFIRM) || url.contains(Config.INSTAMOJO) || url.contains(Config.BASE)) {
+            if (url!!.contains(Config.PAYMENT_CONFIRM) || url.contains(Config.INSTAMOJO)) {
                 payment_web.visibility = View.GONE
             } else {
                 payment_web.visibility = View.VISIBLE
@@ -50,7 +51,8 @@ class PaymentWeb : AppCompatActivity() {
 
         override fun onPageFinished(view: WebView?, url: String?) {
             Log.i("Payment : ", url)
-
+            if(Config.ENV =="test")
+                url!!.replace("localhost","10.0.2.2")
 
             if (url!!.contains(Config.PAYMENT_CONFIRM)) {
                 payment_web.visibility = View.GONE
@@ -64,6 +66,11 @@ class PaymentWeb : AppCompatActivity() {
 
 
             super.onPageFinished(view, url)
+        }
+
+        override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
+
+            return super.shouldOverrideUrlLoading(view, url)
         }
     }
 }

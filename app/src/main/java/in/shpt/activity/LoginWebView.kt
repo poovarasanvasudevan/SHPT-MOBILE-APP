@@ -46,7 +46,11 @@ class LoginWebView : AppCompatActivity() {
             loginWebView.settings.javaScriptEnabled = true
             loginWebView.setWebChromeClient(WebChromeClient())
             loginWebView.setWebViewClient(SHPTWebViewClient())
-            loginWebView.loadUrl(Config.LOGIN_PAGE)
+
+            if (Config.ENV == "test")
+                loginWebView.loadUrl(Config.TEST_LOGIN_PAGE)
+            else
+                loginWebView.loadUrl(Config.LOGIN_PAGE)
         } else {
             contentLayout.visibility = View.GONE
             emptyLayout.visibility = View.VISIBLE
@@ -75,6 +79,8 @@ class LoginWebView : AppCompatActivity() {
         override fun onPageFinished(view: WebView?, url: String?) {
 
             Log.d("LoginWebView", url)
+
+
             // logi() { url }
             if (url?.contains("account/edit")!!) {
                 loginWebView.visibility = View.GONE
@@ -92,12 +98,21 @@ class LoginWebView : AppCompatActivity() {
                 finish()
             }
 
+            if (url?.contains("account/account")!!) {
+                loginWebView.visibility = View.GONE
+                //go to home page
+                saveCookie(url)
+                startActivity<Home>()
+                finish()
+            }
+
             progressLoader.visibility = View.GONE
             loginWebView.visibility = View.VISIBLE
             super.onPageFinished(view, url)
         }
 
         override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
+
             return super.shouldOverrideUrlLoading(view, url)
         }
     }

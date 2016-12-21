@@ -8,9 +8,21 @@ import com.mcxiaoke.koi.HASH
  */
 
 object Config {
-
+    val ENV = "tester" //prod,qa,test
+    val CODE = "password"
+    val WEBAPI = "&webapi=" + HASH.md5(CODE)
     var BASE = "http://localhost:8080/"
-    val WEBAPI = "&webapi=" + HASH.md5("password")
+    val WS_URL = "ws://localhost:4040/"
+    val TEST_LOGIN_PAGE = "${BASE}index.php?route=api/mobile/loginme"+ WEBAPI
+    val MY_APP_ID = "myAppId"
+    var SERVER = "http://10.0.2.2:1337/parse"
+    var CLIENT_KEY = "2ead5328dda34e688816040a0e78948a"
+    var LIMIT = 5
+    // var BASE = "https://shptqa.dev4srcm.org/"
+    // var BASE = "https://shpt.in/"
+
+
+
     var LOGIN_PAGE = "$BASE?route=account/login"
     var USERDETAILS = "${BASE}index.php?route=account/edit" + WEBAPI;
     var CATEGORIES = "${BASE}index.php?route=api/mobile/categories" + WEBAPI
@@ -60,7 +72,7 @@ object Config {
 
     var COOKIE = "login_shpt_cookie"
     var THEME = "my_theme"
-    var DEFAULT_THEME = Theme.BLUE
+    var DEFAULT_THEME = Theme.TEAL
     var IMAGE_PATH = "${BASE}/image/"
     val DEFAULT_COUNTRY: String = "99"
     val BILLINGADDRESSID: String = "billing_address_id"
@@ -69,11 +81,6 @@ object Config {
     val SHIPPINGMETHOD: String = "shipping_method"
 
     //parse
-    val WS_URL = "ws://localhost:4040/"
-    val MY_APP_ID = "myAppId"
-    var SERVER = "http://localhost:1337/parse"
-    var CLIENT_KEY = "2ead5328dda34e688816040a0e78948a"
-    var LIMIT = 5
 
 
     //parseconfig
@@ -91,4 +98,5 @@ object Config {
     var USER_LNAME = "last_name"
     var USER_EMAIL = "email"
     var USER_PHONE = "phone"
+
 }
