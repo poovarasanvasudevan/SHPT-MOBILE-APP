@@ -6,7 +6,6 @@ import `in`.shpt.ext.loadUrl
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,7 +25,6 @@ class DiscountBannerImagePager : Fragment() {
         val message: JSONObject = JSONObject(arguments.getString(EXTRA_MESSAGE))
         val v = inflater!!.inflate(R.layout.home_discount_banner, container, false)
 
-        Log.i("ImageData", message.toString())
         v.find<ImageView>(R.id.banner_image).loadUrl(message.optString("image"), 1)
 
         if (message.optString("product_id", "NULL") != "NULL") {
@@ -36,6 +34,7 @@ class DiscountBannerImagePager : Fragment() {
                 startActivity(intent)
             }
         }
+
         return v;
     }
 
