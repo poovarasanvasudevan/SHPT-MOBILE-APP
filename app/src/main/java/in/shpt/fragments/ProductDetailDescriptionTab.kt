@@ -1,17 +1,16 @@
 package `in`.shpt.fragments
 
 import `in`.shpt.R
+import `in`.shpt.activity.ProductDetail
 import `in`.shpt.ext.extractLinks
 import `in`.shpt.ext.getIcon
 import `in`.shpt.ext.log
-import `in`.shpt.widget.Ripple
 import android.app.ProgressDialog
+import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v7.widget.AppCompatSeekBar
-import android.support.v7.widget.CardView
-import android.text.format.DateUtils
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,90 +18,82 @@ import android.webkit.WebChromeClient
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import android.widget.LinearLayout
-import android.widget.TextView
-import com.afollestad.easyvideoplayer.EasyVideoCallback
-import com.afollestad.easyvideoplayer.EasyVideoPlayer
+import android.widget.FrameLayout
+import android.widget.ScrollView
 import com.mcxiaoke.koi.ext.find
-import com.mcxiaoke.koi.ext.onClick
 import com.mcxiaoke.koi.ext.onLongClick
-import com.mcxiaoke.koi.ext.onProgressChanged
 import com.mikepenz.fontawesome_typeface_library.FontAwesome
-import com.mikepenz.iconics.IconicsDrawable
-import com.mikepenz.iconics.view.IconicsImageView
+import com.universalvideoview.UniversalMediaController
+import com.universalvideoview.UniversalVideoView
 import org.json.JSONObject
+
+
 
 
 /**
  * Created by poovarasanv on 29/11/16.
  */
 
-class ProductDetailDescriptionTab(var result: JSONObject) : Fragment(), EasyVideoCallback {
-    override fun onPrepared(player: EasyVideoPlayer?) {
-        seekbarvideo.max = player!!.duration
-        durationOfTime.text = DateUtils.formatElapsedTime((player.currentPosition / 1000).toLong()) + " / " + DateUtils.formatElapsedTime((player.duration / 1000).toLong())
-    }
-
-    override fun onStarted(player: EasyVideoPlayer?) {
+class ProductDetailDescriptionTab(var result: JSONObject) : Fragment(), UniversalVideoView.VideoViewCallback {
+    override fun onPause(mediaPlayer: MediaPlayer?) {
 
     }
 
-    override fun onCompletion(player: EasyVideoPlayer?) {
-//        throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun onRetry(player: EasyVideoPlayer?, source: Uri?) {
-//        throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun onSubmit(player: EasyVideoPlayer?, source: Uri?) {
-//        throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun onBuffering(percent: Int) {
+    override fun onStart(mediaPlayer: MediaPlayer?) {
 
     }
 
-    override fun onPreparing(player: EasyVideoPlayer?) {
+    override fun onScaleChange(isFullscreen: Boolean) {
+        this.fullScreeen = isFullscreen
+        if (isFullscreen) {
+            val layoutParams = mVideoLayout.layoutParams
+            layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT
+            layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT
+            mVideoLayout.layoutParams = layoutParams
+            descLayout.visibility = View.GONE
+            (activity as ProductDetail).getAppBar().visibility = View.GONE
+            (activity as ProductDetail).getFAB().visibility = View.GONE
+        } else {
+            val layoutParams = mVideoLayout.layoutParams
+            layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT
+            layoutParams.height = cacheHeight
+            mVideoLayout.layoutParams = layoutParams
+            descLayout.visibility = View.VISIBLE
+            (activity as ProductDetail).getAppBar().visibility = View.VISIBLE
+            (activity as ProductDetail).getFAB().visibility = View.VISIBLE
+        }
 
     }
 
-    override fun onError(player: EasyVideoPlayer?, e: Exception?) {
-        throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun onPaused(player: EasyVideoPlayer?) {
+    override fun onBufferingStart(mediaPlayer: MediaPlayer?) {
 
     }
+
+    override fun onBufferingEnd(mediaPlayer: MediaPlayer?) {
+
+    }
+
 
     private val progressDialog: ProgressDialog? = null
-    lateinit var video: EasyVideoPlayer
-    lateinit var videoLayout: CardView
-    lateinit var playpause: Ripple
-    lateinit var fullScreenButton: Ripple
-    lateinit var playpauseButtonIcon: IconicsImageView
-    lateinit var fullScreenButtonIcon: IconicsImageView
-    lateinit var seekbarvideo: AppCompatSeekBar
-    lateinit var durationOfTime: TextView
+    lateinit var video: UniversalVideoView
+    lateinit var videoController: UniversalMediaController
     lateinit var descWeb: WebView
+    lateinit var mVideoLayout: FrameLayout
+    lateinit var descLayout: ScrollView
+    var cacheHeight: Int = 0
+    var fullScreeen = false
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         val view = inflater?.inflate(R.layout.product_detail_tab_3, container, false)
-        val descLayout = view!!.find<LinearLayout>(R.id.descLayout)
-        videoLayout = view.find<CardView>(R.id.videoLayout)
-        playpause = view.find<Ripple>(R.id.playpauseButton)
-        fullScreenButton = view.find<Ripple>(R.id.fullScreenButton)
-        playpauseButtonIcon = view.find<IconicsImageView>(R.id.playpauseButtonIcon)
-        fullScreenButtonIcon = view.find<IconicsImageView>(R.id.fullScreenButtonIcon)
 
-        video = view.find<EasyVideoPlayer>(R.id.teaserVideo)
-        seekbarvideo = view.find<AppCompatSeekBar>(R.id.seekbarvideo)
-        durationOfTime = view.find<TextView>(R.id.durationOfTime)
+        video = view!!.find<UniversalVideoView>(R.id.teaserVideo)
         descWeb = view.find<WebView>(R.id.descWeb)
-
-
-        playpauseButtonIcon.icon = context.getIcon(FontAwesome.Icon.faw_play) as IconicsDrawable
-        fullScreenButtonIcon.icon = context.getIcon(FontAwesome.Icon.faw_arrows_alt) as IconicsDrawable
+        mVideoLayout = view.find<FrameLayout>(R.id.video_view_layout)
+        descLayout = view.find<ScrollView>(R.id.descLayout)
+        videoController = view.find<UniversalMediaController>(R.id.media_controller)
+        video.setMediaController(videoController)
+        video.setVideoViewCallback(this)
+        cacheHeight = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 205f, resources.displayMetrics).toInt();
 
         var txt = result.optString("description")
         if (txt.indexOf("Teaser") > 0) {
@@ -128,50 +119,17 @@ class ProductDetailDescriptionTab(var result: JSONObject) : Fragment(), EasyVide
 
         for (i in 0..links.size - 1) {
 
-            videoLayout.visibility = View.VISIBLE
-            video.setCallback(this)
-            video.setSource(Uri.parse(links[i]))
-            seekbarvideo.max = video.duration
-            video.setProgressCallback({ pos, tot ->
-                run {
-                    seekbarvideo.progress = video.currentPosition
-                    durationOfTime.text = DateUtils.formatElapsedTime((video.currentPosition / 1000).toLong()) + " / " + DateUtils.formatElapsedTime((video.duration / 1000).toLong())
-                }
-            })
+            mVideoLayout.visibility = View.VISIBLE
+            video.setVideoURI(Uri.parse(links[i]))
 
             context.log(links[i])
         }
-
-        // video.setAutoFullscreen(true)
-        playpause.onClick {
-            if (video.isPlaying) {
-                video.pause()
-                playpauseButtonIcon.icon = context.getIcon(FontAwesome.Icon.faw_play) as IconicsDrawable
-            } else {
-
-                video.start()
-                playpauseButtonIcon.icon = context.getIcon(FontAwesome.Icon.faw_pause) as IconicsDrawable
-            }
-        }
-
-
-        seekbarvideo.onProgressChanged { seekBar, i, b ->
-            run {
-                if (b) {
-                    video.seekTo(i)
-                }
-            }
-        }
-
-
 
         return view
     }
 
     override fun onPause() {
-        if (video.isPlaying) {
-            video.pause()
-        }
+
         super.onPause()
     }
 

@@ -10,6 +10,8 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.AsyncTask
 import android.os.Bundle
+import android.support.design.widget.AppBarLayout
+import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.TabLayout
 import android.support.design.widget.TabLayout.OnTabSelectedListener
 import android.support.v4.os.AsyncTaskCompat
@@ -114,6 +116,14 @@ class ProductDetail : AppCompatActivity(), OnTabSelectedListener {
             true
         }
 
+    }
+
+    fun getAppBar(): AppBarLayout {
+        return appbar
+    }
+
+    fun getFAB(): FloatingActionButton {
+        return addtocart
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {

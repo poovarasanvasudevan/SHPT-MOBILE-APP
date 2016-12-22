@@ -79,7 +79,8 @@ class LoginWebView : AppCompatActivity() {
         override fun onPageFinished(view: WebView?, url: String?) {
 
             Log.d("LoginWebView", url)
-
+            if (Config.ENV == "test")
+                url!!.replace("localhost","10.0.2.2")
 
             // logi() { url }
             if (url?.contains("account/edit")!!) {

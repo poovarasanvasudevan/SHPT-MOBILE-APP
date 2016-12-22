@@ -22,7 +22,7 @@
         <android.support.v7.widget.AppCompatButton
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:background="@color/md_blue_500"
+            android:background="?colorPrimary"
             android:text="Login"
             android:textColor="@color/md_white_1000" />
     </in.shpt.widget.Ripple>

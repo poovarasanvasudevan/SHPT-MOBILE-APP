@@ -15,7 +15,7 @@ object Config {
     val WS_URL = "ws://localhost:4040/"
     val TEST_LOGIN_PAGE = "${BASE}index.php?route=api/mobile/loginme"+ WEBAPI
     val MY_APP_ID = "myAppId"
-    var SERVER = "http://10.0.2.2:1337/parse"
+    var SERVER = "http://localhost:1337/parse"
     var CLIENT_KEY = "2ead5328dda34e688816040a0e78948a"
     var LIMIT = 5
     // var BASE = "https://shptqa.dev4srcm.org/"
@@ -42,6 +42,8 @@ object Config {
     var CHECKOUTCART = "${BASE}/index.php?route=checkout/cart" + WEBAPI
     var VOUCHERPURCHASE = "${BASE}/index.php?route=account/voucher" + WEBAPI
     var ADDTOCART = "${BASE}/index.php?route=checkout/cart/add"
+
+
     var PAYMENTADDRESSSTEP = "${BASE}/index.php?route=checkout/payment_address" + WEBAPI
     var PAYMENTADDRESSSTEPVALIDATE = "${BASE}/index.php?route=checkout/payment_address/validate" + WEBAPI
 
@@ -55,9 +57,11 @@ object Config {
     var PAYMENTMETHODSTEPVALIDATE = "${BASE}/index.php?route=checkout/payment_method/validate" + WEBAPI
 
     var CONFIRMORDER = "${BASE}/index.php?route=checkout/confirm" + WEBAPI
+
+
     var SEARCH = "${BASE}/index.php?route=product/search/ajax" + WEBAPI
     val POPULAR_PRODUCT: String = "${BASE}/index.php?route=api/mobile/popular" + WEBAPI
-    var SHPTIMAGE = "http://localhost:8080/image/cache/"
+    var SHPTIMAGE = "${BASE}image/cache/"
 
     var INSTAMOJO = "/instamojo/start"
     var INSTAMOJOMETHOD = "GET"
@@ -72,7 +76,7 @@ object Config {
 
     var COOKIE = "login_shpt_cookie"
     var THEME = "my_theme"
-    var DEFAULT_THEME = Theme.TEAL
+    var DEFAULT_THEME = Theme.RED
     var IMAGE_PATH = "${BASE}/image/"
     val DEFAULT_COUNTRY: String = "99"
     val BILLINGADDRESSID: String = "billing_address_id"
@@ -81,7 +85,6 @@ object Config {
     val SHIPPINGMETHOD: String = "shipping_method"
 
     //parse
-
 
     //parseconfig
     val HOME_PRODUCT_BANNER = "HOME_PRODUCT_BANNER"

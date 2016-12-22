@@ -9,10 +9,12 @@ import `in`.shpt.ext.init
 import `in`.shpt.ext.theme
 import android.os.AsyncTask
 import android.os.Bundle
+import android.support.design.widget.AppBarLayout
 import android.support.v4.os.AsyncTaskCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.Toolbar
 import android.text.Html
 import android.view.Menu
 import android.view.MenuItem
@@ -34,6 +36,8 @@ class OrderDetails : AppCompatActivity() {
         theme()
         setContentView(R.layout.activity_order_details)
         init(this)
+
+
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setDisplayShowHomeEnabled(true)
@@ -69,6 +73,8 @@ class OrderDetails : AppCompatActivity() {
 
         AsyncTaskCompat.executeParallel(OrderDetailLoader(), orderId)
     }
+
+   
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         return super.onCreateOptionsMenu(menu)
