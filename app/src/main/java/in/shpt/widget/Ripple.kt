@@ -718,18 +718,18 @@ class Ripple @JvmOverloads constructor(context: Context, attrs: AttributeSet? = 
             val parent = child.parent as ViewGroup
             var index = 0
 
-            if (parent != null && parent is Ripple) {
+            if (parent is Ripple) {
                 throw IllegalStateException("Ripple could not be created: parent of the view already is a Ripple")
             }
 
-            if (parent != null) {
+            if (true) {
                 index = parent.indexOfChild(child)
                 parent.removeView(child)
             }
 
             layout.addView(child, ViewGroup.LayoutParams(MATCH_PARENT, MATCH_PARENT))
 
-            parent?.addView(layout, index, params)
+            parent.addView(layout, index, params)
 
             return layout
         }

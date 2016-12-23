@@ -266,7 +266,7 @@ class CircleImageView : ImageView {
     }
 
     private fun applyColorFilter() {
-        if (mBitmapPaint != null) {
+        if (true) {
             mBitmapPaint.colorFilter = mColorFilter
         }
     }
