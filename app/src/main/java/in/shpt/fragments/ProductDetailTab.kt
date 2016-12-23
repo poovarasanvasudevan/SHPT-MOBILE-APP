@@ -52,7 +52,7 @@ class ProductDetailTab(var result: JSONObject, var corpus: Boolean, var isPrerel
         val free_shipping = view.find<TextView>(R.id.free_shipping)
         val prebooking = view.find<TextView>(R.id.prebooking)
         val badges = view.find<ViewGroup>(R.id.badges)
-        //val label_layout = view.find<LabelLayout>(R.id.label_layout)
+
 
         val imageList = ArrayList<String>()
         val images: JSONArray? = result.optJSONArray("images")

@@ -5,7 +5,6 @@ import `in`.shpt.activity.ProductDetail
 import `in`.shpt.ext.extractLinks
 import `in`.shpt.ext.getIcon
 import `in`.shpt.ext.log
-import android.app.ProgressDialog
 import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
@@ -73,8 +72,6 @@ class ProductDetailDescriptionTab(var result: JSONObject) : Fragment(), Universa
 
     }
 
-
-    private val progressDialog: ProgressDialog? = null
     lateinit var video: UniversalVideoView
     lateinit var videoController: UniversalMediaController
     lateinit var descWeb: WebView
@@ -82,6 +79,7 @@ class ProductDetailDescriptionTab(var result: JSONObject) : Fragment(), Universa
     lateinit var descLayout: ScrollView
     var cacheHeight: Int = 0
     var fullScreeen = false
+
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         val view = inflater?.inflate(R.layout.product_detail_tab_3, container, false)
@@ -104,7 +102,7 @@ class ProductDetailDescriptionTab(var result: JSONObject) : Fragment(), Universa
         descWeb.setWebViewClient(WebViewClient())
         descWeb.settings.javaScriptEnabled = true
         descWeb.settings.setRenderPriority(WebSettings.RenderPriority.HIGH)
-        val webViewContents = "<html><body style='text-align:justify;font-family: 'Times New Roman';font-style: normal !important; -webkit-user-select: none;>${txt.replace("href=", "_href=")}</body></html>"
+        val webViewContents = "<html><head><meta name='viewport' content='width=device-width, initial-scale=1'></head><body style='text-align:justify;font-family: 'Times New Roman';font-style: normal !important; -webkit-user-select: none;>${txt.replace("href=", "_href=")}</body></html>"
         descWeb.loadData(webViewContents, "text/html; charset=utf-8", "UTF-8")
 
         descWeb.onLongClick {
@@ -118,7 +116,6 @@ class ProductDetailDescriptionTab(var result: JSONObject) : Fragment(), Universa
 
 
         for (i in 0..links.size - 1) {
-
             mVideoLayout.visibility = View.VISIBLE
             video.setVideoURI(Uri.parse(links[i]))
 
